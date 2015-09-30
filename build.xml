@@ -1,0 +1,731 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. -->
+    <project basedir="." default="build" name="Razor">
+	<property environment="env" />
+	<property file="build.properties" />
+	<property name="debuglevel" value="source,lines,vars" />
+	<property name="target" value="1.6" />
+	<property name="source" value="1.6" />
+	<property name="wsdl-location" value="src/resources/wsdl" />
+	<path id="Razor.classpath">
+		<pathelement location="lib/aws/aws-java-sdk-1.7.5.jar"/>
+        <pathelement location="lib/aws/aspectjrt.jar"/>
+		<pathelement location="lib/aws/aspectjweaver.jar"/>
+        <pathelement location="lib/aws/freemarker-2.3.18.jar"/>
+		<pathelement location="lib/aws/httpclient-4.2.3.jar" />
+        <pathelement location="lib/aws/httpcore-4.2.5.jar"/>
+        <pathelement location="lib/aws/jackson-annotations-2.1.1.jar"/>
+        <pathelement location="lib/aws/jackson-core-2.1.1.jar"/>
+        <pathelement location="lib/aws/jackson-databind-2.1.1.jar"/>
+        <pathelement location="lib/aws/joda-time-2.2.jar"/>
+		<pathelement location="lib/aws/mail-1.4.3.jar"/>
+        <pathelement location="lib/aws/stax-1.2.0.jar"/>
+        <pathelement location="lib/aws/stax-api-1.0.1.jar"/>
+        <pathelement location="war/WEB-INF/classes"/>
+        <pathelement location="lib/StorageClient-0.0.1-SNAPSHOT.jar"/>
+    	<pathelement location="lib/guice-3.0.jar"/>
+    	<pathelement location="lib/javax.inject-1.jar"/>
+    	<pathelement location="lib/aopalliance-1.0.jar"/>
+		<pathelement location="lib/bcprov-jdk15on-151.jar"/>
+        <pathelement location="lib/commons-csv-1.0-SNAPSHOT.jar"/>
+        <pathelement location="lib/commons-configuration-1.10.jar"/>
+		<pathelement location="lib/eclipse_plugins/gwt-user.jar" />
+		<!--pathelement location="lib/eclipse_plugins/gwt-dev.jar" /-->
+		<pathelement location="lib/eclipse_plugins/validation-api-1.0.0.GA-sources.jar" />
+		<pathelement location="lib/eclipse_plugins/validation-api-1.0.0.GA.jar" />
+		<pathelement location="lib/gwt-api-checker.jar" />
+		<pathelement location="lib/gwt-codeserver.jar" />
+		<pathelement location="lib/gwt-elemental.jar" />
+		<pathelement location="lib/gwt-servlet-deps.jar" />
+		<pathelement location="lib/gwt-soyc-vis.jar" />
+		<pathelement location="lib/gwt-user.jar" />
+		<pathelement location="lib/gwt-maps-v3.jar" />
+		<pathelement location="lib/gwt-ajaxloader.jar" />
+		<pathelement location="lib/antlr-2.7.7.jar" />
+		<pathelement location="lib/aopalliance-1.0.jar" />
+		<pathelement location="lib/asm-1.5.3.jar" />
+		<pathelement location="lib/asm-3.3.jar" />
+		<pathelement location="lib/cglib-2.1_3.jar" />
+		<pathelement location="lib/com.ibm.icu_4.4.2.v20110823.jar" />
+		<pathelement location="lib/com.lowagie.text_2.1.7.v201004222200.jar" />
+		<pathelement location="lib/commons-net-3.3/commons-net-3.3.jar" />
+		<pathelement location="lib/commons-cli-1.0.jar" />
+		<pathelement location="lib/commons-codec-1.4.jar" />
+		<pathelement location="lib/commons-collections-3.2.1.jar" />
+		<pathelement location="lib/commons-csv-1.0-SNAPSHOT.jar" />
+		<pathelement location="lib/commons-fileupload-1.2.jar" />
+		<pathelement location="lib/commons-httpclient-3.1.jar" />
+		<pathelement location="lib/commons-io-1.3.1.jar" />
+		<pathelement location="lib/commons-lang-2.6.jar" />
+		<pathelement location="lib/commons-lang3-3.0.1.jar" />
+		<pathelement location="lib/commons-logging-1.1.1.jar" />
+		<pathelement location="lib/commons-pool-1.5.5.jar" />
+		<pathelement location="lib/crawler4j-2.6.1.jar" />
+		<pathelement location="lib/cxf-2.4.0.jar" />
+		<pathelement location="lib/cxf-manifest.jar" />
+		<pathelement location="lib/cxf-xjc-boolean-2.3.2.jar" />
+		<pathelement location="lib/cxf-xjc-bug671-2.3.2.jar" />
+		<pathelement location="lib/cxf-xjc-dv-2.3.2.jar" />
+		<pathelement location="lib/cxf-xjc-ts-2.3.2.jar" />
+		<pathelement location="lib/derby.jar" />
+		<pathelement location="lib/dsiutils-1.0.10.jar" />
+		<pathelement location="lib/EscapiaNet_Client.jar" />
+		<pathelement location="lib/FastInfoset-1.2.9.jar" />
+		<pathelement location="lib/fastutil-5.1.5.jar" />
+		<pathelement location="lib/fax4j.jar" />
+		<pathelement location="lib/flute.jar" />
+		<pathelement location="lib/geocoder-java-0.15.jar" />
+		<pathelement location="lib/geronimo-activation_1.1_spec-1.1.jar" />
+		<pathelement location="lib/geronimo-annotation_1.0_spec-1.1.1.jar" />
+		<pathelement location="lib/geronimo-javamail_1.4_spec-1.7.1.jar" />
+		<pathelement location="lib/geronimo-jaxws_2.2_spec-1.0.jar" />
+		<pathelement location="lib/geronimo-jms_1.1_spec-1.1.1.jar" />
+		<pathelement location="lib/geronimo-servlet_3.0_spec-1.0.jar" />
+		<pathelement location="lib/geronimo-stax-api_1.0_spec-1.0.1.jar" />
+		<pathelement location="lib/geronimo-ws-metadata_2.0_spec-1.1.3.jar" />
+		<pathelement location="lib/gnu-hylafax-core-1.0.3.jar" />
+		<pathelement location="lib/gnu-hylafax-inet-ftp-1.0.3.jar" />
+		<pathelement location="lib/gnu-hylafax-pool-1.0.3.jar" />
+		<pathelement location="lib/gnu-hylafax-utils-1.0.3.jar" />
+		<pathelement location="lib/google-translate-api-v2-java-core-0.52.jar" />
+		<pathelement location="lib/gson-1.7.1.jar" />
+		<pathelement location="lib/gwt-language.jar" />
+		<pathelement location="lib/gwt-log-3.1.5.jar" />
+		<pathelement location="lib/gwt-reverse-geocoder-1.0.8.1.jar" />
+		<pathelement location="lib/gwt-visualization.jar" />
+		<pathelement location="lib/gwt-voices-2.1.2.jar" />
+		<pathelement location="lib/httpclient-cache-4.1.2.jar" />
+		<pathelement location="lib/httpmime-4.1.2.jar" />
+		<pathelement location="lib/isorelax-20030108.jar" />
+		<pathelement location="lib/jackson-core-asl-1.9.0.jar" />
+		<pathelement location="lib/jackson-jaxrs-1.9.0.jar" />
+		<pathelement location="lib/jackson-mapper-asl-1.9.0.jar" />
+		<pathelement location="lib/jackson-xc-1.9.0.jar" />
+		<pathelement location="lib/jaxb-api-2.2.1.jar" />
+		<pathelement location="lib/jaxb-impl-2.2.1.1.jar" />
+		<pathelement location="lib/jaxb-xjc-2.2.1.1.jar" />
+		<pathelement location="lib/jaxrpc.jar" />
+		<pathelement location="lib/jdom.jar" />
+		<pathelement location="lib/je-4.0.71.jar" />
+		<pathelement location="lib/JetPay.jar" />
+		<pathelement location="lib/jettison-1.3.1.jar" />
+		<pathelement location="lib/jmimemagic-0.1.0.jar" />
+		<pathelement location="lib/jra-1.0-alpha-4.jar" />
+		<pathelement location="lib/js.jar" />
+		<pathelement location="lib/json-smart-1.0.9-1.jar" />
+		<pathelement location="lib/jsr311-api-1.1.1.jar" />
+		<pathelement location="lib/junit-4.5.jar" />
+		<pathelement location="lib/log4j-1.2.17.jar" />
+		<pathelement location="lib/mail.jar" />
+		<pathelement location="lib/mary-common.jar" />
+		<pathelement location="lib/maryclient.jar" />
+		<pathelement location="lib/msv-core-2010.2.jar" />
+		<pathelement location="lib/mybatis-3.0.3.jar" />
+		<pathelement location="lib/mysql-connector-java-5.0.8-bin.jar" />
+		<pathelement location="lib/neethi-3.0.0.jar" />
+		<pathelement location="lib/opensaml-2.4.1.jar" />
+		<pathelement location="lib/openws-1.4.1.jar" />
+		<pathelement location="lib/org.apache.batik.bridge_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.css_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.dom_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.dom.svg_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.ext.awt_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.parser_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.pdf_1.6.0.v201105071520.jar" />
+		<pathelement location="lib/org.apache.batik.svggen_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.transcoder_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.util_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.util.gui_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.batik.xml_1.6.0.v201011041432.jar" />
+		<pathelement location="lib/org.apache.commons.codec_1.3.0.v201101211617.jar" />
+		<pathelement location="lib/org.apache.xml.resolver_1.2.0.v201005080400.jar" />
+		<pathelement location="lib/org.apache.xml.serializer_2.7.1.v201005080400.jar" />
+		<pathelement location="lib/org.apache.oltu.oauth2.client-1.0.0.jar" />
+		<pathelement location="lib/org.apache.oltu.oauth2.common-1.0.0.jar" />
+		<pathelement location="lib/org.eclipse.birt.runtime_3.7.2.v20120214-1408.jar" />
+		<pathelement location="lib/org.eclipse.core.contenttype_3.4.100.v20110423-0524.jar" />
+		<pathelement location="lib/org.eclipse.core.expressions_3.4.300.v20110228.jar" />
+		<pathelement location="lib/org.eclipse.core.filesystem_1.3.100.v20110423-0524.jar" />
+		<pathelement location="lib/org.eclipse.core.jobs_3.5.101.v20120113-1953.jar" />
+		<pathelement location="lib/org.eclipse.core.resources_3.7.100.v20110510-0712.jar" />
+		<pathelement location="lib/org.eclipse.core.resources_3.7.101.v20120125-1505.jar" />
+		<pathelement location="lib/org.eclipse.core.runtime_3.7.0.v20110110.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity_1.2.4.v201202041105.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.apache.derby_1.0.102.v201107221459.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.apache.derby.dbdefinition_1.0.2.v201107221459.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.console.profile_1.0.10.v201109250955.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.db.generic_1.0.1.v201107221459.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.dbdefinition.genericJDBC_1.0.1.v201107221459.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.oda_3.3.3.v201110130935.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.oda.consumer_3.2.5.v201109151100.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.oda.design_3.3.4.v201109211529.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.oda.flatfile_3.1.2.v201112081200.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.oda.profile_3.2.7.v201112290953.jar" />
+		<pathelement location="lib/org.eclipse.datatools.connectivity.sqm.core_1.2.4.v201201131116.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.hsqldb_1.0.0.v201107221502.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.hsqldb.dbdefinition_1.0.0.v201107221502.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.ibm.db2.luw_1.0.2.v201107221502.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition_1.0.4.v201107221502.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.ibm.informix_1.0.1.v201107221502.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.ibm.informix.dbdefinition_1.0.4.v201107221502.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.msft.sqlserver_1.0.1.v201107221504.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition_1.0.1.v201201240349.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.mysql_1.0.2.v201109022323.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.mysql.dbdefinition_1.0.4.v201109022331.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.oda.ws_1.2.3.v201112061438.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.oda.xml_1.2.3.v201112061438.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.oracle_1.0.0.v201107221506.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.oracle.dbdefinition_1.0.102.v201107221506.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.postgresql_1.1.0.v201110070445.jar" />
+		<pathelement location="lib/org.eclipse.datatools.enablement.postgresql.dbdefinition_1.0.2.v201110070445.jar" />
+		<pathelement location="lib/org.eclipse.datatools.modelbase.dbdefinition_1.0.2.v201107221519.jar" />
+		<pathelement location="lib/org.eclipse.datatools.modelbase.derby_1.0.0.v201107221519.jar" />
+		<pathelement location="lib/org.eclipse.datatools.modelbase.sql_1.0.5.v201110151330.jar" />
+		<pathelement location="lib/org.eclipse.datatools.modelbase.sql.query_1.1.2.v201110151315.jar" />
+		<pathelement location="lib/org.eclipse.emf_2.6.0.v20120123-1045.jar" />
+		<pathelement location="lib/org.eclipse.emf.common_2.7.0.v20120123-0926.jar" />
+		<pathelement location="lib/org.eclipse.emf.ecore_2.7.0.v20120123-0926.jar" />
+		<pathelement location="lib/org.eclipse.emf.ecore.change_2.7.1.v20120123-0926.jar" />
+		<pathelement location="lib/org.eclipse.emf.ecore.xmi_2.7.0.v20120123-0926.jar" />
+		<pathelement location="lib/org.eclipse.equinox.app_1.3.100.v20110321.jar" />
+		<pathelement location="lib/org.eclipse.equinox.common_3.6.0.v20110523.jar" />
+		<pathelement location="lib/org.eclipse.equinox.preferences_3.4.2.v20120111-2020.jar" />
+		<pathelement location="lib/org.eclipse.equinox.registry_3.5.101.R37x_v20110810-1611.jar" />
+		<pathelement location="lib/org.eclipse.osgi_3.7.2.v20120110-1415.jar" />
+		<pathelement location="lib/org.eclipse.osgi.services_3.3.0.v20110513.jar" />
+		<pathelement location="lib/org.eclipse.update.configurator_3.3.100.v20100512.jar" />
+		<pathelement location="lib/org.w3c.css.sac_1.3.0.v200805290154.jar" />
+		<pathelement location="lib/org.w3c.dom.smil_1.0.0.v200806040011.jar" />
+		<pathelement location="lib/org.w3c.dom.svg_1.1.0.v201011041433.jar" />
+		<pathelement location="lib/oro-2.0.8.jar" />
+		<pathelement location="lib/perf4j-0.9.16.jar" />
+		<pathelement location="lib/bcprov-jdk15on-151.jar"/>
+		<pathelement location="lib/poi-3.10.jar" />
+		<pathelement location="lib/poi-ooxml-3.10.jar" />
+		<pathelement location="lib/poi-ooxml-schemas-3.10.jar" />
+		<pathelement location="lib/poi-scratchpad-3.10.jar" />
+		<pathelement location="lib/relaxngDatatype-20020414.jar" />
+		<pathelement location="lib/saaj-api-1.3.jar" />
+		<pathelement location="lib/saaj-impl-1.3.2.jar" />
+		<pathelement location="lib/serializer-2.7.1.jar" />
+		<pathelement location="lib/servlet-api.jar" />
+		<pathelement location="lib/simplecaptcha-1.2.1.jar" />
+		<pathelement location="lib/slf4j-api-1.5.8.jar" />
+		<pathelement location="lib/slf4j-log4j12-1.5.8.jar" />
+		<pathelement location="lib/spring-aop-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-asm-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-beans-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-context-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-core-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-expression-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-jms-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-tx-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/spring-web-3.0.5.RELEASE.jar" />
+		<pathelement location="lib/stax2-api-3.1.1.jar" />
+		<pathelement location="lib/stringtree-json-2.0.9.jar" />
+		<pathelement location="lib/super-csv-2.2.0.jar" />
+		<pathelement location="lib/Tidy.jar" />
+		<pathelement location="lib/velocity-1.6.4.jar" />
+		<pathelement location="lib/weblinkplus_client.jar" />
+		<pathelement location="lib/woodstox-core-asl-4.1.1.jar" />
+		<pathelement location="lib/wsdl4j-1.6.2.jar" />
+		<pathelement location="lib/jsch-0.1.51.jar" />
+		<pathelement location="lib/wss4j-1.6.0.jar" />
+		<pathelement location="lib/xalan-2.7.1.jar" />
+		<pathelement location="lib/xml-resolver-1.2.jar" />
+		<pathelement location="lib/xmlbeans-2.4.0.jar" />
+		<pathelement location="lib/xmlpull-1.1.3.1.jar" />
+		<pathelement location="lib/xmlschema-core-2.0.jar" />
+		<pathelement location="lib/xmlsec-1.4.4.jar" />
+		<pathelement location="lib/xmltooling-1.3.1.jar" />
+		<pathelement location="lib/xpp3_min-1.1.4c.jar" />
+		<pathelement location="lib/xsdlib-2010.1.jar" />
+		<pathelement location="lib/xstream-1.4.3.jar" />
+		<pathelement location="lib/stripe-java-1.2.2.jar" />
+		<!-- <path refid="GWT SDK [GWT - 2.5.1].libraryclasspath"/> -->
+		<pathelement location="lib/gwt-dev.jar" /> 
+		<pathelement location="lib/paypal/paypal-core-1.4.4.jar" />
+		<pathelement location="lib/paypal/rest-api-sdk-0.7.1.jar" />
+		<pathelement location="lib/paypal/adaptivepaymentssdk-2.5.106.jar" />
+		<pathelement location="lib/anet/anet-java-sdk-1.4.6.jar" />
+		<pathelement location="lib/libphonenumber-5.9.jar" />
+		<pathelement location="lib/jersey-bundle-1.6.jar" />
+		<pathelement location="lib/jersey-client-1.18.1.jar" />
+		<pathelement location="lib/jersey-core-1.18.1.jar" />
+		<pathelement location="lib/jersey-server-1.18.1.jar" />
+		<pathelement location="lib/guava-18.0.jar" />
+	</path>
+	<target name="init">
+		<mkdir dir="war/WEB-INF/classes" />
+		<copy includeemptydirs="false" todir="war/WEB-INF/classes">
+			<fileset dir="src">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target depends="clean" name="cleanall" />
+    	
+	<target depends="build-subprojects,build-project,gwtc" name="build" description="Build this project" />
+    <target depends="prepare-prod,build-subprojects,build-project,gwtc" name="build-prod" description="Build this project" />
+    <target depends="prepare-uat,build-subprojects,build-project,gwtc,configure-razor-build" name="build-uat" description="Build this project" />
+    <target depends="prepare-demo,build-subprojects,build-project,gwtc,configure-razor-build" name="build-demo" description="Build this project" />
+    	
+    <target depends="clean,prepare-demo,build-subprojects,build-project,configure-xml-service-build" name="build-demo-server-side" description="Build server side of this project (without a GWT compilation)." />
+    <target depends="clean,prepare-uat,build-subprojects,build-project,configure-xml-service-build" name="build-uat-server-side" description="Build server side of this project (without a GWT compilation)." />
+    <target depends="prepare-development,build-subprojects,build-project" name="build-development-server-side" description="Build server side of this project (without a GWT compilation)." />
+    <target depends="prepare-prod,build-subprojects,build-project" name="build-prod-server-side" description="Build server side of this project (without a GWT compilation)." />
+    
+	<target name="prepare" description="Copy general configuration">
+	    	<copy file="src/resources/characters_mapping.csv" todir="war/WEB-INF/classes"/>
+	    	<copy file="src/resources/mime_mappings.xml" todir="war/WEB-INF/classes"/>
+			<copy todir="war/WEB-INF/classes">
+				<fileset dir="src">
+					<exclude name="**/*.java"/>
+					<exclude name="**/resources/uat/**"/>
+					<exclude name="**/resources/development/**"/>
+					<exclude name="**/resources/production/**"/>
+				</fileset>
+			</copy>
+	</target>
+    	
+    <target name="configure-razor-build">
+    	<!-- Everything should be done in war folder: -->
+    	<move file="war/WEB-INF/web_razor_app.xml" tofile="war/WEB-INF/web.xml" />
+    	<delete file="war/WEB-INF/web_xml_services.xml" />
+    	<!-- remove web_xml_services.xml -->
+    	<!-- rename web_razor_app.xml to web.xml -->
+    </target>
+    
+    <target name="configure-xml-service-build">
+    	<move file="war/WEB-INF/web_xml_services.xml" tofile="war/WEB-INF/web.xml" />
+    	<delete file="war/WEB-INF/web_razor_app.xml" />
+    </target>
+    	
+    <target name="prepare-prod" depends="prepare" description="Copy configuration for production">
+    	<copy todir="war/WEB-INF/classes" flatten="true" overwrite="true">
+			<fileset dir="src" includes="resources/production/" />
+		</copy>
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
+    	<replace file="war/WEB-INF/classes/Hosts.properties">
+    		 <replacefilter token="%hostname%" value="mybookingpal.com"/>
+    	</replace>
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
+    	<replace file="war/WEB-INF/classes/net/cbtltd/client/resource/Hosts.properties">
+    		<replacefilter token="%hostname%" value="mybookingpal.com"/>
+    	</replace>
+	</target>
+    	
+	<target name="prepare-demo" depends="prepare" description="Copy configuration for demo">
+    	<copy todir="war/WEB-INF/classes" flatten="true" overwrite="true">
+			<fileset dir="src" includes="resources/demo/" />
+		</copy>
+
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
+    	<replace file="war/WEB-INF/classes/Hosts.properties">
+    		 <replacefilter token="%hostname%" value="demo.mybookingpal.com"/>
+    	</replace>
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
+    	<replace file="war/WEB-INF/classes/net/cbtltd/client/resource/Hosts.properties">
+    		<replacefilter token="%hostname%" value="demo.mybookingpal.com"/>
+    	</replace>
+	</target>
+    	
+    <target name="prepare-uat" depends="prepare" description="Copy configuration for uat">
+    	<copy todir="war/WEB-INF/classes" flatten="true">
+    		<fileset dir="src" includes="resources/uat/" />
+		</copy>
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
+    	<replace file="war/WEB-INF/classes/Hosts.properties">
+    		 <replacefilter token="%hostname%" value="uat.mybookingpal.com"/>
+    	</replace>
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
+    	<replace file="war/WEB-INF/classes/net/cbtltd/client/resource/Hosts.properties">
+    		<replacefilter token="%hostname%" value="uat.mybookingpal.com"/>
+    	</replace>
+	</target>
+    	
+    <target name="prepare-development" depends="prepare" description="Copy configuration for development">
+    	<copy todir="war/WEB-INF/classes" flatten="true">
+    				<fileset dir="src" includes="resources/development/" />
+		</copy>
+
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
+    	<replace file="war/WEB-INF/classes/Hosts.properties">
+    		 <replacefilter token="%hostname%" value="localhost:8080"/>
+    	</replace>
+    	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
+    	<replace file="war/WEB-INF/classes/Hosts.properties">
+    		<replacefilter token="%hostname%" value="localhost:8080"/>
+    	</replace>
+	</target>
+    	
+	<target name="build-subprojects" />
+	<target depends="init, libs, webxml" name="build-project">
+
+		<!-- this part was commented out because of build management changes required by Bamboo-->
+		<fail message="You need to generate WSDL clients first. Look to the generate-wsdl target.">
+			<condition>
+				<not>
+					<available file="war/wsdl/classes" type="dir"/>
+				</not>
+			</condition>
+		</fail>
+		<copy todir="war" overwrite="true">
+			<fileset dir="web" includes="**" excludes="**/WEB-INF/classes/**"/>
+		</copy>
+
+		<echo message="${ant.project.name}: ${ant.file}" />
+		<javac debug="true" debuglevel="${debuglevel}" destdir="war/WEB-INF/classes" source="${source}" target="${target}" encoding="ISO-8859-1">
+			<src path="src" />
+			<classpath refid="Razor.classpath" />
+		</javac>
+
+		<antcall target="deploy-wsdl-client">
+			<param name="param1" value="value" />
+		</antcall>
+		 
+	</target>
+    	
+	<target name="webxml" description="web.xml changes regarding mbp.application from build.properties">
+		
+	</target>
+    	
+	<target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects" />
+
+	<!-- GWT -->
+	<property name="gwt.args" value="" />
+
+	<!-- Configure path to GWT SDK -->
+	<property name="gwt.sdk" location="${gwt.location}" />
+
+	<path id="project.class.path">
+		<pathelement location="war/WEB-INF/classes" />
+		<pathelement location="${gwt.sdk}/gwt-user.jar" />
+		<fileset dir="${gwt.sdk}" includes="gwt-dev*.jar" />
+		<!-- Add any additional non-server libs (such as JUnit) -->
+		<fileset dir="web/WEB-INF/lib" includes="**/*.jar" />
+	</path>
+
+	<target name="libs" description="Copy libs to WEB-INF/lib">
+		<mkdir dir="war/WEB-INF/lib" />
+		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+		<copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
+		<copy todir="war/WEB-INF/lib" file="lib/guava-18.0.jar" />
+		<!-- Add any additional server libs that need to be copied -->
+		<copy todir="war/WEB-INF/lib">
+		    <fileset dir="${aws.location}">
+		        <include name="*.jar" />
+		    </fileset>
+		</copy>
+		<copy todir="war/WEB-INF/lib" file="lib/commons-configuration-1.10.jar" />
+		<copy todir="war/WEB-INF/lib" file="lib/commons-csv-1.0-SNAPSHOT.jar" />
+	</target>
+    
+	<target name="javac" depends="libs" description="Compile java source to bytecode">
+		<mkdir dir="war/WEB-INF/classes" />
+		<javac srcdir="src" includes="**" encoding="utf-8" destdir="war/WEB-INF/classes" source="1.5" target="1.5" nowarn="true" debug="true" debuglevel="lines,vars,source">
+			<classpath refid="project.class.path" />
+		</javac>
+		<copy file="src/data/characters_mapping.csv" todir="war/WEB-INF/classes"/>
+		<copy todir="war/WEB-INF/classes">
+			<fileset dir="src" excludes="**/*.java" />
+		</copy>
+	</target>
+
+	<target name="gwtc" depends="javac" description="GWT compile to JavaScript (production mode)">
+	    <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="project.class.path" />
+				<pathelement location="${gwt.location}/validation-api-1.0.0.GA.jar" />
+				<pathelement location="${gwt.location}/validation-api-1.0.0.GA-sources.jar" />
+			</classpath>
+			<!-- add jvmarg -Xss16M or similar if you see a StackOverflowError -->
+			<jvmarg value="-Xmx2048M" />
+			<arg line="-war" />
+			<arg value="war" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg line="${gwt.args}" />
+			<arg value="net.cbtltd.Razor" />
+		</java>
+	</target>
+
+	<target name="devmode" depends="javac" description="Run development mode">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+			<classpath>
+				<pathelement location="src" />
+				<path refid="project.class.path" />
+				<pathelement location="${gwt.location}/validation-api-1.0.0.GA.jar" />
+				<pathelement location="${gwt.location}/validation-api-1.0.0.GA-sources.jar" />
+			</classpath>
+			<jvmarg value="-Xmx256M" />
+			<arg value="-startupUrl" />
+			<arg value="Razor.html" />
+			<arg line="-war" />
+			<arg value="war" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg line="${gwt.args}" />
+			<arg value="net.cbtltd.client.Razor" />
+		</java>
+	</target>
+
+	<target name="pms-api" description="Run API calling. Two parameters should be passed: PMSes ('pms' arg) and methods ('method' arg) to call">
+                <echo message="Args: ${pms} : ${method} : ${partnerids}" />
+                <java classname="net.cbtltd.server.script.HandlerLauncher">
+			            <jvmarg value="-Dbp.environment=production"/>
+                        <arg value="${pms}"/>
+                        <arg value="${method}"/>
+                        <arg value="${partnerids}"/>
+                        <classpath>
+                                <path refid="Razor.classpath"/>
+                        </classpath>
+                </java>
+	</target>
+    	
+	<target name="downloadimages-nextpax" description="Run API calling. Two parameters should be passed: PMSes ('pms' arg) and methods ('method' arg) to call">
+                <echo message="Args:  ${partnerids}" />
+                <java classname="net.cbtltd.rest.nextpax.ImageDownloader">
+                        <arg value="${partnerids}"/>
+                        <classpath>
+                                <path refid="Razor.classpath"/>
+                        </classpath>
+                </java>
+	</target>
+
+	<target name="launcher" description="Run AntLauncher from the Java side. Should be passed one argument with the task to execute">
+		<java classname="net.cbtltd.server.script.AntLauncher" fork="true">
+			<arg value="${args}" />
+			<classpath>
+				<path refid="Razor.classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<!--
+	Test targets suppressed because -junit argument was not specified when running webAppCreator.
+
+	  <target name="javac.tests" depends="javac" description="Compiles test code">
+	    <javac srcdir="test" includes="**" encoding="utf-8"
+	      source="1.5" target="1.5" nowarn="true"
+	      destdir="war/WEB-INF/classes"
+	      debug="true" debuglevel="lines,vars,source">
+	      <classpath location="path_to_the_junit_jar"/>
+	      <classpath refid="project.class.path"/>
+	    </javac>
+	  </target>
+	  
+	  <target name="test.dev" depends="javac.tests" description="Run development mode tests">
+	    <mkdir dir="reports/htmlunit.dev" />
+	    <junit fork="yes" printsummary="yes" haltonfailure="yes">
+	      <jvmarg line="-Xmx256m" />
+	      <sysproperty key="gwt.args" value="-standardsMode -logLevel WARN" />
+	      <sysproperty key="java.awt.headless" value="true" />
+	      <classpath>
+	        <pathelement location="src" />
+	        <pathelement location="test" />
+	        <path refid="project.class.path" />
+	        <pathelement location="C:/work/Java/tools/gwt-2.5.1/validation-api-1.0.0.GA.jar" />
+	        <pathelement location="C:/work/Java/tools/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar" />
+	        <pathelement location="path_to_the_junit_jar" />
+	      </classpath>
+	      <batchtest todir="reports/htmlunit.dev" >
+	        <fileset dir="test" >
+	          <include name="**/*Test.java" />
+	        </fileset>
+	      </batchtest>
+	      <formatter type="plain" />
+	      <formatter type="xml" />
+	    </junit>
+	  </target>
+
+	  <target name="test.prod" depends="javac.tests" description="Run production mode tests">
+	    <mkdir dir="reports/htmlunit.prod" />
+	    <junit fork="yes" printsummary="yes" haltonfailure="yes">
+	      <jvmarg line="-Xmx256m" />
+	      <sysproperty key="gwt.args" value="-prod -standardsMode -logLevel WARN -standardsMode -out www-test" />
+	      <sysproperty key="java.awt.headless" value="true" />
+	      <classpath>
+	        <pathelement location="src" />
+	        <pathelement location="test" />
+	        <path refid="project.class.path" />
+	        <pathelement location="C:/work/Java/tools/gwt-2.5.1/validation-api-1.0.0.GA.jar" />
+	        <pathelement location="C:/work/Java/tools/gwt-2.5.1/validation-api-1.0.0.GA-sources.jar" />
+	        <pathelement location="path_to_the_junit_jar" />
+	      </classpath>
+	      <batchtest todir="reports/htmlunit.prod" >
+	        <fileset dir="test" >
+	          <include name="**/*Test.java" />
+	        </fileset>
+	      </batchtest>
+	      <formatter type="plain" />
+	      <formatter type="xml" />
+	    </junit>
+	  </target>
+
+	  <target name="test" description="Run development and production mode tests">
+	    <antcall target="test.dev" />
+	    <antcall target="test.prod" />
+	  </target>
+	-->
+
+	<target name="hosted" depends="devmode" description="Run development mode (NOTE: the 'hosted' target is deprecated)" />
+
+	<!-- <target name="build" depends="gwtc" description="Build this project" /> -->
+
+	<target name="war" depends="build" description="Create a war file">
+		<zip destfile="Razor.war" basedir="war" />
+	</target>
+
+	<target name="clean" description="Cleans this project">
+		<delete dir="war/WEB-INF/classes" failonerror="false" />
+		<delete dir="war/razor" failonerror="false" />
+	</target>
+
+	<taskdef name="wsimport" classname="com.sun.tools.ws.ant.WsImport">
+		<classpath>
+			<fileset dir="lib/ant">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+	<target name="generate-wsdl" description="Generate WSDL client for specified WSDL.">
+		<mkdir dir="war/wsdl/classes"/>
+		<mkdir dir="war/wsdl/src"/>
+
+		<wsimport
+		    wsdl="${wsdl-location}/${wsdl}.wsdl"
+		    destdir="war/wsdl/classes"
+		    sourcedestdir="war/wsdl/src"
+		    keep="true"
+			package="${package}"
+		    verbose="true"
+			wsdllocation="file:/opt/tomcatRazor/webapps/razor/WEB-INF/classes/resources/wsdl/${wsdl}.wsdl">
+		</wsimport>
+	</target>
+
+	<target name="deploy-wsdl-client" description="Deploy WSDL client to project binaries.">
+		<copy todir="war/WEB-INF/classes" overwrite="true">
+			<fileset dir="war/wsdl/classes">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="run-flipkey-launcher" description="runs Launcher of flipkey xml feed">
+	    <input message="Enter the altpartyid.. " defaultvalue="100" addproperty="altpartyid"/>
+		<input message="Enter the no of files to process " defaultvalue="100" addproperty="no_of_file_to_download"/>
+		<input message="Enter the no of property to update " defaultvalue="3000" addproperty="no_of_property_to_update"/>
+	
+		<java classname="net.cbtltd.rest.flipkey.xmlfeed.Launcher">
+			<arg value="${altpartyid}" />
+			<arg value="true" />
+			<arg value="${no_of_file_to_download}" />
+			<arg value="${no_of_property_to_update}" />
+			<arg value="" /> <!-- list_of_file_names_comma_separated -->
+			<classpath>
+				<pathelement location="src" />
+				<path refid="Razor.classpath" />
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="run-tripvillas-launcher" description="runs Launcher of tripvillas xml feed">
+	    <input message="Enter the altpartyid.. " addproperty="altpartyid"/>
+		<input message="Do you want to download the files ? (true/false)" defaultvalue="true" addproperty="is_download"/>	
+		<java classname="net.cbtltd.rest.tripvillas.xmlfeed.Launcher">
+			<arg value="${altpartyid}" />
+			<arg value="${is_download}" />
+			<classpath>
+				<pathelement location="src" />
+				<path refid="Razor.classpath" />
+			</classpath>
+		</java>
+	</target>
+
+	<target name="run-flipkey-plmapper" depends="build-prod-server-side" description="runs ProductLocationMapper of flipkey xml feed">
+		<input message="Enter the altpartyid.. " defaultvalue="100" addproperty="altpartyid"/>
+		<input message="Enter the no of files to process " defaultvalue="100" addproperty="no_of_file_to_download"/>
+		<input message="Enter the no of property to update " defaultvalue="3000" addproperty="no_of_property_to_update"/>
+		
+		<java classname="net.cbtltd.rest.flipkey.xmlfeed.ProductLocationMapper" fork="true" maxmemory="6144m">
+			<arg value="${altpartyid}" />
+			<arg value="true" />
+			<arg value="${no_of_file_to_download}" />
+			<arg value="${no_of_property_to_update}" />
+			<arg value="" /> <!-- list_of_file_names_comma_separated -->
+			<classpath>
+				<pathelement location="src" />
+				<path refid="Razor.classpath" />
+			</classpath>
+		</java>
+	</target>
+    	
+	<target name="upload-legacy-images-to-s3" depends="build-prod-server-side" description="upload images to S3">
+		<pathconvert property="expanded.main.class.path" refid="Razor.classpath"/>
+		<echo message="${expanded.main.class.path}"
+		          file="${user.home}/deps.txt"/>
+	    <java classname="com.mybookingpal.server.api.junit.UploadLegacyImagesToS3" fork="true" maxmemory="4096m">
+			<classpath>
+				<path refid="Razor.classpath" />
+			</classpath>
+	    	<jvmarg value="-verbose:class"/>
+		</java>
+	</target>
+    
+	<target name="move-images-on-s3" depends="build-prod-server-side" description="move images on S3">
+			<pathconvert property="expanded.main.class.path" refid="Razor.classpath"/>
+			<echo message="${expanded.main.class.path}"
+			          file="${user.home}/deps.txt"/>
+		    <java classname="com.mybookingpal.server.api.junit.MoveNewImagesInS3" fork="true" maxmemory="8192m">
+				<classpath>
+					<path refid="Razor.classpath" />
+				</classpath>
+		    	<!--jvmarg value="-verbose:class"/-->
+			</java>
+		</target>
+	
+	<target name="copy_libs">
+    	<echo>${Razor.classpath}</echo>
+		<copy todir="war/WEB-INF/lib" flatten="true">
+			<path refid="Razor.classpath">
+			</path>
+		</copy>
+    </target>
+    	
+    <target name="deploy-development-war" depends="build-development-server-side, copy_libs" description="Deploy razor to development">
+    	<copy todir="${tomcat.webapps.razor}">
+			<fileset dir="war" includes="**" />
+		</copy>
+    </target>
+    	
+	<target name="deploy-uat-war" depends="build-uat-server-side" description="Deploy razor to development">
+	    <copy todir="${tomcat.webapps.razor}">
+			<fileset dir="war" includes="**" />
+		</copy>
+    </target>
+    
+	<target name="deploy-prod-war" depends="build-prod-server-side" description="Deploy razor to development">
+	    <copy todir="${tomcat.webapps.razor}">
+			<fileset dir="war" includes="**" />
+		</copy>
+    </target>
+    
+    <target name="run-homeaway-launcher" description="runs Launcher of homeaway : resco data feed">
+	    <input message="Enter the partyid ... " addproperty="altpartyid"/>
+	
+		<java classname="net.cbtltd.rest.homeaway.resco.datafeed.Launcher">
+			<arg value="${altpartyid}" />
+			<classpath>
+				<pathelement location="src" />
+				<path refid="Razor.classpath" />
+			</classpath>
+		</java>
+	</target>
+
+</project>

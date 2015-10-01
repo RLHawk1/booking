@@ -32,4 +32,11 @@ extends Constants {
 	String registermanagerLabel();
 	String registerLabel();
 	String suspendedError();
+
+	String headerLabel();
+	String rememberLabel();
+	String forgotPasswordLabel();	
+	String registerPropertyLabel();
+	String registerTravelLabel();
+	String copyrightLabel();
 }

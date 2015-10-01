@@ -80,5 +80,5 @@ extends ClientBundle {
 	@Source("image/thawte.png")	ImageResource thawte();
 	@Source("image/upArrow.png")	ImageResource upArrow();
 	@Source("image/visa.gif")	ImageResource visa();
-
+	@Source("image/abookingnet.jpg")	ImageResource abookingnetLogo();
 }

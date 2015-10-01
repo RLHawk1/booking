@@ -77,3 +77,72 @@
 	width: 300px;
 	margin: 10px;
 }
+
+.loginWindow {
+	background-color: #141517;
+	border-radius: 8px;
+	color: white;
+	margin-top:30px;
+	margin-left:40px;
+	padding: 23px 30px 30px;
+	position: relative;
+}
+
+.signLabel {
+	font-size: 24px;
+	border-bottom:solid;
+}
+
+.labelText {
+	color: white;
+	text-align:left;
+	
+}
+
+.loginText {
+	width: 280px;
+}
+
+.pushButton {
+	background: #628CD5;
+	border-color: #628CD5;
+	height: auto;
+	border-radius: 5px;
+	color: white;
+	font-family: Arial, sans-serif;
+	font-size: 100%;
+	vertical-align: middle;
+	cursor: pointer;
+}
+
+.frontPanelStyle {
+	margin-top: 10%;
+	background-color: white;	
+}
+
+.frontLogoStyle {
+	margin-top: 20px;
+	margin-left: 40px;
+}
+
+.frontHeaderStyle {
+	margin-top: 20px;
+	margin-left: 40px;
+	font-weight: normal;
+	font-style: italic;
+	font-size: 150%;
+}
+
+.frontCopyrightStyle {
+	margin-top: 20px;
+	text-align: center;
+	font-weight: normal;
+	font-style: italic;
+	font-size: 80%;
+}
+
+.frontRegistationPanelStyle {
+	margin-top: 40px;
+	margin-left: 60px;
+}
+

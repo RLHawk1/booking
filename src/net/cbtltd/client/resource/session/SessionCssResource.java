@@ -21,4 +21,16 @@ extends CssResource {
 	String registerText();
 	String sessionButton();
 	String sessionError();
+	
+	String frontPanelStyle();
+	String frontLogoStyle();
+	String frontHeaderStyle();
+	String frontCopyrightStyle();
+	String frontRegistationPanelStyle();
+	
+	String loginWindow();
+	String labelText();
+	String signLabel();
+	String pushButton();
+	String loginText();
 }

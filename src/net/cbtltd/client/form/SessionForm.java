@@ -8,8 +8,10 @@ package net.cbtltd.client.form;
 import net.cbtltd.client.AbstractRoot;
 import net.cbtltd.client.Razor;
 import net.cbtltd.client.field.AbstractField;
+import net.cbtltd.client.panel.LoginWindow;
 import net.cbtltd.client.panel.PartyPopup;
 import net.cbtltd.client.panel.SessionPopup;
+import net.cbtltd.client.resource.FieldBundle;
 import net.cbtltd.client.resource.Hosts;
 import net.cbtltd.client.resource.session.SessionBundle;
 import net.cbtltd.client.resource.session.SessionConstants;
@@ -27,9 +29,14 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Frame;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ScrollPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment.HorizontalAlignmentConstant;
+import com.google.gwt.user.client.ui.HasVerticalAlignment;
 import com.mybookingpal.config.RazorConfig;
 
 public class SessionForm
@@ -38,6 +45,7 @@ extends AbstractForm<Session> {
 	private static final SessionConstants CONSTANTS = GWT.create(SessionConstants.class);
 	private static final Hosts HOSTS = GWT.create(Hosts.class);
 	private static final SessionBundle BUNDLE = SessionBundle.INSTANCE;
+	private static final FieldBundle FIELDBUNDLE = FieldBundle.INSTANCE;
 	private static final SessionCssResource CSS = BUNDLE.css();
 
 	/* (non-Javadoc)
@@ -61,7 +69,7 @@ extends AbstractForm<Session> {
 	 * @see net.cbtltd.client.form.AbstractForm#setValue(net.cbtltd.shared.api.HasState)
 	 */
 	public void setValue(Session session) {}
-	
+
 	/* (non-Javadoc)
 	 * @see net.cbtltd.client.form.AbstractForm#initialize()
 	 */
@@ -73,22 +81,90 @@ extends AbstractForm<Session> {
 		final ScrollPanel scroll = new ScrollPanel();
 		add(scroll);
 		final HorizontalPanel panel = new HorizontalPanel();
+		panel.setWidth("100%");
+		panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
+		panel.setVerticalAlignment(HasVerticalAlignment.ALIGN_BOTTOM);
 		//panel.addStyleName(AbstractField.CSS.cbtAbstractForm());
 		//panel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_CENTER);
 		scroll.add(panel);
-		
+
+
 		final FlowPanel west = new FlowPanel();
-		panel.add(west);
+//		panel.add(west);
 		final FlowPanel sessionForm = new FlowPanel();
 		sessionForm.addStyleName(AbstractField.CSS.cbtAbstractControl());
 		sessionForm.addStyleName(CSS.formStyle());
 		sessionForm.addStyleName(CSS.magnify());
 		west.add(sessionForm);
-		
+
 		final Frame frame = new Frame(HOSTS.cloudUrl());
 		frame.setStylePrimaryName(CSS.frameStyle());
+		//		panel.add(frame);
 
-		panel.add(frame);
+		//Rishi
+		VerticalPanel frontPanel = new VerticalPanel();
+		frontPanel.setWidth("45%");
+		frontPanel.setHeight("80%");
+
+		frontPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
+		frontPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);				
+		frontPanel.addStyleName(CSS.frontPanelStyle());
+		panel.add(frontPanel);
+
+		// Add the aBookingNet logo
+		Image logoImage = new Image(FIELDBUNDLE.abookingnetLogo());
+		logoImage.addStyleName(CSS.frontLogoStyle());
+		frontPanel.add(logoImage);
+
+		// Add the header label
+		Label headerLabel = new Label(CONSTANTS.headerLabel());
+		headerLabel.addStyleName(CSS.frontHeaderStyle());
+		frontPanel.add(headerLabel);
+
+		// Create a horizontal panel to add the login window and registration window
+		HorizontalPanel loginRegPanel = new HorizontalPanel();
+
+		// Add the login Panel
+		loginRegPanel.add(new LoginWindow());
+
+		// Add the registration Panel
+		VerticalPanel registrationPanel = new VerticalPanel();
+		registrationPanel.addStyleName(CSS.frontRegistationPanelStyle());
+
+		Label registerHeaderLabel = new Label("Register");
+		registerHeaderLabel.addStyleName(CSS.signLabel());
+
+		Label registerPropertyButton = new Label(CONSTANTS.registerPropertyLabel());
+		registerPropertyButton.addStyleName(CSS.passwordcreateStyle());
+		registerPropertyButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				AbstractRoot.renderTabs(Razor.ORGANIZATION_TAB, new Organization());				
+			}
+		});
+
+		Label registerTravelButton  = new Label(CONSTANTS.registerTravelLabel());
+		registerTravelButton.addStyleName(CSS.passwordcreateStyle());
+		registerTravelButton.addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(ClickEvent event) {
+				AbstractRoot.renderTabs(Razor.ORGANIZATION_TAB, new Agent());				
+			}
+		});
+
+		registrationPanel.add(registerHeaderLabel);
+		registrationPanel.add(registerPropertyButton);
+		registrationPanel.add(registerTravelButton);
+
+		loginRegPanel.add(registrationPanel);
+
+		frontPanel.add(loginRegPanel);
+		// Add the copyright message
+		Label copyrightLabel = new Label(CONSTANTS.copyrightLabel());
+		copyrightLabel.addStyleName(CSS.frontCopyrightStyle());
+		frontPanel.add(copyrightLabel);		
+
+
 
 		//-----------------------------------------------
 		// Log In button
@@ -108,7 +184,7 @@ extends AbstractForm<Session> {
 		final Label registerLabel = new Label(CONSTANTS.registerLabel());
 		registerLabel.addStyleName(CSS.registerLabel());
 		sessionForm.add(registerLabel);
-		
+
 		//-----------------------------------------------
 		// Register Agent button
 		//-----------------------------------------------
@@ -138,7 +214,7 @@ extends AbstractForm<Session> {
 		registermanagerButton.addStyleName(CSS.registerButton());
 		registermanagerButton.addStyleName(AbstractField.CSS.cbtGradientBase());
 		sessionForm.add(registermanagerButton);
-		
+
 		//-----------------------------------------------
 		// Register Affiliate button
 		//-----------------------------------------------
@@ -153,7 +229,7 @@ extends AbstractForm<Session> {
 		registercreatorButton.addStyleName(CSS.registerButton());
 		registercreatorButton.addStyleName(AbstractField.CSS.cbtGradientBase());
 		sessionForm.add(registercreatorButton);
-		
+
 		Label infoLabel = new Label(CONSTANTS.infoLabel());
 		infoLabel.addStyleName(CSS.registerLabel());
 		sessionForm.add(infoLabel);
@@ -172,18 +248,18 @@ extends AbstractForm<Session> {
 		infoButton.addStyleName(CSS.registerButton());
 		infoButton.addStyleName(AbstractField.CSS.cbtGradientBase());
 		sessionForm.add(infoButton);
-		
+
 		FlowPanel shadow = new FlowPanel();
 		shadow.addStyleName(AbstractField.CSS.cbtAbstractShadow());
 		west.add(shadow);
 
-//		if(getUserAgent().contains("msie")) {
-//			loginButton.setVisible(false);
-//			registerLabel.setVisible(false);
-//			registeragentButton.setVisible(false);
-//			registermanagerButton.setVisible(false);
-//			sessionError.setVisible(true);
-//		}
+		//		if(getUserAgent().contains("msie")) {
+		//			loginButton.setVisible(false);
+		//			registerLabel.setVisible(false);
+		//			registeragentButton.setVisible(false);
+		//			registermanagerButton.setVisible(false);
+		//			sessionError.setVisible(true);
+		//		}
 		onRefresh();
 		onReset(Session.LOGGED_OUT);
 	}

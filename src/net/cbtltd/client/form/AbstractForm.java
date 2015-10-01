@@ -247,7 +247,7 @@ implements HasComponents {
 		panel.clear();
 		panel.addStyleName(CSS.cbtCommandBar());
 		panel.addStyleName(CSS.cbtGradientBar());
-		panel.add(createLogo());
+//		panel.add(createLogo());
 		createTabs(panel, index);
 		panel.add(createUtilities());
 	}

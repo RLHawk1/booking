@@ -86,6 +86,14 @@ public class FlipkeyRest {
 		MonitorService.monitor(message, timestamp);
 		return result;
 	}
+	
+	
+	@GET
+	@Path("/testApi")
+	public String getTestApi(){
+			
+		return "Test API";
+	}
 
 	/**
 	 * Gets the properties name id list.
@@ -290,6 +298,7 @@ public class FlipkeyRest {
 	public static synchronized Availability getAvailabilityProduct(
 			@PathParam("id") String id,
 			@DefaultValue(Constants.NO_XSL) @QueryParam("xsl") String xsl) {
+		System.out.println("1111111111111");
 		Date timestamp = new Date();
 		String message = "/flipkey/getavailability/id=" + id + "?xsl=" + xsl;
 		LOG.debug(message);

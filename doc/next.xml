@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Properties>
+<House>
+	<HouseID>123456789</HouseID>
+	<Country>US</Country>
+	<Region>North</Region>
+	<Place>Tiburon</Place>
+	<ZipCode>94920 </ZipCode> 
+	<Name>Mike House</Name>
+	<MinPersons>2</MinPersons>
+	<MaxPersons>4</MaxPersons>
+	<MinChildren>2</MinChildren>
+	<NumberOfPets>2</NumberOfPets>
+	<NumberOfStars>5</NumberOfStars>
+	<Pool>N</Pool> 
+	<Tennis>N</Tennis> 
+	<Ski>N</Ski>
+	<Water>N</Water>
+	<Type>A</Type>
+	<ArrivalDay>2014-03-17</ArrivalDay>
+	<Currency>USD</Currency>
+	<Latitude>42.507502</Latitude>
+	<Longitude>1.521803 </Longitude>
+</House>
+</Properties>

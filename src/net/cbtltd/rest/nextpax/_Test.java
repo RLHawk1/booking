@@ -46,7 +46,7 @@ public final class _Test implements Handleable {
 	 * @throws Exception the exception
 	 */
 	public static void main(String args[]) throws Exception {
-		LOG.error("NextPax Started");
+		LOG.debug("NextPax Started");
 		SqlSession sqlSession = RazorServer.openSession();
 		try {
 			
@@ -56,7 +56,7 @@ public final class _Test implements Handleable {
 //			String altpartyid = "179804"; // NextPax partner Vacasol
 //			String altpartyid = "179882"; // NextPax partner Bungalow Net
 			//String altpartyid = "179802"; // NextPax partner TUI Ferienhaus UAT
-			String altpartyid = "231051"; // NextPax partner TUI Ferienhaus PROD
+			String altpartyid = "179802"; // NextPax partner TUI Ferienhaus PROD
 			String reservationid = "4937617"; // NextPax reservation
 		
 		
@@ -66,7 +66,7 @@ public final class _Test implements Handleable {
 			}
 			A_Handler handler = new A_Handler(partner);
 			
-			// handler.readProducts();
+			handler.readProducts();
 			// handler.readPrices();
 			// handler.readSchedule(); // where the pricing is done.
 			// handler.createImages();
@@ -115,7 +115,7 @@ public final class _Test implements Handleable {
 			
 		//	handler.extractUniqueAdditionalFees(srcs, destsUnique);
 			
-		handler.readFees();
+		//handler.readFees();
 		//	handler.readAlerts();
 
 			// testAttribute(sqlSession);

@@ -55,7 +55,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import jdk.internal.jfr.events.FileWriteEvent;
+//import jdk.internal.jfr.events.FileWriteEvent;
 import net.cbtltd.rest.GatewayHandler;
 import net.cbtltd.rest.GoogleLocationLimitException;
 import net.cbtltd.rest.payment.ReservationPrice;
@@ -108,6 +108,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.Namespace;
 import org.jdom.input.SAXBuilder;
 import org.joda.time.DateTime;
 import org.joda.time.Days;
@@ -1225,7 +1226,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 		try {
 			createOrUpdateProducts(productsProceeded);
-			LOG.debug("NextpaxAPIKEY: " + getApikey() + " Products update done.");
+			/*LOG.debug("NextpaxAPIKEY: " + getApikey() + " Products update done.");
 			readHousePropertyCodes();
 			LOG.debug("NextpaxAPIKEY: " + getApikey() + " readHousePropertyCodes() done.");
 			updateInactiveProducts(productsProceeded);
@@ -1237,7 +1238,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			// setLocation();
 			// LOG.debug("NextpaxAPIKEY: "+getApikey()+" setLocation done.");
 			LOG.debug("NextpaxAPIKEY: " + getApikey() + " ReadProducts_DONE");
-			MonitorService.monitor(message, version);
+			MonitorService.monitor(message, version);*/
 		} catch (Throwable x) {
 			LOG.error(x.getStackTrace());
 		}
@@ -1273,7 +1274,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		final SqlSession sqlSession = RazorServer.openSession();
 
 		String partyId = getAltpartyid();
-		String fileName = "paxgenerator_houses_" + getApikey() + ".xml";
+		String fileName = "staytoday.xml";
 		Map<String, Location> locations = new HashMap<String, Location>();
 		try {
 			// House attributes.
@@ -1285,42 +1286,50 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			//document = parser.build(ftp(fileName));
 			System.out.println("HERE IS FILE PARSING");
 			
-			 document = parser.build(new File(System.getProperty("user.home")
-			 + File.separator
-			 + "PMS"
-			 + File.separator
-			 + "nextpax"
-			 + File.separator
-			 + getApikey()
-			 + File.separator + fileName));
-			LOG.debug("Time taken to parse " + fileName + " : " + (System.currentTimeMillis() - startParsing) + " milli seconds.");
+			String workingDirectory = System.getProperty("user.dir");
+			document = parser.build(new File(workingDirectory + "\\doc\\staytoday.xml"));
+			
+			//LOG.debug("Time taken to parse " + fileName + " : " + (System.currentTimeMillis() - startParsing) + " milli seconds.");
 
 			Element rootNode = document.getRootElement();
-			List<Element> houses = rootNode.getChildren("House");
+			Namespace ns = rootNode.getNamespace();
+			List<Element> houses = rootNode.getChildren("offer", ns);
+			System.out.println(rootNode.getNamespace());
+			System.out.println(rootNode.getChild("generation-date", ns).getName());
+			System.out.println("Number of properties " + houses.size());
 			int i = 0;
 			for (Element house : houses) {
 				ArrayList<String> attributes = new ArrayList<String>();
 				// ArrayList<NameId> images = new ArrayList<NameId>();
 				// StringBuilder description = new StringBuilder();
 
-				String altid = house.getChildText("HouseID");
-				String country = house.getChildText("Country");
+				String altid = house.getAttributeValue("internal-id");
+				String name = house.getChildText("Name"); // sometimes empty
+				
+				Element locationNode = house.getChild("location", ns);
+				
+				String longitudeValue = locationNode.getChildText("longitude");
+				String latitudeValue = locationNode.getChildText("latitude");
+				Double longitude = longitudeValue == null ? null : Double.valueOf(longitudeValue);
+				Double latitude = latitudeValue == null ? null : Double.valueOf(latitudeValue);
+				
+				String country = locationNode.getChildText("country");
+				String place = locationNode.getChildText("city");
+				String address = locationNode.getChildText("address"); // never used yet
+
+				Element fee = house.getChild("fees");
+				
+				
 				String region = house.getChildText("Region"); // might be empty? TODO check what to do in such case
 				if (StringUtils.isNotBlank(region) && region.length() > 2) {
 					region = region.substring(2);
 				}
-				String name = house.getChildText("Name"); // sometimes empty
-				String place = house.getChildText("Place");
 				String zipCode = house.getChildText("ZipCode");
 				String minchildren = house.getChildText("MinChildren"); // MinChildren
 				String minpersons = house.getChildText("MinPersons"); // MaxPersons
 				String maxpersons = house.getChildText("MaxPersons");
 				String currency = house.getChildText("Currency");
-				String longitudeValue = house.getChildText("Longitude");
-				String latitudeValue = house.getChildText("Latitude");
 				
-				Double longitude = longitudeValue == null ? null : Double.valueOf(longitudeValue);
-				Double latitude = latitudeValue == null ? null : Double.valueOf(latitudeValue);
 				
 				// attribute list
 				String pool = house.getChildText("Pool");
@@ -1336,6 +1345,10 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 				// String brand = house.getChildText("Brand");
 
 				// build the list
+			    
+				if (StringUtils.isBlank(numberofstars)) {
+					numberofstars = "0";
+				}
 			   
 				if (StringUtils.isNotBlank(pool) && pool.equals("Y")) {
 					attributes.add(ATTRIBUTES.get("pool"));
@@ -1347,7 +1360,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					attributes.add(ATTRIBUTES.get("ski"));
 				}
 				
-			   if (Integer.parseInt(numberofpets) > 0){
+			   if (StringUtils.isNotBlank(numberofpets) && Integer.parseInt(numberofpets) > 0){
 					attributes.add(ATTRIBUTES.get("All pets"));				
 			   }
 			   
@@ -1432,7 +1445,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 				LOG.debug(i++ + " " + altid + " " + product.getId() + " " + product.getId() + " " + product.getName());
 				sqlSession.commit();
 			}
-		} catch (Throwable x) {
+		} catch (Exception x) {
 			sqlSession.rollback();
 			x.printStackTrace();
 			LOG.error(x.getMessage());

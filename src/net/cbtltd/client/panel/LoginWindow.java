@@ -77,14 +77,12 @@ public class LoginWindow extends Composite implements MouseOutHandler, MouseOver
 		createActions();
 		
 		absolutePanel = new AbsolutePanel();
-		absolutePanel.addStyleName(CSS.loginWindow());
+		absolutePanel.addStyleName(CSS.loginForm());
 		initWidget(absolutePanel);
-
-		absolutePanel.setSize("380px", "200px");
 
 		loginName = new Label("Login");
 		loginName.addStyleName(CSS.signLabel());
-		absolutePanel.add(loginName, 31, 10);
+		absolutePanel.add(loginName);
 
 		//-----------------------------------------------
 		// Email address to identify user
@@ -95,7 +93,7 @@ public class LoginWindow extends Composite implements MouseOutHandler, MouseOver
 		emailaddressField.setHelpText(CONSTANTS.emailaddressHelp());		
 		emailaddressField.setLabelStyle(CSS.labelText());
 		emailaddressField.setFieldStyle(CSS.loginText());
-		absolutePanel.add(emailaddressField, 41, 55);
+		absolutePanel.add(emailaddressField);
 		
 		//-----------------------------------------------
 		// Password field
@@ -110,17 +108,17 @@ public class LoginWindow extends Composite implements MouseOutHandler, MouseOver
 		passwordField.setSecure(true);
 		passwordField.setHelpText(CONSTANTS.passwordHelp());
 		passwordField.setLabelStyle(CSS.labelText());
-		absolutePanel.add(passwordField, 41, 115);
+		absolutePanel.add(passwordField);
 
 		autologinField = new CheckField(this, null,	CONSTANTS.rememberLabel(), 3);
 		autologinField.setReadOption(Session.LOGGED_OUT, true);
 		autologinField.setDefaultValue(false);
-		absolutePanel.add(autologinField, 41, 170);
+		absolutePanel.add(autologinField);
 
 		signonButton = new CommandButton(this, CONSTANTS.loginLabel(), sessionLogin, 4);
 		signonButton.removeStyleName(FIELDCSS.cbtCommandButton());
 		signonButton.setStyleName(CSS.pushButton());
-		absolutePanel.add(signonButton, 235, 170);
+		absolutePanel.add(signonButton);
 		
 		//-----------------------------------------------
 		// Forgot Password button
@@ -133,7 +131,7 @@ public class LoginWindow extends Composite implements MouseOutHandler, MouseOver
 			}
 		});
 		forgotPasswordButton.addStyleName(CSS.passwordcreateStyle());
-		absolutePanel.add(forgotPasswordButton, 41, 200);		
+		absolutePanel.add(forgotPasswordButton);		
 	}
 
 	@Override

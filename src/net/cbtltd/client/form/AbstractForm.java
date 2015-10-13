@@ -59,6 +59,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.HasVerticalAlignment.VerticalAlignmentConstant;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
@@ -213,7 +214,7 @@ implements HasComponents {
 		if (!isSetup) {
 			isSetup = true;
 			CSS.ensureInjected();
-			addStyleName(CSS.cbtGradientBar());
+			addStyleName(CSS.appBody());
 			createHeader(header, index);
 			addNorth(header, NORTH_SIZE);
 			addSouth(createFooter(footer), SOUTH_SIZE);
@@ -245,10 +246,17 @@ implements HasComponents {
 	 */
 	protected void createHeader(HorizontalPanel panel, int index) {
 		panel.clear();
-		panel.addStyleName(CSS.cbtCommandBar());
-		panel.addStyleName(CSS.cbtGradientBar());
-//		panel.add(createLogo());
-		createTabs(panel, index);
+		panel.addStyleName(CSS.appHeader());
+		panel.setVerticalAlignment(HorizontalPanel.ALIGN_MIDDLE);
+		
+		HTML headerLogo = new HTML();
+		headerLogo.setHTML("a<span style='font-weight: 600;'>booking</span>net");
+		headerLogo.addStyleName(CSS.appHeaderLogo());
+		panel.add(headerLogo);
+
+		final HorizontalPanel panelTabs = new HorizontalPanel();
+		createTabs(panelTabs, index);
+		panel.add(panelTabs);
 		panel.add(createUtilities());
 	}
 
@@ -270,7 +278,7 @@ implements HasComponents {
 			if (AbstractRoot.permitted(index)) {
 				tab = new Tab(index, CONSTANTS.sessionTabs()[index]);
 				tab.addStyleName(CSS.cbtCommand());
-				tab.addStyleName(CSS.cbtCommandBegin());
+				//tab.addStyleName(CSS.cbtCommandBegin());
 				if (index == this_index) {tab.addStyleName(CSS.cbtCommandSelected());}
 
 				tab.addClickHandler(new ClickHandler() {
@@ -284,7 +292,7 @@ implements HasComponents {
 				panel.add(tab);
 			}
 		}
-		if (tab != null) {tab.addStyleName(CSS.cbtCommandEnd());}
+		//if (tab != null) {tab.addStyleName(CSS.cbtCommandEnd());}
 	}
 
 	/* Creates the utility buttons to be added to the header panel. */
@@ -413,7 +421,6 @@ implements HasComponents {
 	 */
 	private HorizontalPanel createFooter(HorizontalPanel panel) {
 		panel.addStyleName(CSS.cbtCommandFooter());
-		panel.addStyleName(CSS.cbtGradientBar());
 //		if (this instanceof SessionForm) {return panel;}
 //		final Image image = new Image(BUNDLE.actor());
 //		image.addStyleName(CSS.cbtCommandImage());
@@ -454,12 +461,12 @@ implements HasComponents {
 				"menubar=yes,location=yes,resizable=yes,scrollbars=yes,status=yes");
 			}
 		});
-		copyrightLabel.addStyleName(CSS.cbtCommandHyperlink());
+		copyrightLabel.addStyleName(CSS.cbtCommandFooterHyperlink());
 		panel.add(copyrightLabel);
 		
 		final HTML supportLabel =  new HTML("<a href='mailto:info@razor-cloud.com?subject=Feedback' title='Click to send a feedback & support message'>Feedback & Support</a>");
 		supportLabel.removeStyleName("a");
-		supportLabel.addStyleName(CSS.cbtCommandHyperlink());
+		supportLabel.addStyleName(CSS.cbtCommandFooterHyperlink());
 		supportLabel.addStyleName(CSS.cbtCommandRight());
 		supportLabel.setVisible(AbstractRoot.noLogo());
 		panel.add(supportLabel);

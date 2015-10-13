@@ -157,8 +157,8 @@ q {}
 .gwt-SuggestBoxPopup .item-selected {background: #b7d6f6;}
 
 .gwt-TabLayoutPanel {
-	margin: 10px;
-	padding: 10px;
+	/*margin: 10px;
+	padding: 10px;*/
 	color: labelColor;
 }
 

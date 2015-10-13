@@ -103,23 +103,16 @@ extends AbstractForm<Session> {
 
 		//Rishi
 		VerticalPanel frontPanel = new VerticalPanel();
-		frontPanel.setWidth("45%");
-		frontPanel.setHeight("80%");
 
 		frontPanel.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_LEFT);
 		frontPanel.setVerticalAlignment(HasVerticalAlignment.ALIGN_MIDDLE);				
-		frontPanel.addStyleName(CSS.frontPanelStyle());
+		frontPanel.addStyleName(CSS.loginPopup());
 		panel.add(frontPanel);
 
-		// Add the aBookingNet logo
-		Image logoImage = new Image(FIELDBUNDLE.abookingnetLogo());
-		logoImage.addStyleName(CSS.frontLogoStyle());
-		frontPanel.add(logoImage);
-
 		// Add the header label
-		Label headerLabel = new Label(CONSTANTS.headerLabel());
-		headerLabel.addStyleName(CSS.frontHeaderStyle());
-		frontPanel.add(headerLabel);
+		Label loginFormLabel = new Label(CONSTANTS.headerLabel());
+		loginFormLabel.addStyleName(CSS.frontHeaderStyle());
+		frontPanel.add(loginFormLabel);
 
 		// Create a horizontal panel to add the login window and registration window
 		HorizontalPanel loginRegPanel = new HorizontalPanel();
@@ -129,7 +122,7 @@ extends AbstractForm<Session> {
 
 		// Add the registration Panel
 		VerticalPanel registrationPanel = new VerticalPanel();
-		registrationPanel.addStyleName(CSS.frontRegistationPanelStyle());
+		registrationPanel.addStyleName(CSS.registerForm());
 
 		Label registerHeaderLabel = new Label("Register");
 		registerHeaderLabel.addStyleName(CSS.signLabel());
@@ -159,11 +152,6 @@ extends AbstractForm<Session> {
 		loginRegPanel.add(registrationPanel);
 
 		frontPanel.add(loginRegPanel);
-		// Add the copyright message
-		Label copyrightLabel = new Label(CONSTANTS.copyrightLabel());
-		copyrightLabel.addStyleName(CSS.frontCopyrightStyle());
-		frontPanel.add(copyrightLabel);		
-
 
 
 		//-----------------------------------------------

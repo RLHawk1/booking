@@ -10,6 +10,10 @@ import com.google.gwt.resources.client.CssResource;
 /** The Interface FieldCssResource is the stub for shared CSS resources defined in Field.css. */
 public interface FieldCssResource
 extends CssResource {
+	String appBody();
+	String appHeader();
+	String appHeaderLogo();
+	
 	String aboutStyle();
 	String cbtAbstractCentered();
 	String cbtAbstractCommand();
@@ -44,10 +48,12 @@ extends CssResource {
 	String cbtCommandButton();
 	String cbtCommandButtonFour();
 	String cbtCommandButtonTwo();
+	String cbtCommandButtonGray();
 	String cbtCommandBegin();
 	String cbtCommandEnd();
 	String cbtCommandFooter();
 	String cbtCommandHyperlink();
+	String cbtCommandFooterHyperlink();
 	String cbtCommandImage();
 	String cbtCommandLogo();
 	String cbtCommandProgress();

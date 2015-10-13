@@ -769,7 +769,6 @@ extends AbstractForm<Organization> {
 		// Save button
 		//-----------------------------------------------
 		final CommandButton saveButton = new CommandButton(this, AbstractField.CONSTANTS.allSave(), organizationUpdate, tab++);
-		saveButton.addStyleName(AbstractField.CSS.cbtGradientBlue());
 		saveButton.addStyleName(AbstractField.CSS.cbtCommandButtonTwo());
 		saveButton.setTitle(CONSTANTS.saveHelp());
 		bar.add(saveButton);
@@ -778,19 +777,22 @@ extends AbstractForm<Organization> {
 		// Delete button
 		//-----------------------------------------------
 		final CommandButton deleteButton = new CommandButton(this, CONSTANTS.deleteButton(), partyDelete, tab++);
-		deleteButton.addStyleName(AbstractField.CSS.cbtGradientRed());
 		deleteButton.addStyleName(AbstractField.CSS.cbtCommandButtonTwo());
+		deleteButton.addStyleName(AbstractField.CSS.cbtCommandButtonGray());
 		deleteButton.setTitle(CONSTANTS.deleteHelp());
 		bar.add(deleteButton);
 
 		//-----------------------------------------------
 		// Cancel button
 		//-----------------------------------------------
+		final HorizontalPanel cancelBar = new HorizontalPanel();
 		final CommandButton cancelButton = new CommandButton(this, AbstractField.CONSTANTS.allCancel(), resetRequest, tab++);
-		cancelButton.addStyleName(AbstractField.CSS.cbtGradientRed());
-		cancelButton.addStyleName(AbstractField.CSS.cbtCommandButtonTwo());
+		deleteButton.addStyleName(AbstractField.CSS.cbtCommandButtonTwo());
+		cancelButton.addStyleName(AbstractField.CSS.cbtCommandButtonGray());
 		cancelButton.setTitle(CONSTANTS.cancelHelp());
-		bar.add(cancelButton);
+		cancelBar.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
+		cancelBar.add(cancelButton);
+		bar.add(cancelBar);
 
 		//-----------------------------------------------
 		// The array of transitions to define the finite state machine.

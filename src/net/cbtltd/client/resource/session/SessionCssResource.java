@@ -9,6 +9,10 @@ import com.google.gwt.resources.client.CssResource;
 
 public interface SessionCssResource
 extends CssResource {
+	String loginPopup();
+	String loginForm();
+	String registerForm();
+	
 	String formStyle();
 	String frameStyle();
 	String helpLabel();
@@ -21,16 +25,13 @@ extends CssResource {
 	String registerText();
 	String sessionButton();
 	String sessionError();
+
+	String signLabel();
+	String labelText();
+	String loginText();
+	String pushButton();
 	
-	String frontPanelStyle();
 	String frontLogoStyle();
 	String frontHeaderStyle();
-	String frontCopyrightStyle();
 	String frontRegistationPanelStyle();
-	
-	String loginWindow();
-	String labelText();
-	String signLabel();
-	String pushButton();
-	String loginText();
 }

@@ -31,6 +31,27 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 @def selected #628cd5;
 @def formButton #ee0707;
 
+.appBody {
+	background: #eee;
+}
+
+.appHeader {
+	height: 48px;
+	line-height: 48px;
+	width: 100%;
+	padding: 0 2rem;
+	background: #3498DB;
+}
+
+.appHeaderLogo {
+	color: #fff;
+    font-size: 20px;
+    font-weight: 200;
+    text-align: left;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 3px rgba(0,0,0,.5);
+}
+
 
 /* GWT Standard CSS 
 @external .gwt-CheckBox;
@@ -40,8 +61,8 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 .gwt-DisclosurePanel {
 	border: 0;
 	margin: 0;
+	font-size: inherit;
 }
-
 .gwt-DisclosurePanel-open { }
 .gwt-DisclosurePanel-closed {border: 0;}
 .gwt-DisclosurePanel .header a, .gwt-DisclosurePanel .header td {
@@ -275,22 +296,14 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 
 .cbtAbstractControl {
 	height: 730px;
-	margin: 10px;
-	margin-bottom: 0;
-	padding: 5px;
-	color:	#666;
-	border:	2px solid white;
-	-webkit-border-radius: 6px;
-	-moz-border-radius: 6px;
-	border-radius: 6px;
-	-webkit-box-shadow:0 0 6px #666; 
-	-moz-box-shadow: 0 0 6px #666; 
-	box-shadow:0 0 6px #666;
-	background-color: #E1E1E1; 
-	background-image: -webkit-linear-gradient(top, #FFFFFF, #E1E1E1); /* Safari 5.1+, Mobile Safari, Chrome 10+ */
-	background-image: -moz-linear-gradient(top, #FFFFFF, #E1E1E1);   /* Firefox 3.6+ */
-	background-image: -ms-linear-gradient(top, #FFFFFF, #E1E1E1); /* IE 10+ */
-	background-image: -o-linear-gradient(top, #FFFFFF, #E1E1E1); /* Opera 11.10+ */
+	margin: 10px 10px 0px;
+	padding: 1rem 2rem;
+	color: rgb(102, 102, 102);
+	border: 2px solid white;
+	border-radius: 5px;
+	-webkit-box-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+	box-shadow: 0px 2px 10px rgba(0,0,0,0.3);
+	background-color: white;
 }
 
 .cbtAbstractCursor {
@@ -345,12 +358,14 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 }
 
 .cbtAbstractPopupLabel {
-	width: 280px;
-	color: #006699;
-	font-size: 120%;
-	font-weight: bold;
-	border-bottom: 1px solid #ddd;
+	font-size: 1.1rem;
+	font-weight: 600;
+	border-bottom: 1px solid rgb(221, 221, 221);
 	margin-bottom: 5px;
+	text-align: center;
+	color: black;
+	text-transform: uppercase;
+	padding: 16px 0 20px;
 }
 
 .cbtAbstractPopupClose:hover {
@@ -358,9 +373,8 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 	background-position: top right;
 }
 
-@sprite .cbtAbstractShadow {
-	gwt-image: 'shadow_control';
-	height: 20px;
+.cbtAbstractShadow {
+	height: 0px;
 	width: 100%; 
 }
 
@@ -394,7 +408,7 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 
 .cbtAbstractTextUp {margin-top: 2px;}
 .cbtAlignRight {text-align:right;}
-.cbtAbstractWidth {width: 100%;}
+.cbtAbstractWidth {width: 100%; padding: 2rem 0;}
 
 /* AttributeGrid */
 .cbtAttributeGrid {margin: 4px;}
@@ -425,20 +439,16 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 .cbtCommandBarPopup {width: 500px;}
 
 .cbtCommand {
-	text-align: center;
-	text-transform: uppercase; 
-	text-shadow: 1px 1px white;
-	font-size: 110%;
-	font-weight: bold;
-	white-space: nowrap;
-	padding-top: 6px;
 	cursor: pointer;
-	cursor: hand;
+	padding: 0 0.7rem;
+	color: white;
+	line-height: 45px;
+	border-bottom: 3px solid transparent;
 }
 
-.cbtCommand:active {color: #006699;}
-.cbtCommand:hover {color: #006699;}
-.cbtCommandSelected {color: #006699;}
+.cbtCommand:active {border-bottom: 3px solid;}
+.cbtCommand:hover {border-bottom: 3px solid;}
+.cbtCommandSelected {border-bottom: 3px solid;}
 
 .cbtCommand[ disabled ] {
   border: 1px outset #ccc;
@@ -455,21 +465,23 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 	min-height: 40px;
 	min-width: 100px;
 	margin: 1px 2px;
-	padding: 1px 2px;
 	white-space: nowrap;
 	text-transform: uppercase; 
-	font-size: 80%;
-	font-weight: bold;
 	color: white;
-	text-shadow: 1px 1px black;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-	-webkit-box-shadow:0 0 3px #666; 
-	-moz-box-shadow: 0 0 3px #666; 
-	box-shadow:0 0 3px #666;
 	cursor: pointer;
-	cursor: hand;
+	border: none;
+	text-shadow: none;
+	font-family: 'Open Sans';
+	border-radius: 5px;
+	font-size: 1rem;
+	font-weight: normal;
+	margin: 0;
+	padding: 0 2rem;
+	line-height: 40px;
+	background: #3498db;
+}
+.cbtCommandButtonGray {
+	background: #ccc;
 }
 
 .cbtCommandButton:disabled, .cbtCommandButtonFour:disabled, .cbtCommandButtonTwo:disabled {color: grey;} 
@@ -481,19 +493,31 @@ CSS3 Gradient Generator http://www.colorzilla.com/gradient-editor/
 	bottom: 0;
 	width: 100%; 
 	height: 100%; 
-	color: gray; 
+	color: white; 
+	background: #bbb;
 }
 
 .cbtCommandHyperlink {
-	padding: 0;
-	margin: 0 10px;
-	margin-top: 7px;
-	padding-left: 12px;
-	border-left: 1px solid #006699;
-	text-shadow: 1px 1px white;
+	cursor: pointer;
+	padding: 0 0.7rem;
+	color: white;
+	line-height: 45px;
+	border-bottom: 3px solid transparent;
 }
 .cbtCommandHyperlink a{color:#999}
-.cbtCommandHyperlink:hover {color: #006699;}
+.cbtCommandHyperlink:hover {border-bottom: 3px solid;}
+
+.cbtCommandFooterHyperlink {
+	cursor: pointer;
+	padding: 0 0.7rem;
+	color: white;
+    line-height: 32px;
+    font-size: 14px;
+}
+.cbtCommandFooterHyperlink a{
+	color: #888;
+	font-weight: 400;
+}
 
 .cbtCommandImage {
 	width: 60px;
@@ -1117,19 +1141,18 @@ td.cbtDatePickerMonth {
 
 /* Message */
 .cbtMessage {
-	width: 250px;
-	padding: 10px;
+	width: 208px;
+	padding: 16px;
 	text-align: center;
-	font-size: 12pt;
+	font-size: 12px;
 	color: red;
 	background: white;
 }
 
-@sprite .cbtMessageBottom {
-	gwt-image: 'messageBottom';
+.cbtMessageBottom {
 	position: relative;
 	display: block;
-	width: 322px;
+	width: 240px;
 }
 
 .cbtMessageButton {width: 80px;}
@@ -1138,10 +1161,10 @@ td.cbtDatePickerMonth {
 .cbtMessageLevelVerbose {color: blue;}
 .cbtMessageLevelDebug {color: green;}
 
-@sprite .cbtMessageMiddle {
-	gwt-image: 'messageMiddle';
-	display: block;
-	padding: 5px 28px 0px;
+.cbtMessageMiddle {
+	background: white;
+	box-shadow: 0px 1px 2px #c9c9c9;
+	margin-top: 16px;
 }
 
 .cbtMessagePopup {
@@ -1149,12 +1172,19 @@ td.cbtDatePickerMonth {
 	z-index: 99;
 }
 
-@sprite .cbtMessageTop {
-	gwt-image: 'messageTop';
-	display: block; 
-	width: 322px;
-	height: 20px;
-	padding-bottom: 12px;
+.cbtMessageTop {
+	position: absolute;
+	background: white;
+	top: 9px;
+	width: 16px;
+	height: 16px;
+	left: 50%;
+	margin-left: -8px;
+	box-shadow: -1px -1px 2px -1px rgba(0, 0, 0, 0.15);
+	-webkit-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	transform: rotate(45deg);
+	z-index: 1;
 }
 
 .cbtMessageWrap {border: 1px solid #ccc;}
@@ -1238,8 +1268,13 @@ td.cbtDatePickerMonth {
 .cbtPasswordFieldField {
 	float: left;
 	width: 300px;
-	border: fieldBorder;
-	font-size: 100%;
+	font-size: 16px;
+	background-color: rgb(248, 248, 248);
+	border: 2px solid rgb(221, 221, 221);
+	border-radius: 4px 4px 4px 4px;
+	padding: 4px 8px;
+	color: rgb(68, 68, 68);
+	font-family: 'Open Sans';
 }
 
 .cbtPasswordFieldSecure {width: 278px;}
@@ -1589,9 +1624,13 @@ td.cbtDatePickerMonth {
 
 .cbtTextFieldField {
 	width: 300px;
-	font-size: 100%;
-	padding: 1px;
-	border: fieldBorder;
+	font-size: 16px;
+	background-color: rgb(248, 248, 248);
+	border: 2px solid rgb(221, 221, 221);
+	border-radius: 4px 4px 4px 4px;
+	padding: 4px 8px;
+	color: rgb(68, 68, 68);
+	font-family: 'Open Sans';
 }
 
 .cbtTextFieldHalf {width: 150px;}

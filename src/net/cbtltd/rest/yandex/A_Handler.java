@@ -81,6 +81,7 @@ import net.cbtltd.shared.Currency;
 import net.cbtltd.shared.Downloaded;
 import net.cbtltd.shared.Error;
 import net.cbtltd.shared.Fee;
+import net.cbtltd.shared.Image;
 import net.cbtltd.shared.Language;
 import net.cbtltd.shared.License;
 import net.cbtltd.shared.Location;
@@ -99,6 +100,7 @@ import net.cbtltd.shared.api.IsPartner;
 import net.cbtltd.shared.finance.gateway.CreditCard;
 import net.cbtltd.shared.finance.gateway.CreditCardType;
 import net.cbtltd.server.api.FeeMapper;
+import net.cbtltd.server.api.ImageMapper;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.cxf.jaxrs.client.WebClient;
@@ -144,11 +146,11 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final String BASE_NEXTPAX_URL = "https://secure.nextpax.com";
 	private static final String CANCELLATION_URL = BASE_NEXTPAX_URL + "/comm/bookingpal_cancel_novasol.php?";
 	private static final String SENDERID = "FLI112";
-	// private static final String NEXTPAXTESTURL = "https://secure.nextpax.com/testxml/xml/";
-	// private static final String NEXTPAX_PRODUCTION_URL = "https://secure.nextpax.com/live/xml/";
 	private static final String EMAILCREDITCARD =
 			"\nOnce the transaction is complete, the property manager will contact you for payment information.";
 	private static final Pattern PATTERN_FOR_SPECIAL_CHARACTERS = Pattern.compile("[?]");
+	
+	private static Document document = null;
 
 	private static long startTime = 0;
 	static {
@@ -156,7 +158,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	}
 
 	static {
-//		Security.addProvider(new BouncyCastleProvider());
 		Security.insertProviderAt(new BouncyCastleProvider(), 1);
 	}
 	
@@ -182,60 +183,12 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		String xmlString = "";
 		CustomHttpConnection connection = new CustomHttpConnection();
 		
-//		try {
-			LOG.debug("NEXTPAX is using: " + RazorConfig.getNextPaxRequestURL());
-//			URL url = new URL(RazorConfig.getNextPaxRequestURL());
-//			connection = (HttpsURLConnection) url.openConnection();
-//			connection.setRequestMethod("POST");
-//			connection.setDoOutput(true);
-//			connection.setRequestProperty("Content-Type", "application/xml");
-			BASE64Encoder enc = new sun.misc.BASE64Encoder();
-			Security.addProvider(new BouncyCastleProvider());
-			String userpassword = "mybookingpal" + ":" + "BAD5PqtE";
-			String encodedAuthorization = enc.encode(userpassword.getBytes());
-//			connection.setRequestProperty("Authorization", "Basic " + encodedAuthorization);
-//			connection.setRequestProperty("Authorization", "Basic " + userpassword);
-			xmlString = connection.createPostRequest(RazorConfig.getNextPaxRequestURL(), encodedAuthorization, "application/xml", rq);
-//
-//			Provider[] providers = Security.getProviders();
-//			for(int i = 0; i < providers.length; i++) {
-//				LOG.debug(providers[i].getName());
-//			}
-//			
-//			LOG.debug("Request process started");
-//			
-//			if (rq != null) {
-//				LOG.debug("Setting request property");
-//				connection.setRequestProperty("Accept", "application/xml"); // this
-//				LOG.debug("Connecting...");
-//				connection.connect(); // this
-//				LOG.debug("Connected");
-//				byte[] outputBytes = rq.getBytes("UTF-8");
-//				
-//				OutputStream os = connection.getOutputStream();
-//				os.write(outputBytes);
-//				LOG.debug("Writing output");
-//			}
-//
-//			LOG.debug("Check connection response code");
-//			if (connection.getResponseCode() != 200) {
-//				throw new RuntimeException("HTTP:" + connection.getResponseCode() + " URL " + url);
-//			}
-//			BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
-//			String line;
-//			LOG.debug("Reading XML");
-//			while ((line = br.readLine()) != null) {
-//				xmlString += line;
-//			}
-//		} catch (Throwable x) {
-//			LOG.error((x.getMessage()));
-//			x.printStackTrace();
-//			throw new RuntimeException(x.getMessage());
-//		} finally {
-//			if (connection != null) {
-//				connection.disconnect();
-//			}
-//		}
+		LOG.debug("NEXTPAX is using: " + RazorConfig.getNextPaxRequestURL());
+		BASE64Encoder enc = new sun.misc.BASE64Encoder();
+		Security.addProvider(new BouncyCastleProvider());
+		String userpassword = "mybookingpal" + ":" + "BAD5PqtE";
+		String encodedAuthorization = enc.encode(userpassword.getBytes());
+		xmlString = connection.createPostRequest(RazorConfig.getNextPaxRequestURL(), encodedAuthorization, "application/xml", rq);
 		return xmlString;
 	}
 
@@ -1061,72 +1014,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	// 0 put ATTRIBUTES.put("breakfast", "HAC138");
 
 	
-	public void readFees() {
-		
-		Date version = new Date();
-		String message = "readPrices NextpaxAPIKEY: " + this.getApikey() + "STARTED";
-		LOG.debug(message);
-
-		String fn = "c:\\parsing\\p.xml";
-		
-		final SqlSession sqlSession = RazorServer.openSession();
-		try {
-		
-			SAXBuilder parser = new SAXBuilder();
-		
-		//	Document document = parser.build(ftp(fn));
-			Document document = parser.build(new FileInputStream(fn));
-			
-			Element rootNode = document.getRootElement();
-			List<Element> houses = rootNode.getChildren("AdditionalCosts");
-			int i = 0;
-			for (Element house : houses) {
-				String altid = house.getChildText("HouseID");
-				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
-
-				if (product == null) {
-					continue;
-				}
-
-				List<Element> costs = house.getChildren("AdditionalCost");
-				for (Element cost : costs) {
-					LOG.debug("cost " + cost);
-					String costcode = cost.getChildText("CostCode");
-					String costtype = cost.getChildText("CostType");
-					String costamount = cost.getChildText("CostAmount");
-					String costamounttype = cost.getChildText("CostAmountType");
-					String costcurrency = cost.getChildText("CostCurrency");
-					String number = cost.getChildText("Number");
-					String from = cost.getChildText("From");
-					String until = cost.getChildText("Until");
-					
-					Fee feeObject = new Fee();
-					feeObject.setProductId(product.getId());
-					feeObject.setPartyId(product.getAltpartyid());
-					//feeObject.setState(Fee.CREATED);
-				
-					feeObject.setName(getCostCode(costcode));
-					feeObject.setEntityType(21);
-					sqlSession.getMapper(FeeMapper.class).create(feeObject);
-                   
-			
-				
-				}
-				sqlSession.commit();
-				LOG.debug("readPrices NextpaxAPIKEY: " + this.getApikey() + "DONE");
-			}
-		} catch (Throwable x) {
-			sqlSession.rollback();
-			LOG.error(x.getMessage());
-			// x.printStackTrace();
-		} finally {
-			sqlSession.close();
-			delete(fn);
-		}
-		MonitorService.monitor(message, version);
-		
-	}
-	
 	@Override
 	public void readPrices() {
 		Date version = new Date();
@@ -1219,28 +1106,32 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	 */
 	@Override
 	public synchronized void readProducts() {
-		String message = "Read Products started NextpaxAPIKey: " + getApikey();
+		String message = "Read Products from Yandex xml";
 		LOG.debug(message);
 		Date version = new Date();
 		HashSet<String> productsProceeded = new HashSet<String>(); 
 
 		try {
+			document = parseXML(new URL("http://staytoday.ru/advToAbook.xml"));
+			
 			createOrUpdateProducts(productsProceeded);
-			/*LOG.debug("NextpaxAPIKEY: " + getApikey() + " Products update done.");
-			readHousePropertyCodes();
-			LOG.debug("NextpaxAPIKEY: " + getApikey() + " readHousePropertyCodes() done.");
-			updateInactiveProducts(productsProceeded);
+			//readHousePropertyCodes();
+			//updateInactiveProducts(productsProceeded);
 			// readDescriptions();
-			// LOG.debug("NextpaxAPIKEY: "+getApikey()+" readDescriptions(); done.");
-			// update/create images.
-			// createImages();
-			// readImages();
+			readImages();
 			// setLocation();
-			// LOG.debug("NextpaxAPIKEY: "+getApikey()+" setLocation done.");
-			LOG.debug("NextpaxAPIKEY: " + getApikey() + " ReadProducts_DONE");
-			MonitorService.monitor(message, version);*/
+			//MonitorService.monitor(message, version);
 		} catch (Throwable x) {
 			LOG.error(x.getStackTrace());
+		}
+	}
+	
+	private Document parseXML(URL url) {
+		try {
+			return (new SAXBuilder()).build(url);
+		} catch(Exception e) {
+			LOG.error("Could not parse Yandex XML, reason: " + e.getMessage());
+			return null;
 		}
 	}
 
@@ -1282,16 +1173,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			SAXBuilder parser = new SAXBuilder();
 
 			long startParsing = System.currentTimeMillis();
-			Document document = null;
-			//document = parser.build(ftp(fileName));
-			System.out.println("HERE IS FILE PARSING");
-			
-			String workingDirectory = System.getProperty("user.dir");
-			//document = parser.build(new File(workingDirectory + "\\doc\\staytoday.xml"));
-			document = parser.build(new URL("http://staytoday.ru/advToAbook.xml"));
-			
-			//LOG.debug("Time taken to parse " + fileName + " : " + (System.currentTimeMillis() - startParsing) + " milli seconds.");
-
 			Element rootNode = document.getRootElement();
 			Namespace ns = rootNode.getNamespace();
 			List<Element> houses = rootNode.getChildren("offer", ns);
@@ -1305,40 +1186,40 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 				// StringBuilder description = new StringBuilder();
 
 				String altid = house.getAttributeValue("internal-id");
-				String name = house.getChildText("Name"); // sometimes empty
+				String name = house.getChildText("Name", ns); // sometimes empty
 				
 				Element locationNode = house.getChild("location", ns);
 				
-				String longitudeValue = locationNode.getChildText("longitude");
-				String latitudeValue = locationNode.getChildText("latitude");
+				String longitudeValue = locationNode.getChildText("longitude", ns);
+				String latitudeValue = locationNode.getChildText("latitude", ns);
 				Double longitude = longitudeValue == null ? null : Double.valueOf(longitudeValue);
 				Double latitude = latitudeValue == null ? null : Double.valueOf(latitudeValue);
 				
-				String country = locationNode.getChildText("country");
-				String place = locationNode.getChildText("city");
-				String address = locationNode.getChildText("address"); // never used yet
+				String country = locationNode.getChildText("country", ns);
+				String place = locationNode.getChildText("city", ns);
+				String address = locationNode.getChildText("address", ns); // never used yet
 
-				Element fee = house.getChild("fees");
+				Element fee = house.getChild("fees", ns);
 				
 				
-				String region = house.getChildText("Region"); // might be empty? TODO check what to do in such case
+				String region = house.getChildText("Region", ns); // might be empty? TODO check what to do in such case
 				if (StringUtils.isNotBlank(region) && region.length() > 2) {
 					region = region.substring(2);
 				}
-				String zipCode = house.getChildText("ZipCode");
-				String minchildren = house.getChildText("MinChildren"); // MinChildren
-				String minpersons = house.getChildText("MinPersons"); // MaxPersons
-				String maxpersons = house.getChildText("MaxPersons");
-				String currency = house.getChildText("Currency");
+				String zipCode = house.getChildText("ZipCode", ns);
+				String minchildren = house.getChildText("MinChildren", ns); // MinChildren
+				String minpersons = house.getChildText("MinPersons", ns); // MaxPersons
+				String maxpersons = house.getChildText("MaxPersons", ns);
+				String currency = house.getChildText("Currency", ns);
 				
 				
 				// attribute list
-				String pool = house.getChildText("Pool");
-				String tennis = house.getChildText("Tennis");
-				String ski = house.getChildText("Ski");
-				String type = house.getChildText("Type");
-				String numberofstars = house.getChildText("NumberOfStars");
-			    String numberofpets= house.getChildText("NumberOfPets");
+				String pool = house.getChildText("Pool", ns);
+				String tennis = house.getChildText("Tennis", ns);
+				String ski = house.getChildText("Ski", ns);
+				String type = house.getChildText("Type", ns);
+				String numberofstars = house.getChildText("NumberOfStars", ns);
+			    String numberofpets= house.getChildText("NumberOfPets", ns);
 			    
 			    
 				// String water = house.getChildText("Water"); // mapping is not known, probable match LOC33
@@ -1950,64 +1831,49 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 	@Override
 	public void readImages() {
+		System.out.println("Yandex. Start reading images");
 		final SqlSession sqlSession = RazorServer.openSession();
-		// first download all the images
-/*		CompositeConfiguration config = new CompositeConfiguration();
-		config.addConfiguration(new SystemConfiguration());
-		try {
-			config.addConfiguration(new PropertiesConfiguration("storage.properties"));
-		} catch (ConfigurationException e) {
-			LOG.error(e.getMessage());
-		}
-
-		String rootFolder = config.getString("bp.root.folder");
-		Element rootNode = downloadImages(rootFolder);
-		String partner = rootNode.getChildText("Partner");
-		List<Element> houses = rootNode.getChildren("Pictures");
-		long startTime = System.currentTimeMillis();
-*/
-		String message = "Read Images started NextpaxAPIKey: " + getApikey();
+		String message = "Read Images";
 		LOG.debug(message);
 		Date version = new Date();
-		String fileName = "paxgenerator_house_pictures_" + getApikey() + ".xml";
 		try {
-/*			SAXBuilder parser = new SAXBuilder();
-			Document document = parser.build(ftp(fileName));
-			Element rootNode = document.getRootElement();
-			String partner = rootNode.getChildText("Partner");
-			List<Element> houses = rootNode.getChildren("Pictures");*/
-			
-			JAXBContext jc = JAXBContext.newInstance(net.cbtltd.rest.nextpax.ProductPictures.class);
-			Unmarshaller um = jc.createUnmarshaller();
-			ProductPictures productPictures = (ProductPictures) um.unmarshal(ftp(fileName));
-			String partner = productPictures.getPartner();
-			List<Pictures> houses = productPictures.getPictures();//this should give us list of house objects
-			
-			// RelationService.load(sqlSession, Downloaded.PRODUCT_DOWNLOAD_DATE, getAltpartyid(), new Date().toString());
 
-			for (Pictures pictures : houses) {
-				String altid = pictures.getHouseID();
+			Element rootNode = document.getRootElement();
+			Namespace ns = rootNode.getNamespace();
+			List<Element> houses = rootNode.getChildren("offer", ns);
+			System.out.println("Number of properties " + houses.size());
+			for (Element house : houses) {
+				String altid = house.getAttributeValue("internal-id");
 				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
 				if (product == null) {
 					continue;
 				}
-				ArrayList<NameId> images = new ArrayList<NameId>();
-				// List<Element> pictures = house.getChildren("Picture");
-				for (Picture picture : pictures.getPicture()) {
-					String size = picture.getSize(); // need to check size, to prevent loading small images.
-																// n - normal, s - small.
-					if (size.equalsIgnoreCase("s")) {
-						continue; // we don't need small images
-					}
-					String name = picture.getName();
-					String type = picture.getType();
-					String title = getImageTitle(type);
+				//ArrayList<NameId> images = new ArrayList<NameId>();
+				List<Element> images = house.getChildren("image", ns);
+				System.out.println("Number of images " + images.size());
+				int i = 1;
+				for (Element imageElement : images) {
+					String name = house.getChildText("name", ns);
+					String url = imageElement.getText();
+					System.out.println("Image name: " + name + ", url: " + url);
+					
+					net.cbtltd.shared.Image image = new net.cbtltd.shared.Image();
+					image.setName(name);
+					image.setUrl(url);
+					image.setLanguage(Language.RU);
+					image.setType(Image.Type.Linked);
+					image.setStandard(true);
+					image.setProductId(Integer.parseInt(product.getId()));
+					image.setNotes(name);
+					image.setSort(i++);
+					
+					sqlSession.getMapper(ImageMapper.class).create(image);
 
-					images.add(new NameId(title, IMAGE_URL + getBrandAbbreviation(partner) + "/" + altid + "/" + name));
+					//images.add(new NameId(name, url));
 				}
-				LOG.debug("Total images uploading for the property " + product.getId() + ": " + images.size());
-				UploadFileService.uploadImages(sqlSession, NameId.Type.Product, product.getId(), Language.EN, images);
-
+				//LOG.debug("Total images uploading for the property " + product.getId() + ": " + images.size());
+				//UploadFileService.uploadImages(sqlSession, NameId.Type.Product, product.getId(), Language.EN, images);
+				
 				sqlSession.commit();
 				MonitorService.monitor(message, version);
 			}
@@ -2017,7 +1883,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			LOG.error(e.getMessage());
 		} finally {
 			sqlSession.close();
-			delete(fileName);
 		}
 		long endTime = System.currentTimeMillis();
 		LOG.debug("Total time taken for readImage execution " + getApikey() + " : " + (endTime - startTime) / 1000 + " seconds.");
@@ -2797,6 +2662,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			BRAND_ABBREVIATON.put("TUI", "tu");
 			BRAND_ABBREVIATON.put("UPHILLTRAVEL", "ut");
 			BRAND_ABBREVIATON.put("VACASOL", "vc");
+			BRAND_ABBREVIATON.put("YANDEX", "ya");
 		}
 		return BRAND_ABBREVIATON.get(brandname.toUpperCase());
 	}

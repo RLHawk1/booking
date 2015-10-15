@@ -159,8 +159,8 @@ public class ImageService implements IsService {
 		
 		Map<FutureTask<List<ImageMetaData>>, Image> futures = new HashMap<FutureTask<List<ImageMetaData>>, Image>();
 		boolean compressImage = false;
-		if(RazorConfig.getEnvironmentId().equals(RazorConfig.PROD_ENVIRONMENT)
-				|| RazorConfig.getEnvironmentId().equals(RazorConfig.UAT_ENVIRONMENT)) {
+		if(RazorConfig.getEnvironmentId() != null && 
+		  (RazorConfig.getEnvironmentId().equals(RazorConfig.PROD_ENVIRONMENT)|| RazorConfig.getEnvironmentId().equals(RazorConfig.UAT_ENVIRONMENT))) {
 			compressImage = true;
 		}
 		

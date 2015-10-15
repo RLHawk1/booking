@@ -464,7 +464,7 @@ implements HasComponents {
 		copyrightLabel.addStyleName(CSS.cbtCommandFooterHyperlink());
 		panel.add(copyrightLabel);
 		
-		final HTML supportLabel =  new HTML("<a href='mailto:info@razor-cloud.com?subject=Feedback' title='Click to send a feedback & support message'>Feedback & Support</a>");
+		final HTML supportLabel =  new HTML("<a href='mailto:info@abookingnet.com?subject=Feedback' title='Click to send a feedback & support message'>Feedback & Support</a>");
 		supportLabel.removeStyleName("a");
 		supportLabel.addStyleName(CSS.cbtCommandFooterHyperlink());
 		supportLabel.addStyleName(CSS.cbtCommandRight());

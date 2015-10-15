@@ -1287,7 +1287,8 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			System.out.println("HERE IS FILE PARSING");
 			
 			String workingDirectory = System.getProperty("user.dir");
-			document = parser.build(new File(workingDirectory + "\\doc\\staytoday.xml"));
+			//document = parser.build(new File(workingDirectory + "\\doc\\staytoday.xml"));
+			document = parser.build(new URL("http://staytoday.ru/advToAbook.xml"));
 			
 			//LOG.debug("Time taken to parse " + fileName + " : " + (System.currentTimeMillis() - startParsing) + " milli seconds.");
 

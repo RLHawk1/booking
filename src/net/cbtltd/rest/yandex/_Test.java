@@ -49,16 +49,7 @@ public final class _Test implements Handleable {
 		LOG.debug("NextPax Started");
 		SqlSession sqlSession = RazorServer.openSession();
 		try {
-			
-
-//			String altpartyid = "179769"; // NextPax
-//			String altpartyid = "179799"; // NextPax partner Novasol
-//			String altpartyid = "179804"; // NextPax partner Vacasol
-//			String altpartyid = "179882"; // NextPax partner Bungalow Net
-			//String altpartyid = "179802"; // NextPax partner TUI Ferienhaus UAT
 			String altpartyid = "179802"; // NextPax partner TUI Ferienhaus PROD
-			String reservationid = "4937617"; // NextPax reservation
-		
 		
 			Partner partner = sqlSession.getMapper(PartnerMapper.class).exists(altpartyid);
 			if (partner == null) {
@@ -67,59 +58,6 @@ public final class _Test implements Handleable {
 			A_Handler handler = new A_Handler(partner);
 			
 			handler.readProducts();
-			// handler.readPrices();
-			// handler.readSchedule(); // where the pricing is done.
-			// handler.createImages();
-			// handler.readImages();
-			// handler.readAlerts();
-			
-			// Reservation reservation = sqlSession.getMapper(ReservationMapper.class).read(reservationid);
-			// Product product = sqlSession.getMapper(ProductMapper.class).read(reservation.getProductid());
-			// System.out.println("isAvailable = " + handler.isAvailable(sqlSession, reservation, product.getAltid()));
-
-			// Reservation reservation = new Reservation();
-			// reservation.setProductid("56810");
-			// reservation.setId("173");
-			// reservation.setAdult(1);
-			// DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-			// reservation.setFromdate(DF.parse("2014-04-24"));
-			// reservation.setTodate(DF.parse("2014-05-11")); //17 days.
-			// reservation.setState("Briefed");
-			// reservation.setAgentid("3330");
-			// handler.createReservation(sqlSession, reservation);
-			// handler.readReservation(sqlSession, reservation);
-			// handler.updateReservation(sqlSession, reservation);
-			// handler.cancelReservation(sqlSession, reservation);
-			//handler.testCreateOrUpdateProducts();
-			
-			String srcs[] = {
-				"c:\\parsing\\paxgenerator_house_additional_costs_ih.xml",
-				"c:\\parsing\\paxgenerator_house_additional_costs_ns.xml",
-				"c:\\parsing\\paxgenerator_house_additional_costs_vc.xml",
-				"c:\\parsing\\paxgenerator_house_additional_costs_tu.xml",
-			};
-			String dests[] = {
-				"c:\\parsing\\fees_ih.xml",
-				"c:\\parsing\\fees_ns.xml",
-				"c:\\parsing\\fees_vc.xml",
-				"c:\\parsing\\fees_tu.xml",
-			};
-			String destsUnique[] = {
-				"c:\\parsing\\fees_unique_ih.xml",
-				"c:\\parsing\\fees_unique_ns.xml",
-				"c:\\parsing\\fees_unique_vc.xml",
-				"c:\\parsing\\fees_unique_tu.xml",
-			};
-			
-		//	handler.extractAdditionalFees(srcs, dests);
-			
-		//	handler.extractUniqueAdditionalFees(srcs, destsUnique);
-			
-		//handler.readFees();
-		//	handler.readAlerts();
-
-			// testAttribute(sqlSession);
-			// sqlSession.commit();
 		} catch (Throwable x) {
 			sqlSession.rollback();
 			x.printStackTrace();
@@ -132,7 +70,6 @@ public final class _Test implements Handleable {
 
 	private A_Handler getHandler() {
 		SqlSession sqlSession = RazorServer.openSession();
-		// String altpartyid = "179769";
 		Partner partner = sqlSession.getMapper(PartnerMapper.class).exists(altpartyid);
 		if (partner == null) {
 			throw new ServiceException(Error.party_id, altpartyid);
@@ -143,7 +80,6 @@ public final class _Test implements Handleable {
 
 	private A_Handler setHandler(String altpartyid) {
 		SqlSession sqlSession = RazorServer.openSession();
-		// String altpartyid = "179769";
 		Partner partner = sqlSession.getMapper(PartnerMapper.class).exists(altpartyid);
 		if (partner == null) {
 			throw new ServiceException(Error.party_id, altpartyid);
@@ -172,10 +108,6 @@ public final class _Test implements Handleable {
 		getHandler().readAlerts();
 	}
 
-	// public void createImages() {
-	// getHandler().createImages();
-	// }
-
 	@Override
 	public void readSpecials() {
 		getHandler().readSpecials();
@@ -193,7 +125,7 @@ public final class _Test implements Handleable {
 
 	@Override
 	public void readLocations() {
-		throw new ServiceException(Error.service_absent, "Nextpax readLocations()");
+		throw new ServiceException(Error.service_absent, "Yandex readLocations()");
 	}
 
 	@Override

@@ -3188,7 +3188,7 @@ public abstract class AbstractReservation {
 	}
 	
 	private static Integer getImagesQuantity(SqlSession sqlSession, Product product) {
-		List<String> pictureLocations = sqlSession.getMapper(TextMapper.class).imageidsbyurl(new NameId(NameId.Type.Product.name(), product.getId()));
+		List<String> pictureLocations = sqlSession.getMapper(TextMapper.class).imageidsbynameid(new NameId(NameId.Type.Product.name(), product.getId()));
 		return pictureLocations == null ? 0 : pictureLocations.size();
 	}
 	

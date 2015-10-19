@@ -6,17 +6,19 @@
 package net.cbtltd.rest.flipkey;
 
 public class Suitability {
-	public String Pets;
-	public String Smoking;
-	public String HandicapAccessible;
-	public String ElderlyAccessible;
+	public Pets Pets;
+	public Smoking Smoking;
+	public Children Children;
+	public HandicapAccessible HandicapAccessible;
+	public ElderlyAccessible ElderlyAccessible;
 	
 	public Suitability(){}
 	
-	public Suitability(String pets, String smoking, String handicapAccessible, String elderlyAccessible) {
+	public Suitability(Pets pets, Smoking smoking, Children children, HandicapAccessible handicapAccessible, ElderlyAccessible elderlyAccessible) {
 		super();
 		this.Pets = pets;
 		this.Smoking = smoking;
+		this.Children = children;
 		this.HandicapAccessible = handicapAccessible;
 		this.ElderlyAccessible = elderlyAccessible;
 	}

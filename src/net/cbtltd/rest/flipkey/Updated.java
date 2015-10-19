@@ -5,6 +5,7 @@
  */
 package net.cbtltd.rest.flipkey;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -14,7 +15,7 @@ public class Updated {
 	@XmlAttribute (name = "property_id")
 	public String pi;
 	@XmlAttribute (name = "last_update")
-	public Date lu;
+	public String lu;
 
 	public Updated() {}
 
@@ -34,11 +35,11 @@ public class Updated {
 	}
 
 	@XmlTransient
-	public Date getLast_update() {
+	public String getLast_update() {
 		return lu;
 	}
 
 	public void setLast_update(Date last_update) {
-		this.lu = last_update;
+		this.lu = (new SimpleDateFormat("yyyy-mm-dd hh:mm:ss")).format(last_update);
 	}
 }

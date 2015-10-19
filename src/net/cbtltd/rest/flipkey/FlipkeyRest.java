@@ -28,6 +28,7 @@ import net.cbtltd.server.RazorServer;
 import net.cbtltd.server.RelationService;
 import net.cbtltd.server.TextService;
 import net.cbtltd.server.WebService;
+import net.cbtltd.server.api.ImageMapper;
 import net.cbtltd.server.api.PartyMapper;
 import net.cbtltd.server.api.PriceMapper;
 import net.cbtltd.server.api.ProductMapper;
@@ -137,23 +138,54 @@ public class FlipkeyRest {
 		Property result = null;
 		try {
 			Product product = sqlSession.getMapper(ProductMapper.class).read(id);
-			if (product == null || !product.hasState(Constants.CREATED)) {throw new RuntimeException("The property id is invalid or does not exist");}
+			//if (product == null || !product.hasState(Constants.CREATED)) {throw new RuntimeException("The property id is invalid or does not exist");}
+			if (product == null ) {throw new RuntimeException("The property id is invalid or does not exist");}
 			int bedrooms = product.getRoom();
 			int maximumOccupancy = product.getPerson();
 			int bathrooms = bedrooms;
 
 			HashMap<String, ArrayList<String>> attributeMap = RelationService.readMap(sqlSession, Relation.PRODUCT_ATTRIBUTE, product.getId(), Attribute.ACCOMMODATION_SEARCH);
-			ArrayList<String> amenity = new ArrayList<String>();
+			System.out.println("product.getId() = " + product.getId());
+			System.out.println("attributeMap size = " + attributeMap.size());
+			
+			//ArrayList<String> amenity = new ArrayList<String>();
+
+			Pets Pets = null;
+			Smoking Smoking = null;
+			Children Children = null;
+			HandicapAccessible HandicapAccessible = null;
+			ElderlyAccessible ElderlyAccessible = null;
+			
 			if (attributeMap != null) {
 				for (String key : attributeMap.keySet()) {
 					for (String value :  attributeMap.get(key)) {
-						if (!key.equalsIgnoreCase("Grading")
-								&& !key.equalsIgnoreCase("Accommodation Size")){
-							amenity.add(value);
+						System.out.println("attributeMap.get(" + key + ") = " + value);
+//						if (!key.equalsIgnoreCase("Grading")
+//								&& !key.equalsIgnoreCase("Accommodation Size")){
+//							amenity.add(value);
+//						}
+
+						if (net.cbtltd.shared.Attribute.PET.equals(value)) {
+							Pets = new Pets("yes");
+						}
+						if (net.cbtltd.shared.Attribute.SMO.equals(value)) {
+							Smoking = new Smoking("yes");
+						}
+						if (net.cbtltd.shared.Attribute.FAM.equals(value)) {
+							Children = new Children("yes");
+						}
+						if (net.cbtltd.shared.Attribute.PHY.equals(value)) {
+							HandicapAccessible = new HandicapAccessible("yes");
 						}
 					}
 				}
 			}
+			Suitability Suitability = new Suitability(Pets, Smoking, Children, HandicapAccessible, ElderlyAccessible);
+			
+			Amenities Amenities = null;
+//			if (amenity.size() > 0) {
+//				Amenities = new Amenities(amenity);
+//			}
 			
 //			HashMap<String, ArrayList<String>> attributeMap = RelationService.readMap(sqlSession, Relation.PRODUCT_ATTRIBUTE, product.getId(), Attribute.ACCOMMODATION_SEARCH);
 //			ArrayList<String> amenity = new ArrayList<String>();
@@ -164,6 +196,7 @@ public class FlipkeyRest {
 //			}
 			String textid = NameId.Type.Product.name() + id + Text.Code.Public.name();
 			String description = TextService.notes(sqlSession, textid, Language.EN);
+			Descriptions Descriptions = new Descriptions(description);
 
 			Location location = sqlSession.getMapper(ReservationMapper.class).flipkeylocation(product.getLocationid());
 			String city = (location == null) ? "" : location.getName();
@@ -172,21 +205,41 @@ public class FlipkeyRest {
 			String countryname = (location == null) ? "" : location.getCountryname();
 			String region = (location == null) ? "" : location.getSubdivisionname();
 			String subregion = "";
+			
+			region = null;
+			subregion = null;
 
 			Party party = sqlSession.getMapper(PartyMapper.class).read(product.getOwnerid());
 			if (party == null) {party = sqlSession.getMapper(PartyMapper.class).read(product.getSupplierid());}
-			String address1 = "";
-			String address2 = "";
-			String zipCode = "";
+			String address1 = product.getPhysicaladdress();
+			String address2 = null;
+			String zipCode = null;
 			if (party != null && party.getPostaladdress() != null) {
-				String[] address = party.getPostaladdress().split("\\n", 2);
-				address1 = (address.length > 0)? address[0] : "";
-				address2 = (address.length > 1)? address[1] : "";
+				//String[] address = party.getPostaladdress().split("\\n", 2);
+				//address1 = (address.length > 0)? address[0] : "";
+				//address2 = (address.length > 1)? address[1] : "";
 				zipCode = party.getPostalcode();
+				if ("".equals(zipCode)) {
+					zipCode = null;
+				}
 			}
 
-			ArrayList<String> photos = sqlSession.getMapper(TextMapper.class).imageidsbynameid(new NameId(NameId.Type.Product.name(), product.getId()));
-			photos = ProductService.prependToList(sqlSession, product.getId(), photos);
+			ArrayList<String> photosUrl = sqlSession.getMapper(ImageMapper.class).imageurlsbyproductid(new NameId(NameId.Type.Product.name(), product.getId()));
+			System.out.println("PHOTOS from DB: " + photosUrl.size());
+			ArrayList<Photo> photos = new ArrayList<Photo>();
+			for (String url : photosUrl) {
+				photos.add(new Photo(url));
+			}
+			Photos Photos = null;
+			if (photos.size() > 0) {
+				Photos = new Photos(photos);
+			}
+			
+			Rates Rates = null;
+			Collection<Rate> rateCol = getRates(sqlSession, product);
+			if (rateCol != null && rateCol.size() > 0) {
+				Rates = new Rates(getRates(sqlSession, product));
+			}
 			
 			result = new Property(
 					product.getId(),
@@ -207,28 +260,26 @@ public class FlipkeyRest {
 					),
 					new Details(
 							maximumOccupancy, 			//Maximum Occupancy
-							description,				//PropertyDescription (no HTML)
 							"condo",					//PropertyType
 							bedrooms, 					//Bedrooms
 							bathrooms,					//Bathrooms
 							1,							//MinimuStayLength
-							"14:00",					//CheckIn
-							"10:00",					//CheckOut
+							null,					    //CheckIn
+							null,					    //CheckOut
 							Currency.Code.USD.name()				//Currency
 					),
-					new Suitability(
-							hasAttribute(attributeMap, "Suitability", "Pet Friendly"),	//Pets(yes|no)
-							hasAttribute(attributeMap, "Suitability", "Smoker Friendly"),	//Smoking (yes|no)
-							hasAttribute(attributeMap, "Suitability", "Handicap Accessible"),	//HandicapAccessible (yes|no)
-							hasAttribute(attributeMap, "Suitability", "Elderly Accessible")	//ElderlyAccessible (yes|no)
-					),
-					new Amenities(amenity),
-					new Photos(photos),
-					new Rates(getRates(sqlSession, product)),
-					xsl
+					Descriptions, //PropertyDescription (no HTML)
+					Suitability,
+					Amenities,
+					Photos,
+					Rates,
+					null
 			);
 		} 
-		catch (Throwable x) {LOG.error(message + "\n" + x.getMessage());}
+		catch (Throwable x) {
+			x.printStackTrace();
+			LOG.error(message + "\n" + x.getMessage()); 
+		}
 		finally {sqlSession.close();}
 		LOG.debug(result);
 		MonitorService.monitor(message, timestamp);

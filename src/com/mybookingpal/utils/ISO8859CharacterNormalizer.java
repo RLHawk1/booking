@@ -43,14 +43,15 @@ public class ISO8859CharacterNormalizer {
 	
 	static {
 		String fileName = "characters_mapping.csv";
-		Reader in =  new InputStreamReader(ISO8859CharacterNormalizer.class.getClassLoader().getResourceAsStream(fileName));
 		try {
+			Reader in =  new InputStreamReader(ISO8859CharacterNormalizer.class.getClassLoader().getResourceAsStream(fileName));
 			CSVParser parser = CSVFormat.DEFAULT.withHeader().withDelimiter('|').parse(in);
 			for(CSVRecord record:parser.getRecords()) {
 				HEX_TO_CHAR_MAP.put(record.get("Hex"), record.get("Character"));
 				DECIMAL_TO_CHAR_MAP.put(record.get("Decimal"), record.get("Character"));
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("The mapping file is not <" + fileName + "> available.");
 		}
 		

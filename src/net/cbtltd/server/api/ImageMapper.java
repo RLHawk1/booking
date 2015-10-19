@@ -31,8 +31,9 @@ public interface ImageMapper extends AbstractMapper<Image> {
 	ArrayList<Image> imagesbyproductidsortorder(NameIdAction action);	
 	ArrayList<NameId> imagesbyurl(NameId action);
 	ArrayList<String> imageidsbynameid(NameId action);
-	ArrayList<String> imageidsbyurl(NameId action);
+	ArrayList<String> imageidsbyurl(Image image);
 	ArrayList<String> productidsofimages();
+	ArrayList<String> imageurlsbyproductid(NameId action);
 	//Added for Flipkey integration
 	Image readbyNameAndID(Text action);
 	List<Image> readoldproducts();

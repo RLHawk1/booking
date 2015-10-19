@@ -151,6 +151,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final Pattern PATTERN_FOR_SPECIAL_CHARACTERS = Pattern.compile("[?]");
 	
 	private static Document document = null;
+	private static Namespace ns = null;
 
 	private static long startTime = 0;
 	static {
@@ -1112,17 +1113,36 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		HashSet<String> productsProceeded = new HashSet<String>(); 
 
 		try {
+			//document = parseXML(new File(System.getProperty("user.dir") + "\\doc\\staytoday.xml"));
 			document = parseXML(new URL("http://staytoday.ru/advToAbook.xml"));
+			ns = document.getRootElement().getNamespace();
 			
 			createOrUpdateProducts(productsProceeded);
+			
 			//readHousePropertyCodes();
 			//updateInactiveProducts(productsProceeded);
-			// readDescriptions();
-			readImages();
+			
+			//readDescriptions();
+			//readImages();
+			
 			// setLocation();
+			//readPrices();
+			
+			//readSchedule();
+			
 			//MonitorService.monitor(message, version);
 		} catch (Throwable x) {
+			x.printStackTrace();
 			LOG.error(x.getStackTrace());
+		}
+	}
+
+	private Document parseXML(File file) {
+		try {
+			return (new SAXBuilder()).build(file);
+		} catch(Exception e) {
+			LOG.error("Could not parse Yandex XML, reason: " + e.getMessage());
+			return null;
 		}
 	}
 	
@@ -1174,158 +1194,211 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 			long startParsing = System.currentTimeMillis();
 			Element rootNode = document.getRootElement();
-			Namespace ns = rootNode.getNamespace();
 			List<Element> houses = rootNode.getChildren("offer", ns);
 			System.out.println(rootNode.getNamespace());
 			System.out.println(rootNode.getChild("generation-date", ns).getName());
 			System.out.println("Number of properties " + houses.size());
 			int i = 0;
 			for (Element house : houses) {
-				ArrayList<String> attributes = new ArrayList<String>();
-				// ArrayList<NameId> images = new ArrayList<NameId>();
-				// StringBuilder description = new StringBuilder();
-
-				String altid = house.getAttributeValue("internal-id");
-				String name = house.getChildText("Name", ns); // sometimes empty
-				
-				Element locationNode = house.getChild("location", ns);
-				
-				String longitudeValue = locationNode.getChildText("longitude", ns);
-				String latitudeValue = locationNode.getChildText("latitude", ns);
-				Double longitude = longitudeValue == null ? null : Double.valueOf(longitudeValue);
-				Double latitude = latitudeValue == null ? null : Double.valueOf(latitudeValue);
-				
-				String country = locationNode.getChildText("country", ns);
-				String place = locationNode.getChildText("city", ns);
-				String address = locationNode.getChildText("address", ns); // never used yet
-
-				Element fee = house.getChild("fees", ns);
-				
-				
-				String region = house.getChildText("Region", ns); // might be empty? TODO check what to do in such case
-				if (StringUtils.isNotBlank(region) && region.length() > 2) {
-					region = region.substring(2);
-				}
-				String zipCode = house.getChildText("ZipCode", ns);
-				String minchildren = house.getChildText("MinChildren", ns); // MinChildren
-				String minpersons = house.getChildText("MinPersons", ns); // MaxPersons
-				String maxpersons = house.getChildText("MaxPersons", ns);
-				String currency = house.getChildText("Currency", ns);
-				
-				
-				// attribute list
-				String pool = house.getChildText("Pool", ns);
-				String tennis = house.getChildText("Tennis", ns);
-				String ski = house.getChildText("Ski", ns);
-				String type = house.getChildText("Type", ns);
-				String numberofstars = house.getChildText("NumberOfStars", ns);
-			    String numberofpets= house.getChildText("NumberOfPets", ns);
-			    
-			    
-				// String water = house.getChildText("Water"); // mapping is not known, probable match LOC33
-				// String arrivalday = house.getChildText("ArrivalDay"); // we may need this.
-				// String brand = house.getChildText("Brand");
-
-				// build the list
-			    
-				if (StringUtils.isBlank(numberofstars)) {
-					numberofstars = "0";
-				}
-			   
-				if (StringUtils.isNotBlank(pool) && pool.equals("Y")) {
-					attributes.add(ATTRIBUTES.get("pool"));
-				}
-				if (StringUtils.isNotBlank(tennis) && tennis.equals("Y")) {
-					attributes.add(ATTRIBUTES.get("tennis"));
-				}
-				if (StringUtils.isNotBlank(ski) && ski.equals("Y")) {
-					attributes.add(ATTRIBUTES.get("ski"));
-				}
-				
-			   if (StringUtils.isNotBlank(numberofpets) && Integer.parseInt(numberofpets) > 0){
-					attributes.add(ATTRIBUTES.get("All pets"));				
-			   }
-			   
-				if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(HOUSE_TYPES.get(type))) {
-					if (type.equals("APO")) {
-						String[] apartmentTypes = HOUSE_TYPES.get(type).split(",");
-						for (String ota : apartmentTypes) {
-							attributes.add(ota);
+				try {
+					ArrayList<String> attributes = new ArrayList<String>();
+					// ArrayList<NameId> images = new ArrayList<NameId>();
+					// StringBuilder description = new StringBuilder();
+	
+					String altid = house.getAttributeValue("internal-id");
+					String name = house.getChildText("name", ns); // sometimes empty
+					name = "";
+					
+					Element locationNode = house.getChild("location", ns);
+					
+					String longitudeValue = locationNode.getChildText("longitude", ns);
+					String latitudeValue = locationNode.getChildText("latitude", ns);
+					Double longitude = longitudeValue == null ? null : Double.valueOf(longitudeValue);
+					Double latitude = latitudeValue == null ? null : Double.valueOf(latitudeValue);
+					
+					String country = locationNode.getChildText("country", ns);
+					String place = locationNode.getChildText("city", ns);
+					String address = locationNode.getChildText("address", ns); // never used yet
+	
+					Element fees = house.getChild("fees", ns);
+					List<Element> feeList = fees.getChildren("fee", ns);
+					String currency = null;
+					if (feeList.size() > 0) {
+						currency = feeList.get(0).getChildText("currency", ns);
+					}
+					
+					Element details = house.getChild("details", ns);
+					
+					String maxpersons = details.getChildText("maximumOccupancy", ns);
+					
+					
+					String region = house.getChildText("Region", ns); // might be empty? TODO check what to do in such case
+					if (StringUtils.isNotBlank(region) && region.length() > 2) {
+						region = region.substring(2);
+					}
+					String zipCode = house.getChildText("ZipCode", ns);
+					String minchildren = house.getChildText("MinChildren", ns); // MinChildren
+					
+					
+					// attribute list
+					String pool = house.getChildText("Pool", ns);
+					String tennis = house.getChildText("Tennis", ns);
+					String ski = house.getChildText("Ski", ns);
+					String type = house.getChildText("Type", ns);
+					String numberofstars = house.getChildText("NumberOfStars", ns);
+				    String numberofpets= house.getChildText("NumberOfPets", ns);
+				    
+				    
+					// String water = house.getChildText("Water"); // mapping is not known, probable match LOC33
+					// String arrivalday = house.getChildText("ArrivalDay"); // we may need this.
+					// String brand = house.getChildText("Brand");
+	
+					// build the list
+				    
+					if (StringUtils.isBlank(numberofstars)) {
+						numberofstars = "0";
+					}
+					
+					
+					//=== suitability ===//
+					Element suitability = house.getChild("suitability", ns);
+	
+					String FAM = suitability.getChildText("is_family", ns);
+					if (StringUtils.isNotBlank(FAM) && FAM.equals("true")) {
+						attributes.add(net.cbtltd.shared.Attribute.FAM);
+					}
+					String SMO = suitability.getChildText("is_nosmoking", ns);
+					if (StringUtils.isNotBlank(SMO) && SMO.equals("false")) {
+						attributes.add(net.cbtltd.shared.Attribute.SMO);
+					}
+					String PHY = suitability.getChildText("is_invalid", ns);
+					if (StringUtils.isNotBlank(PHY) && PHY.equals("true")) {
+						attributes.add(net.cbtltd.shared.Attribute.PHY);
+					}
+					//=== suitability ===//
+					
+				   
+					if (StringUtils.isNotBlank(pool) && pool.equals("Y")) {
+						attributes.add(ATTRIBUTES.get("pool"));
+					}
+					if (StringUtils.isNotBlank(tennis) && tennis.equals("Y")) {
+						attributes.add(ATTRIBUTES.get("tennis"));
+					}
+					if (StringUtils.isNotBlank(ski) && ski.equals("Y")) {
+						attributes.add(ATTRIBUTES.get("ski"));
+					}
+					
+				   if (StringUtils.isNotBlank(numberofpets) && Integer.parseInt(numberofpets) > 0){
+						attributes.add(ATTRIBUTES.get("All pets"));				
+				   }
+				   
+					if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(HOUSE_TYPES.get(type))) {
+						if (type.equals("APO")) {
+							String[] apartmentTypes = HOUSE_TYPES.get(type).split(",");
+							for (String ota : apartmentTypes) {
+								attributes.add(ota);
+							}
+						} else {
+							attributes.add(HOUSE_TYPES.get(type));
 						}
 					} else {
-						attributes.add(HOUSE_TYPES.get(type));
+						LOG.debug("Property type is not available for product <" + altid + ">: " + type);
 					}
-				} else {
-					LOG.debug("Property type is not available for product <" + altid + ">: " + type);
-				}
-
-				// we can use these later on when we build POI database. Nextpax provides separate feed for holiday parks
-				String holidaypark = house.getChildText("HolidayPark");
-				String skiarea = house.getChildText("SkiArea");
-
-				Product product = PartnerService.getProduct(sqlSession, partyId, altid);
-				Location location;
-				if (product != null && product.getLocationid() != null) {
-					location = sqlSession.getMapper(LocationMapper.class).read(product.getLocationid());
-				} else {
-					location = locations.get(StringUtils.isNotBlank(place) ? place + country : zipCode + country);
-				}
-				// set location if null
-				// look in the database first
-				// then do a google geocode API lookup
-				if (location == null && (StringUtils.isBlank(place) || PATTERN_FOR_SPECIAL_CHARACTERS.matcher(place).find())) {
-					location = PartnerService.getLocation(
-							sqlSession,
-							zipCode,
-							country,
-							latitude,
-							longitude);
-					locations.put(StringUtils.isNotBlank(place) ? place + country : zipCode + country, location);
-				} else if (location == null) {
-					place = ISO8859CharacterNormalizer.decode(place);
-					location = PartnerService.getLocation(
-							sqlSession,
-							place,
-							region,
-							country,
-							latitude,
-							longitude,
-							zipCode);
-					locations.put(place + country, location); // will create too big map. Maybe use only location ID instead of whole object
-				}
-
-				// set the name if it is blank
-				if (StringUtils.isBlank(name) && location != null) {
-					String locationName = location.getName() == null ? location.getGname() : location.getName();
-					// sometimes GeoLocation returns null, in this case, use gname.
-					locationName = locationName == null ? location.getAdminarea_lvl_1() : locationName;
-					name = "House" + " in " + locationName; // Set the Name to be sure it will not be null after this point.
-					if (attributes.size() > 0) {
-						ArrayList<NameId> pctList = sqlSession.getMapper(AttributeMapper.class)
-								.pctListValue(new net.cbtltd.shared.Attribute("PCT", attributes.get(0).substring("PCT".length())));
-						for (NameId attribute : pctList) { // what if list is empty?
-							name = attribute.getName() + " in " + locationName;
+	
+					// we can use these later on when we build POI database. Nextpax provides separate feed for holiday parks
+					String holidaypark = house.getChildText("HolidayPark");
+					String skiarea = house.getChildText("SkiArea");
+	
+					Product product = PartnerService.getProduct(sqlSession, partyId, altid);
+					Location location;
+					if (product != null && product.getLocationid() != null) {
+						location = sqlSession.getMapper(LocationMapper.class).read(product.getLocationid());
+					} else {
+						location = locations.get(StringUtils.isNotBlank(place) ? place + country : zipCode + country);
+					}
+					// set location if null
+					// look in the database first
+					// then do a google geocode API lookup
+					if (location == null && (StringUtils.isBlank(place) || PATTERN_FOR_SPECIAL_CHARACTERS.matcher(place).find())) {
+						location = PartnerService.getLocation(
+								sqlSession,
+								zipCode,
+								country,
+								latitude,
+								longitude);
+						locations.put(StringUtils.isNotBlank(place) ? place + country : zipCode + country, location);
+					} else if (location == null) {
+						place = ISO8859CharacterNormalizer.decode(place);
+						location = PartnerService.getLocation(
+								sqlSession,
+								place,
+								region,
+								country,
+								latitude,
+								longitude,
+								zipCode);
+						locations.put(place + country, location); // will create too big map. Maybe use only location ID instead of whole object
+					}
+	
+					// set the name if it is blank
+					if (StringUtils.isBlank(name) && location != null) {
+						String locationName = location.getName() == null ? location.getGname() : location.getName();
+						// sometimes GeoLocation returns null, in this case, use gname.
+						locationName = locationName == null ? location.getAdminarea_lvl_1() : locationName;
+						name = "House" + " in " + locationName; // Set the Name to be sure it will not be null after this point.
+						if (attributes.size() > 0) {
+							ArrayList<NameId> pctList = sqlSession.getMapper(AttributeMapper.class)
+									.pctListValue(new net.cbtltd.shared.Attribute("PCT", attributes.get(0).substring("PCT".length())));
+							for (NameId attribute : pctList) { // what if list is empty?
+								name = "House in " + locationName;
+							}
 						}
+					} // check if this might go for 'else'
+	
+					if (product == null) {
+						LOG.debug("Incative property <" + altid + ">. Updating...");
+						//according to the code, following line will give us exact property, but with inactive state.
+						product = sqlSession.getMapper(ProductMapper.class).altread(new NameId(partyId, altid));
 					}
-				} // check if this might go for 'else'
-
-				if (product == null) {
-					LOG.debug("Incative property <" + altid + ">. Updating...");
-					//according to the code, following line will give us exact property, but with inactive state.
-					product = sqlSession.getMapper(ProductMapper.class).altread(new NameId(partyId, altid));
-				}
-				product = createOrUpdateProductModel(location, place,
-						region, zipCode, country, maxpersons, minchildren,
-						numberofstars, currency, latitude, longitude, name,
-						product);
-				sqlSession.getMapper(ProductMapper.class).update(product);
-				productsProceeded.add(altid);
-
-				RelationService.replace(sqlSession, Relation.PRODUCT_VALUE, product.getId(), product.getValues());
-				RelationService.create(sqlSession, Relation.PRODUCT_OTA_ATTRIBUTE, product.getId(), attributes);
-
-				LOG.debug(i++ + " " + altid + " " + product.getId() + " " + product.getId() + " " + product.getName());
+					product = createOrUpdateProductModel(location, place,
+							region, zipCode, country, maxpersons, minchildren,
+							numberofstars, currency, latitude, longitude, name,
+							product);
+					
+	
+					//=== additional properties ===//
+					int rooms = 0;
+					try {
+						System.out.println("!!!!!!ROOMS = " + house.getChildText("rooms", ns));
+						rooms = Integer.parseInt(house.getChildText("rooms", ns)); // Number of rooms.
+					} catch (NumberFormatException e) {}
+					product.setRoom(rooms);
+					
+					try {
+						product.setBathroom(Integer.parseInt(details.getChildText("bathrooms", ns))); // Number of bedrooms.
+					} catch (NumberFormatException e) {}
+	
+					try {
+						product.setPerson(Integer.parseInt(maxpersons));
+					} catch (NumberFormatException e) {}
+					
+					product.setPhysicaladdress(address);
+					//=== additional properties ===//
+					System.out.println("SOME PROPERTIES");
+					System.out.println(maxpersons);
+					
+					
+					sqlSession.getMapper(ProductMapper.class).update(product);
+					productsProceeded.add(altid);
+	
+					RelationService.replace(sqlSession, Relation.PRODUCT_VALUE, product.getId(), product.getValues());
+					RelationService.create(sqlSession, Relation.PRODUCT_OTA_ATTRIBUTE, product.getId(), attributes);
+	
+					LOG.debug(i++ + " " + altid + " " + product.getId() + " " + product.getId() + " " + product.getName());
 				sqlSession.commit();
+				} catch(Exception e) {
+					continue;
+				}
 			}
 		} catch (Exception x) {
 			sqlSession.rollback();
@@ -1547,37 +1620,37 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		return product;
 	}
 
-	private void readHousePropertyCodes() {
+	private void readHouseProperties() {
 		long startTime = System.currentTimeMillis();
 
-		SAXBuilder parser = new SAXBuilder();
-		Document document = null;
 		final SqlSession sqlSession = RazorServer.openSession();
 		String fileName = "paxgenerator_house_properties_" + getApikey() + ".xml";
 		int updatedHouses = 0;
 		try {
 			long startParsing = System.currentTimeMillis();
-			document = parser.build(ftp(fileName));
-			// document = parser.build(new File(System
-			// .getProperty("user.home")
-			// + File.separator
-			// + "PMS"
-			// + File.separator
-			// + "nextpax"
-			// + File.separator
-			// + getApikey()
-			// + File.separator + fileName));
 			LOG.debug("Time taken to parse " + fileName + " : " + (System.currentTimeMillis() - startParsing) + " milli seconds.");
 
 			Element rootNode = document.getRootElement();
-			List<Element> houses = rootNode.getChildren("Properties");
+			List<Element> houses = rootNode.getChildren("offer");
 
 			for (Element house : houses) {
-				String altid = house.getChildText("HouseID");
+				String altid = house.getAttributeValue("internal-id");
 				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid, false);
 				if (product == null) {
 					continue;
 				}
+				
+				int rooms = 0;
+				try {
+					rooms = Integer.parseInt(house.getChildText("Value")); // Number of bedrooms.
+				} catch (NumberFormatException e) {}
+				product.setRoom(rooms);
+				if (rooms > 8) {
+					RelationService.create(sqlSession, Relation.PRODUCT_ATTRIBUTE, product.getId(), ATTRIBUTES.get("B02") + 9);
+				} else if (rooms > 0) {
+					RelationService.create(sqlSession, Relation.PRODUCT_ATTRIBUTE, product.getId(), ATTRIBUTES.get("B02") + rooms);
+				}
+				
 
 				Integer toilet = 0;
 				LOG.debug("Setting properties for: " + product.getId());
@@ -1585,22 +1658,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 				for (Element property : properties) {
 					String attrKey = property.getChildText("PropertyCode");
 					// Use `case` when we will move to JAVA 7 or higher
-					if (attrKey.equals("B02")) {
-						int numbedroom = 0;
-						try {
-							numbedroom = Integer.parseInt(property.getChildText("Value")); // Number of bedrooms.
-						} catch (NumberFormatException e) {
-							// do nothing...move onto next property
-						}
-						product.setRoom(numbedroom); // need to decide
-						// attribute for bedroom
-						if (numbedroom > 8) {
-							RelationService.create(sqlSession, Relation.PRODUCT_ATTRIBUTE, product.getId(), ATTRIBUTES.get(attrKey) + 9);
-						} else if (numbedroom > 0) {
-							RelationService.create(sqlSession, Relation.PRODUCT_ATTRIBUTE, product.getId(),
-									ATTRIBUTES.get(attrKey) + numbedroom);
-						}
-					} else if (attrKey.equals("B01")) {
+					if (attrKey.equals("B01")) {
 						try {
 							product.setBathroom(Integer.parseInt(property.getChildText("Value"))); // Number of bedrooms.
 						} catch (NumberFormatException e) {
@@ -1637,6 +1695,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					product.setState(Product.CREATED);
 				}
 				product.setAssignedtomanager(true);
+
 				sqlSession.getMapper(ProductMapper.class).update(product);
 				sqlSession.commit();
 				updatedHouses++;
@@ -1659,9 +1718,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	public void readDescriptions() {
 		long startTime = System.currentTimeMillis();
 		String altid;
-		SAXBuilder parser = new SAXBuilder();
 		Product product;
-		Document document = null;
 
 		String fileName = "paxgenerator_house_descriptions_" + getApikey() + ".xml";
 		int propertymanagerid = getPropertyManagerID(getApikey());
@@ -1671,52 +1728,37 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			long startParsing = System.currentTimeMillis();
 
 			LOG.debug("Time taken to parse " + fileName + " : " + (System.currentTimeMillis() - startParsing) + " milli seconds.");
-			document = parser.build(ftp(fileName));
-			// document = parser.build(new File(System
-			// .getProperty("user.home")
-			// + File.separator
-			// + "PMS"
-			// + File.separator
-			// + "nextpax"
-			// + File.separator
-			// + getApikey()
-			// + File.separator + fileName));
+
 			Element rootNode = document.getRootElement();
-			List<Element> houses = rootNode.getChildren("Descriptions");
+			List<Element> houses = rootNode.getChildren("offer", ns);
 			int i = 0;
 			StringBuilder sb;
 			for (Element house : houses) {
-				altid = house.getChildText("HouseID");
+				altid = house.getAttributeValue("internal-id");
 				product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid, false);
 				if (product == null) {
 					continue;
 				}
 
 				HashMap<String, String> texts = new HashMap<String, String>(); // Maps language to its text
-				List<Element> descriptions = house.getChildren("Description");
-				for (Element description : descriptions) {
-					String language = description.getChildText("Language").toUpperCase();
-					String text = description.getChildText("Text");
-					String type = description.getChildText("Type");
-					if (type.equalsIgnoreCase("p")) {
-						continue; // price table.
-					}
-					sb = new StringBuilder();
-					if (texts.get(language) == null) {
-						sb.append(getDescriptionType(language, type)).append(":").append(text).append("\n");
-					} else {
-						sb.append(texts.get(language)).append(getDescriptionType(language, type)).append(":").append(text).append("\n");
-					}
-					texts.put(language, sb.toString().length() <= IsPartner.TEXT_NOTES_LENGTH ?
-							sb.toString() : sb.toString().substring(0, IsPartner.TEXT_NOTES_LENGTH));
+				Element description = house.getChild("description", ns);
+				if (description == null) {
+					continue;
 				}
+				String language = "RU";
+				String text = description.getText();
 
-				if (!texts.containsKey(Language.EN) && RazorConfig.doTranslation()) {// must have an English description!
+				texts.put(language, text.length() <= IsPartner.TEXT_NOTES_LENGTH ?
+						text : text.substring(0, IsPartner.TEXT_NOTES_LENGTH));
+
+				//if (!texts.containsKey(Language.EN) && RazorConfig.doTranslation()) {// must have an English description!
+				if (!texts.containsKey(Language.EN)) {// must have an English description!
 					String englishTranslation;
-					for (String language : texts.keySet()) {
+					for (String lang : texts.keySet()) {
 						// sleep for a while to meet google's rate limit
-						Thread.sleep(500);
-						englishTranslation = TextService.translate(texts.get(language), language, Language.EN);
+						Thread.sleep(50);
+						System.out.println("TRY TO TRANSLATE: " + texts.get(lang) + ", " + lang + ", " + Language.EN);
+						englishTranslation = TextService.translate(texts.get(lang), lang, Language.EN);
 						if (StringUtils.isNotEmpty(englishTranslation)) {
 							texts.put(Language.EN, englishTranslation);
 							LOG.debug("English_Translation : " + texts.get(Language.EN));
@@ -1724,19 +1766,15 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 						}
 					}
 				}
-				// if(emailPayment(propertymanagerid)){
-				// for(String language : texts.keySet()){
-				// texts.put(language, NameId.trim(texts.get(language),20000 - EMAILCREDITCARD.length()) + EMAILCREDITCARD);
-				// }
-				// }
-				for (String language : texts.keySet()) {
-					LOG.debug("language " + language + " notes " + texts.get(language));
+
+				for (String lang : texts.keySet()) {
+					LOG.debug("language " + lang + " notes " + texts.get(lang));
 					product.setPublicText(new Text(product.getPublicId(),
 							product.getPublicLabel(),
-							Text.Type.HTML,
+							Text.Type.Text,
 							new Date(),
-							texts.get(language),
-							language));
+							texts.get(lang),
+							lang));
 					TextService.update(sqlSession, product.getTexts());
 				}
 
@@ -1748,6 +1786,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			}
 			sqlSession.commit();
 		} catch (Throwable e) {
+			e.printStackTrace();
 			LOG.error(e.getMessage());
 			sqlSession.rollback();
 		} finally {
@@ -1839,7 +1878,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		try {
 
 			Element rootNode = document.getRootElement();
-			Namespace ns = rootNode.getNamespace();
 			List<Element> houses = rootNode.getChildren("offer", ns);
 			System.out.println("Number of properties " + houses.size());
 			for (Element house : houses) {
@@ -1853,7 +1891,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 				System.out.println("Number of images " + images.size());
 				int i = 1;
 				for (Element imageElement : images) {
-					String name = house.getChildText("name", ns);
+					String name = product.getName();
 					String url = imageElement.getText();
 					System.out.println("Image name: " + name + ", url: " + url);
 					
@@ -1866,8 +1904,17 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					image.setProductId(Integer.parseInt(product.getId()));
 					image.setNotes(name);
 					image.setSort(i++);
+					image.setState("Created");
 					
-					sqlSession.getMapper(ImageMapper.class).create(image);
+					List<String> idList = sqlSession.getMapper(ImageMapper.class).imageidsbyurl(image);
+					System.out.println("IMAGE LIST SIZE: " + idList.size());
+					if (idList != null && idList.size() > 0) {
+						System.out.println("ID FROM IMAGE: " + idList.get(0));
+						image.setId(idList.get(0));
+						sqlSession.getMapper(ImageMapper.class).update(image);
+					} else {
+						sqlSession.getMapper(ImageMapper.class).create(image);
+					}
 
 					//images.add(new NameId(name, url));
 				}
@@ -2342,7 +2389,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 	@Override
 	public synchronized void readSchedule() {
-		LOG.debug("NextPax readSchedule() key: " + this.getApikey() + "_started");
+		LOG.debug("Yandex readSchedule() key: " + this.getApikey() + "_started");
 		Scanner sc = null;
 		Date version = new Date();
 		String line = "";
@@ -2371,33 +2418,34 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 		LOG.debug(message);
 		final SqlSession sqlSession = RazorServer.openSession();
-		String filename = "paxgenerator_available_bookingpal_" + getApikey() + ".csv";
 		try {
-			// RelationService.load(sqlSession, Downloaded.PRODUCT_DOWNLOAD_DATE, getAltpartyid(), new Date().toString());
-
-			long startTimeForCSVRead = System.currentTimeMillis();
-			sc = new Scanner(ftp(filename));
-			// sc = new Scanner(new BufferedReader(new InputStreamReader(
-			// new FileInputStream(System.getProperty("user.home")
-			// + File.separator
-			// + "PMS"
-			// + File.separator
-			// + "nextpax"
-			// + File.separator
-			// + getApikey()
-			// + File.separator
-			// + filename)
-			// )));
-			long endTimeForCSVRead = System.currentTimeMillis();
-			LOG.debug("Time taken to read csv: " + (endTimeForCSVRead - startTimeForCSVRead));
-
 			SortedSet<DateTime> availableDates = new TreeSet<DateTime>();
 			List<Price> prices = new ArrayList<Price>();
 			long startTimeForProductProcessing = 0;
 			int i = 0;
 
-			// remove header information.
-			line = sc.nextLine();
+			Element rootNode = document.getRootElement();
+			List<Element> houses = rootNode.getChildren("offer", ns);
+			for (Element house : houses) {
+
+				altid = house.getAttributeValue("internal-id");
+				product = PartnerService.getProduct(sqlSession, partyId, altid);
+				System.out.println("PRODUCT ID: " + product.getId());
+				
+				Element ratePeriods = house.getChild("rateperiods", ns);
+				List<Element> ratePeriodList = ratePeriods.getChildren("rateperiod", ns);
+				System.out.println("ratePeriodList size = " + ratePeriodList.size());
+				for (Element ratePeriod : ratePeriodList) {
+					startdate = ratePeriod.getChildText("startdate", ns);
+					enddate = ratePeriod.getChildText("enddate", ns);
+					System.out.println("startdate = " + startdate);
+					System.out.println("enddate = " + enddate);
+					
+					addToAvailableDates(availableDates, startdate, enddate);
+					createSchedule(availableDates, product, version, sqlSession);
+				}
+			}
+			/*
 			String currenthouse = "";
 			while (sc.hasNext()) {
 				line = sc.nextLine();
@@ -2517,19 +2565,14 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					addToAvailableDates(availableDates, startdate, enddate);
 				}
 
-/*				i++;
-				if (i > 0 && i % IsPartner.PRICE_BATCH_SIZE == 0) {
-					LOG.debug("Smart flush for price: " + i);
-					sqlSession.commit();
-				}*/
-			}
+			}*/
 			sqlSession.commit();
 
 			// Cancel old reservations.
 			resetStartTime();
 			cancelOldReservations(sqlSession, version);
 			LOG.debug("Canceled old reservations: " + (System.currentTimeMillis() - getStartTime()));
-			// sqlSession.commit(); // why duplicate?
+			sqlSession.commit();
 
 		} catch (Throwable x) {
 			sqlSession.rollback();
@@ -2538,7 +2581,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			if (sc != null) {
 				try {
 					sc.close();
-					delete(filename);
 					sqlSession.close();
 				} catch (Exception e) {
 					LOG.error(e.getMessage());
@@ -2595,7 +2637,10 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 		// create reservation if current date is less than the first date in the available dates set
 		DateTime firstAvailableDate = availableDates.first();
+		System.out.println("firstAvailableDate = " + firstAvailableDate);
 		int daysBetween = Days.daysBetween(currentDate, availableDates.first()).getDays();
+		System.out.println("createSchedule daysBetween: " + daysBetween);
+		System.out.println("daysBetween = " + currentDate + ",  " + availableDates.first());
 		if (daysBetween > 1) {
 			PartnerService.createSchedule(
 					sqlSession,
@@ -2608,6 +2653,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		DateTime fromDate = firstAvailableDate;
 
 		boolean first = true;
+		System.out.println("availableDates size = " + availableDates.size());
 		for (DateTime toDate : availableDates) {
 			if (first) {
 				first = false;
@@ -2615,6 +2661,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			}
 			daysBetween = Days.daysBetween(fromDate, toDate).getDays();
 			if (daysBetween > 1 && toDate.isAfterNow()) {
+				System.out.println("createSchedule availableDates daysBetween: " + daysBetween);
 				PartnerService.createSchedule(sqlSession,
 						product,
 						fromDate.withFieldAdded(DurationFieldType.days(), 1).toDate(),

@@ -5,6 +5,7 @@
  */
 package net.cbtltd.rest.flipkey;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -23,10 +24,11 @@ implements HasXsl {
 	@XmlAttribute (name = "manager_id")
 	private String Manager_id;
 	@XmlAttribute (name = "last_update")
-	private Date lastUpdate = new Date();
+	private String lastUpdate = (new SimpleDateFormat("yyyy-mm-dd hh:mm:ss")).format(new Date());
 	private String Name;
 	private Address Address;
 	private Details Details;
+	private Descriptions Descriptions;
 	private Suitability Suitability;
 	private Amenities Amenities;
 	private Photos Photos;
@@ -40,7 +42,7 @@ implements HasXsl {
 	}
 
 	public Property(String property_id, String manager_id, String name, Address address,
-			Details details, Suitability suitability, Amenities amenities,
+			Details details, Descriptions descriptions, Suitability suitability, Amenities amenities,
 			Photos photos, Rates rates, String xsl) {
 		super();
 		Property_id = property_id;
@@ -48,6 +50,7 @@ implements HasXsl {
 		Name = name;
 		Address = address;
 		Details = details;
+		Descriptions = descriptions;
 		Suitability = suitability;
 		Amenities = amenities;
 		Photos = photos;
@@ -99,6 +102,15 @@ implements HasXsl {
 
 	public void setDetails(Details details) {
 		this.Details = details;
+	}
+
+	@XmlElement( name = "Descriptions" , required = true )
+	public Descriptions getDescriptions() {
+		return Descriptions;
+	}
+
+	public void setDescriptions(Descriptions descriptions) {
+		this.Descriptions = descriptions;
 	}
 
 	@XmlElement( name = "Suitability" , required = true )

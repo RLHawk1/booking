@@ -8,11 +8,11 @@ package net.cbtltd.rest.flipkey;
 import java.util.Collection;
 
 public class Photos {
-	public Collection<String> Photo;
+	public Collection<Photo> Photo;
 
 	public Photos(){}
 	
-	public Photos(Collection<String> photo) {
+	public Photos(Collection<Photo> photo) {
 		this.Photo = photo;
 	}
 }

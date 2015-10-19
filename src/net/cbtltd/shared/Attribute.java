@@ -139,6 +139,7 @@ implements HasServiceResponse {
 	public static final String BUS = "BUS";//business service type
 	public static final String CDT = "CDT";//card type
 	public static final String DEC = "DEC";//decline reason
+	public static final String FAM = "FAM";//family
 	public static final String GRI = "GRI";//guest room info
 	public static final String HAC = "HAC";//hotel amenity code
 	public static final String HIC = "HIC";//hotel info code
@@ -159,9 +160,10 @@ implements HasServiceResponse {
 	public static final String RVT = "RVT";//room view
 	public static final String SEC = "SEC";//security feature
 	public static final String SEG = "SEG";//segment category code
+	public static final String SMO = "SMO";//smoking 
 	public static final String TRP = "TRP";//transportation code
 
-	public static final String[] ACCOMMODATION_SEARCH = {AQC, BED, GRD, HAC, LOC, PCT, PET, PHY, SEC,RMA};
+	public static final String[] ACCOMMODATION_SEARCH = {AQC, BED, GRD, HAC, LOC, PCT, PET, PHY, SEC, RMA, SMO, FAM};
 	public static final String[] PARTY = {BEP,COM,GRD,GRP,GUP,HAP,LOP,MPP,PCP,PEP,PHP,REP,RMP,RSN,RSP,SEP};
 //TODO: Interhome attributes 
 	public static final String[] PROPERTY = {AQC, BED, FAC, GRD, HAC, LOC, PCT, PET, PHY, RMA, RSN, SEC};

@@ -1476,8 +1476,7 @@
 			ID as property_id, 
 			now() as last_update
 		from product
-		where State = 'Created'
-			and Type = 'Accommodation'
+		where Type = 'Accommodation'
 		order by ID
 	</select>
 

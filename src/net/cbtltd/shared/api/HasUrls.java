@@ -90,9 +90,9 @@ public interface HasUrls {
 
 	String MAPS_KEY_OLD = "ABQIAAAA30LJM-VtBK-8CmbP2eic4RTf7B8Hz92uOSGpB3j3J64rWpwdFRRtnzeji201m8XeOjxG-9pkasreJg"; //http://razorpms.com
 
-	String GOOGLE_CLIENT_KEY = "AIzaSyDkdwL3blntxliu3Dpx1FGhXzKVwuMKkyA"; //uat.mybookingpal.com maps
-	String GOOGLE_SERVER_KEY = "AIzaSyDFLGBq-ms2EIHKPLbVwbJVxFzGCnkBy-c";
-	String GOOGLE_API_KEY ="AIzaSyDEfTrFgxRr8N0XY51KDlBB62RJBON3-Qg";//uat.mybookingpal.com translation //bookingpaltranslate@gmail.com | ps: bookingpal
+	String GOOGLE_CLIENT_KEY = "AIzaSyBL5apFnTQzdcadSCBQX5WvVJ9ZXaTZNos"; //uat.mybookingpal.com maps
+	String GOOGLE_SERVER_KEY = "AIzaSyDOSbnnm4pz2KRnZEUPkE_YwmlhQAeUkfc";
+	String GOOGLE_API_KEY ="AIzaSyDOSbnnm4pz2KRnZEUPkE_YwmlhQAeUkfc";//uat.mybookingpal.com translation //bookingpaltranslate@gmail.com | ps: bookingpal
 	String FLIPKEY_KEY = "28816157edbf16d560e14a816c9d107c";
 
 	String PUBLIC_DIRECTORY = "";

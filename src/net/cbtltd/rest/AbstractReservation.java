@@ -1,6 +1,6 @@
 /**
-o * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+o * @author	bookingnet
+ * @
  * @version	3.0.10
  */
 package net.cbtltd.rest;
@@ -120,10 +120,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.joda.time.LocalDate;
 
+import com.bookingnet.config.RazorConfig;
 import com.ibm.icu.util.Calendar;
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.server.ImageService;
-import com.mybookingpal.utils.BPThreadLocal;
+import com.bookingnet.server.ImageService;
+import com.bookingnet.utils.BPThreadLocal;
 
 
 /** 
@@ -340,7 +340,7 @@ public abstract class AbstractReservation {
 			reservation.setAltpartyid(product.getAltpartyid());
 			
 			PropertyManagerInfo propertyManagerInfo = sqlSession.getMapper(PropertyManagerInfoMapper.class).readbypmid(Integer.valueOf(party.getId()));
-			currency = PartyService.checkMybookingpalCurrency(currency, propertyManagerInfo);
+			currency = PartyService.checkbookingnetCurrency(currency, propertyManagerInfo);
 			
 			result = computeQuote(sqlSession, fromdate, todate, currency, terms, null, product, reservation, false);
 			
@@ -441,7 +441,7 @@ public abstract class AbstractReservation {
 			
 			PropertyManagerInfo propertyManagerInfo = sqlSession.getMapper(PropertyManagerInfoMapper.class).readbypmid(Integer.valueOf(product.getSupplierid()));
 			
-			currency = PartyService.checkMybookingpalCurrency(currency, propertyManagerInfo);
+			currency = PartyService.checkbookingnetCurrency(currency, propertyManagerInfo);
 			result = computeQuote(sqlSession, fromdate, todate, currency, terms, xsl, product, reservation, true);
 
 			LOG.debug(result);
@@ -493,7 +493,7 @@ public abstract class AbstractReservation {
 			Party party = sqlSession.getMapper(PartyMapper.class).read(product.getSupplierid());
 						
 			PropertyManagerInfo propertyManagerInfo = sqlSession.getMapper(PropertyManagerInfoMapper.class).readbypmid(Integer.valueOf(party.getId()));
-			currency = PartyService.checkMybookingpalCurrency(currency, propertyManagerInfo);
+			currency = PartyService.checkbookingnetCurrency(currency, propertyManagerInfo);
 			
 			Reservation reservation = new Reservation();
 			reservation.setProductid(productid);
@@ -2211,9 +2211,9 @@ public abstract class AbstractReservation {
 				throw new ServiceException(Error.price_not_match, "passed: " + amountToCheck + currency + ", difference: " + amountDifference);
 			}
 			
-			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER) {
+			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER) {
 //				amount = PaymentHelper.convertToDefaultMbpCurrency(sqlSession, reservation, propertyManagerInfo, PaymentHelper.roundAmountTwoDecimals(amount), currency).toString();
-				currency = PaymentHelper.DEFAULT_BOOKINGPAL_CURRENCY;
+				currency = PaymentHelper.DEFAULT_bookingnet_CURRENCY;
 			} else {
 //				amount = PaymentService.convertCurrency(sqlSession, currency, reservation.getCurrency(), PaymentHelper.roundAmountTwoDecimals(amount)).toString();
 				currency = product.getCurrency();
@@ -2589,7 +2589,7 @@ public abstract class AbstractReservation {
 			
 			double absAmount = Math.abs(cancellationAmount);
 			reservation.setState(Reservation.State.Cancelled.name());
-			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER) {
+			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER) {
 				cancelPendingTransaction(sqlSession, reservation);
 				if(managerToGateway == null) {
 					if(refund) {
@@ -2889,7 +2889,7 @@ public abstract class AbstractReservation {
 			reservation.setAgentid(channelPartnerParty.getId());
 			reservation.setQuotedetail(new ArrayList<net.cbtltd.shared.Price>());
 			
-			currency = PartyService.checkMybookingpalCurrency(currency, propertyManagerInfo);
+			currency = PartyService.checkbookingnetCurrency(currency, propertyManagerInfo);
 			
 			ReservationPrice reservationPrice = new ReservationPrice();
 			if(reservation.getAltpartyid() == null ||  !Arrays.asList(livePricingIds).contains(reservation.getAltpartyid())) {
@@ -3109,7 +3109,7 @@ public abstract class AbstractReservation {
 			List<WeeklyMinstay> minstays = sqlSession.getMapper(PropertyMinStayMapper.class).getMinstayByWeeks(minstayAction);
 			
 			PropertyManagerInfo propertyManagerInfo = sqlSession.getMapper(PropertyManagerInfoMapper.class).readbypmid(Integer.valueOf(product.getSupplierid()));
-			currency = PartyService.checkMybookingpalCurrency(currency, propertyManagerInfo);
+			currency = PartyService.checkbookingnetCurrency(currency, propertyManagerInfo);
 			if(StringUtils.isEmpty(currency) || Constants.NO_CURRENCY.equalsIgnoreCase(currency)) { currency = product.getCurrency(); }
 
 			prices = (List<WeeklyPrice>) convertWeeklyCurrency(sqlSession, prices, currency);
@@ -3224,7 +3224,7 @@ public abstract class AbstractReservation {
 		paymentTransaction.setCreditCardFee(cancellationAmount > 0 ? creditCardFee : 0); // if refund than no credit card fee should be applied
 		paymentTransaction.setCurrency(currency);
 		paymentTransaction.setFinalAmount(cancellationAmount);
-		paymentTransaction.setFundsHolder(ManagerToGateway.BOOKINGPAL_HOLDER);
+		paymentTransaction.setFundsHolder(ManagerToGateway.bookingnet_HOLDER);
 		paymentTransaction.setGatewayId(paymentGatewayId);
 		paymentTransaction.setGatewayTransactionId(gatewayTransactionId);
 		paymentTransaction.setMessage(errorMessage);
@@ -3238,7 +3238,7 @@ public abstract class AbstractReservation {
 		paymentTransaction.setStatus(transactionStatus);
 		paymentTransaction.setSupplierId(propertyManagerInfo.getPropertyManagerId());
 		paymentTransaction.setTotalAmount(cancellationAmount);
-		paymentTransaction.setTotalBookingpalPayment(0);
+		paymentTransaction.setTotalbookingnetPayment(0);
 		paymentTransaction.setTotalCommission(0);
 		paymentTransaction.setCancelled(false);
 		

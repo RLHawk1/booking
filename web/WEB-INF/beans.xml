@@ -41,7 +41,7 @@
 			<ref bean="reservationPushAPI" />
 			<ref bean="hotelsCombinedReservationPushAPI" />
 			<ref bean="facebookOAuthClient" />
-		    <ref bean="bookingPalOAuthService" />
+		    <ref bean="bookingnetOAuthService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:outInterceptors>
 			<ref bean="stylesheetInterceptor" />
@@ -60,7 +60,7 @@
 			<ref bean="reservationPushAPI" />
 			<ref bean="hotelsCombinedReservationPushAPI" />
 			<ref bean="facebookOAuthClient" />
-			<ref bean="bookingPalOAuthService" />
+			<ref bean="bookingnetOAuthService" />
 		</jaxrs:serviceBeans>
 		<jaxrs:inInterceptors>
 			<bean class="org.apache.cxf.jaxrs.provider.jsonp.JsonpInInterceptor">
@@ -95,5 +95,5 @@
 	<bean id="reservationPushAPI" class="net.cbtltd.rest.bookingcom.reservation.ReservationPushAPI" />
 	<bean id="hotelsCombinedReservationPushAPI" class="net.cbtltd.rest.hotelscombined.reservation.ReservationPushAPI" />
 	<bean id="facebookOAuthClient" class="net.cbtltd.oauth2.client.FacebookOAuthClient" />
-	<bean id="bookingPalOAuthService" class="net.cbtltd.oauth2.client.BookingSyncOAuthClient" />
+	<bean id="bookingnetOAuthService" class="net.cbtltd.oauth2.client.BookingSyncOAuthClient" />
 </beans>

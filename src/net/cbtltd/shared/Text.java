@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.shared;
@@ -48,7 +48,7 @@ implements HasPath, HasServiceResponse {
 	public static final String THUMBNAIL_JPG = "Thumb.jpg";
 	public static final String THUMBNAIL_INFIX = "Thumb";
 	public static final String IMAGE_PREFIX = "Product";
-	public static final String DEFAULT_IMAGE_URL = "https://s3.amazonaws.com/mybookingpal/pictures/Product144-000Thumb.jpg";
+	public static final String DEFAULT_IMAGE_URL = "https://s3.amazonaws.com/bookingnet/pictures/Product144-000Thumb.jpg";
 	public static String getLogo(String organizationid) {return "Logo." + organizationid;}//NO TYPE EXTENSION!
 
 	public enum Code {Checkin, Contents, Condition, Contract, Contact, File, Inside, Options, Outside, Pictures, Private, Public, Service, Url}

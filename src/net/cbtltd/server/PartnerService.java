@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -82,9 +82,9 @@ import org.apache.log4j.Logger;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.allen_sauer.gwt.voices.client.util.StringUtil;
+import com.bookingnet.config.RazorConfig;
 import com.google.code.geocoder.model.GeocoderResultType;
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.utils.ISO8859CharacterNormalizer;
+import com.bookingnet.utils.ISO8859CharacterNormalizer;
 
 /** The Class PartnerService records partner API settings and support functions. */
 public class PartnerService

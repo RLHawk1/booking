@@ -9,7 +9,7 @@ public class ConfigurationLoader {
 
 	private static ConfigurationLoader instance = null;
 	private static final String RESOURCES_FOLDER = "resources" + File.separator;
-	private static final String BOOKINGPAL_PAYMENT = "bookingpal-payment.properties";
+	private static final String bookingnet_PAYMENT = "bookingnet-payment.properties";
 	
 	private ConfigurationLoader() {
 		super();
@@ -25,7 +25,7 @@ public class ConfigurationLoader {
 	}
 	
 	public synchronized Properties loadPaymentProperties() throws IOException {
-		return load(RESOURCES_FOLDER + BOOKINGPAL_PAYMENT);
+		return load(RESOURCES_FOLDER + bookingnet_PAYMENT);
 	}
 	
 	private synchronized static Properties load(String fileName) throws IOException {

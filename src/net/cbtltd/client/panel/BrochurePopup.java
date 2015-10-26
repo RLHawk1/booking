@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.panel;
@@ -80,6 +80,7 @@ import net.cbtltd.shared.reservation.PriceResponse;
 import net.cbtltd.shared.task.Contact;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.cell.client.TextCell;
@@ -103,7 +104,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.gwt.visualization.client.LegendPosition;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class BrochurePopup is to display product brochures. */
 public class BrochurePopup

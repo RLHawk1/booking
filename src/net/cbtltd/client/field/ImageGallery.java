@@ -1,6 +1,6 @@
 /* 
-* @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+* @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.field;
@@ -634,7 +634,7 @@ implements ClickHandler {
 
 			uploadPanel.setEncoding(FormPanel.ENCODING_MULTIPART);
 			uploadPanel.setMethod(FormPanel.METHOD_POST);
-			uploadPanel.setAction(GWT.getModuleBaseURL() + "UploadFileService"); // UploadFileServlet  https://www.mybookingpal.com/razor/razor
+			uploadPanel.setAction(GWT.getModuleBaseURL() + "UploadFileService"); // UploadFileServlet  https://www.bookingnet.com/razor/razor
 			uploadPanel.setWidget(form);
 			uploadPanel.addFormHandler(new FormHandler() {
 

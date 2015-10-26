@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.widget.image;
@@ -27,6 +27,7 @@ import net.cbtltd.shared.Service;
 import net.cbtltd.client.resource.Hosts;
 import net.cbtltd.shared.product.WidgetProduct;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -37,7 +38,6 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class ImageWidget is to display an image gallery via a widget that can be hosted by a web page. */
 public class ImageWidget

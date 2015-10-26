@@ -247,7 +247,7 @@
         <priority value="debug" />
     </category>
     
-    <category name="com.mybookingpal">
+    <category name="com.bookingnet">
         <priority value="debug" />
     </category>
     
@@ -287,19 +287,19 @@
 		<priority value="error" />
 	</category>
     
-    <category name="com.mybookingpal.utils.ImageDownloadTask">
+    <category name="com.bookingnet.utils.ImageDownloadTask">
         <priority value="debug" />
     </category>
     
-    <category name="com.mybookingpal.server.ImageService">
+    <category name="com.bookingnet.server.ImageService">
         <priority value="debug" />
     </category>
     
-    <category name="com.mybookingpal.service.StorageService">
+    <category name="com.bookingnet.service.StorageService">
         <priority value="debug" />
     </category>
     
-    <category name="com.mybookingpal.s3.S3Client">
+    <category name="com.bookingnet.s3.S3Client">
         <priority value="debug" />
     </category>
     

@@ -83,9 +83,9 @@ import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.dev.util.collect.HashSet;
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.utils.CustomHttpConnection;
+import com.bookingnet.utils.CustomHttpConnection;
 
 /**
  * Class A_Handler manages the Lodgix API
@@ -99,20 +99,20 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final DateFormat apiRequestDF = new SimpleDateFormat("yyyy-MM-dd");
 	private static final String LOCALE_LANGUAGE = "en";
 
-	private static final String PRODUCTS_URL = "http://www.lodgix.com/partners/feed/bookingpal/en/contentindex/listings";
-	private static final String RESERVATIONS_URL = "http://www.lodgix.com/partners/feed/bookingpal/en/contentindex/reservations";
-	private static final String RATES_URL = "http://www.lodgix.com/partners/feed/bookingpal/en/contentindex/rates";
+	private static final String PRODUCTS_URL = "http://www.lodgix.com/partners/feed/bookingnet/en/contentindex/listings";
+	private static final String RESERVATIONS_URL = "http://www.lodgix.com/partners/feed/bookingnet/en/contentindex/reservations";
+	private static final String RATES_URL = "http://www.lodgix.com/partners/feed/bookingnet/en/contentindex/rates";
 
 //	private static final String CHANNEL_LIST_VALUE = "HOMEAWAY_US";
-	private static final String CHANNEL_LIST_VALUE = "BOOKINGPAL";
+	private static final String CHANNEL_LIST_VALUE = "bookingnet";
 
-	private static final String LODGIX_API_URL = "https://www.lodgix.com/partners/olb/bookingpal/";
+	private static final String LODGIX_API_URL = "https://www.lodgix.com/partners/olb/bookingnet/";
 	private static final String LODGIX_API_QUOTE_URL = LODGIX_API_URL + "quote";
 	private static final String LODGIX_API_BOOK_URL = LODGIX_API_URL + "book";
 	private static final String LODGIX_API_CANCEL_BOOK_URL = LODGIX_API_URL + "booking-reservation-operation";
 
 	// API credentials for POST requests
-	private static final String OLB_API_USERNAME = "bookingpal";
+	private static final String OLB_API_USERNAME = "bookingnet";
 	private static final String OLB_API_PASSWORD = "Px9287nWg889QZi";
 	private static final String LODGIX_OLB_SERVER_AUTH = OLB_API_USERNAME + ":" + OLB_API_PASSWORD;
 	

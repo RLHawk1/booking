@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -26,7 +26,7 @@ import net.cbtltd.server.config.RazorHostsConfig;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 /** The Class MonitorService monitors the number and duration of request-responses by the server. */
 public class MonitorService

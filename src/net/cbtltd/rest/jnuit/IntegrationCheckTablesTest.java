@@ -7,9 +7,9 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import net.cbtltd.server.RazorServer;
-import com.mybookingpal.server.test.mapper.PriceMapper;
-import com.mybookingpal.server.test.mapper.ProductMapper;
-import com.mybookingpal.server.test.mapper.RelationMapper;
+import com.bookingnet.server.test.mapper.PriceMapper;
+import com.bookingnet.server.test.mapper.ProductMapper;
+import com.bookingnet.server.test.mapper.RelationMapper;
 import net.cbtltd.shared.Model;
 import net.cbtltd.shared.Price;
 import net.cbtltd.shared.Relation;

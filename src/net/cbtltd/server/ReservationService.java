@@ -1,5 +1,5 @@
 /**
- * @author	Chris Marshall
+ * @author	bookingnet
  * @see		License at http://razorpms.com/razor/License.html
  * @version	2.00
  */
@@ -118,7 +118,7 @@ import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.mybookingpal.utils.BPThreadLocal;
+import com.bookingnet.utils.BPThreadLocal;
 
 /** The Class ReservationService responds to reservation requests. */
 

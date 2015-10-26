@@ -69,7 +69,7 @@ public abstract class PaymentHelper {
 	public static final String API_FULL_PAYMENT_METHOD = "API_Full";
 	public static final String API_DEPOSIT_PAYMENT_METHOD = "API_Deposit";
 	public static final String MAIL_PAYMENT_METHOD = "mail";
-	public static final String DEFAULT_BOOKINGPAL_CURRENCY = "USD";
+	public static final String DEFAULT_bookingnet_CURRENCY = "USD";
 	public static final String[] API_PAYMENT_METHODS = {API_FULL_PAYMENT_METHOD, API_DEPOSIT_PAYMENT_METHOD};
 	public static final String[] DEPOSIT_PAYMENT_METHODS = {DEPOSIT_PAYMENT_METHOD, API_DEPOSIT_PAYMENT_METHOD};
 	public static final String[] FULL_PAYMENT_METHODS = {API_FULL_PAYMENT_METHOD, FULL_PAYMENT_METHOD};
@@ -116,7 +116,7 @@ public abstract class PaymentHelper {
 		double creditCardFee = 0.0;
 		double pmsPaymentAmount = 0.0;
 		double pmPaymentAmount = 0.0;
-		double bookingpalPayment = 0.0;
+		double bookingnetPayment = 0.0;
 		double partnerPayment = 0; // TODO
 		double commission = 0.0;
 		int partialIin = PaymentHelper.getLastDigits(cardNumber, 4);
@@ -126,19 +126,19 @@ public abstract class PaymentHelper {
 		if (commissionSeparator.isNetRate()) {
 		    creditCardFee = commissionSeparator.getCreditCardFeeValue();
 		    commission = commissionSeparator.getTotalCommissionValue();
-		    bookingpalPayment = commissionSeparator.getBpCommissionValue();
+		    bookingnetPayment = commissionSeparator.getBpCommissionValue();
 		    pmsPaymentAmount = commissionSeparator.getPmsMarkupValue();
 		    pmPaymentAmount = commissionSeparator.getPmCommissionValue();
 		    partnerPayment = commissionSeparator.getChannelPartnerCommissionValue();
 		} else {
-		    bookingpalPayment = (Double.valueOf(propertyManagerInfo.getBpCommission()) / 100.) * secondPayment;
+		    bookingnetPayment = (Double.valueOf(propertyManagerInfo.getBpCommission()) / 100.) * secondPayment;
 		    commission = secondPayment * product.getDiscount() / 100.;
 		    creditCardFee = getCreditCardFee(propertyManagerInfo, secondPayment);
-		    partnerPayment = commission - creditCardFee - bookingpalPayment;
+		    partnerPayment = commission - creditCardFee - bookingnetPayment;
 		}
 
 		boolean autopay = paymentGatewayProvider == null ? true : paymentGatewayProvider.isAutopay();
-		pendingTransaction = new PendingTransaction(autopay, reservation, bookingpalPayment, secondPayment, propertyManagerInfo,
+		pendingTransaction = new PendingTransaction(autopay, reservation, bookingnetPayment, secondPayment, propertyManagerInfo,
 			commission, firstName, familyName, resultMap.get(GatewayHandler.TRANSACTION_ID), partialIin, partyid, partnerPayment,
 			paymentGatewayId, phoneNumber, /*pmsConfirmationId,*/ PendingTransactionStatus.Active.status(), supplierId);
 	
@@ -186,7 +186,7 @@ public abstract class PaymentHelper {
 		
 		paymentTransaction.setNetRate(pendingTransaction.isNetRate());
 		
-		paymentTransaction.setTotalBookingpalPayment(pendingTransaction.getBookingpalPayment());
+		paymentTransaction.setTotalbookingnetPayment(pendingTransaction.getbookingnetPayment());
 		paymentTransaction.setPartnerPayment(pendingTransaction.getPartnerPayment());
 		paymentTransaction.setPmsPayment(pendingTransaction.getPmsPayment());
 		paymentTransaction.setPmCommissionValue(pendingTransaction.getPmCommissionValue());
@@ -207,7 +207,7 @@ public abstract class PaymentHelper {
         	Date currentDate = new Date();
         	String chargeType = null;
         	String currency = "USD";
-        	Integer fundsHolder = FundsHolderEnum.BookingPal.value();
+        	Integer fundsHolder = FundsHolderEnum.bookingnet.value();
         	Integer reservationId = Integer.valueOf(reservation.getId());
         	Integer paymentMethod = PaymentProcessingTypeEnum.GATEWAY.type();
         	Integer supplierId = Integer.valueOf(product.getSupplierid());
@@ -246,7 +246,7 @@ public abstract class PaymentHelper {
         	paymentTransaction.setStatus(status);
         	paymentTransaction.setSupplierId(supplierId);
         	paymentTransaction.setTotalAmount(totalAmountValue);
-        	paymentTransaction.setTotalBookingpalPayment(bpCommissionValue);
+        	paymentTransaction.setTotalbookingnetPayment(bpCommissionValue);
         	paymentTransaction.setTotalCommission(totalCommissionValue);
         	
         	return paymentTransaction;
@@ -264,7 +264,7 @@ public abstract class PaymentHelper {
 		Date currentDate = new Date();
 		Integer lastFour = PaymentHelper.getLastDigits(cardNumber, 4);
 		String chargeType = propertyManagerInfo != null ? PaymentHelper.getChargeType(propertyManagerInfo, reservation) : null;
-		Double bookingpalCommission = propertyManagerInfo.getBpCommission() / 100.;
+		Double bookingnetCommission = propertyManagerInfo.getBpCommission() / 100.;
 		Double additionalCommissionValue = propertyManagerInfo.getAdditionalCommission() == null ? 0.0 : propertyManagerInfo.getAdditionalCommission();
 		
 		PaymentTransaction paymentTransaction = new PaymentTransaction();
@@ -306,7 +306,7 @@ public abstract class PaymentHelper {
 			Double partnerPaymentAmount = commissionSeparator.getChannelPartnerCommissionValue();
 			
 			paymentTransaction.setTotalCommission(totalCommissionValue);
-			paymentTransaction.setTotalBookingpalPayment(bpPaymentAmount);						
+			paymentTransaction.setTotalbookingnetPayment(bpPaymentAmount);						
 			paymentTransaction.setPmsPayment(pmsPaymentAmount);			
 			paymentTransaction.setPmCommissionValue(pmPaymentAmount);
 			paymentTransaction.setPartnerPayment(partnerPaymentAmount);
@@ -319,10 +319,10 @@ public abstract class PaymentHelper {
 			if(product.getDiscount() != null){
 				paymentTransaction.setTotalCommission(amount * (product.getDiscount() / 100.));	
 			}
-			paymentTransaction.setTotalBookingpalPayment(amount * bookingpalCommission);
+			paymentTransaction.setTotalbookingnetPayment(amount * bookingnetCommission);
 			
 			// TODO : if (getTotalCommission() > 0)
-			paymentTransaction.setPartnerPayment(paymentTransaction.getTotalCommission() - ccFee - paymentTransaction.getTotalBookingpalPayment());
+			paymentTransaction.setPartnerPayment(paymentTransaction.getTotalCommission() - ccFee - paymentTransaction.getTotalbookingnetPayment());
 		}
 		if(amount != null) {
 			paymentTransaction.setTotalAmount(amount);
@@ -336,7 +336,7 @@ public abstract class PaymentHelper {
 		
 		// the amount that will be paid to the partner
 		// when calculating this value find the partner in the partner table and use the percentage entered for this partner
-		// paymentTransaction.setPartnerPayment(paymentTransaction.getTotalCommission() - creditCardFee - paymentTransaction.getTotalBookingpalPayment());
+		// paymentTransaction.setPartnerPayment(paymentTransaction.getTotalCommission() - creditCardFee - paymentTransaction.getTotalbookingnetPayment());
 		
 		return paymentTransaction;
 	}
@@ -462,12 +462,12 @@ public abstract class PaymentHelper {
 		System.out.println("Amount: " + amount);
 		System.out.println("Discount percentage: " + product.getDiscount() / 100.);
 		CommissionCalculationUtil calculationUtil = new CommissionCalculationUtil(sqlSession, reservation, reservation.getPrice(), reservation.getExtra());
-		Double totalBookingpalPayment = calculationUtil.getBpCommissionValue();
+		Double totalbookingnetPayment = calculationUtil.getBpCommissionValue();
 		System.out.println("Total commission: " + totalCommission + "\n" +
 				"Credit card fee: " + creditCardFee + "\n" +
-				"Total bookingpal payment: " + totalBookingpalPayment);
-		System.out.println(totalCommission - creditCardFee - totalBookingpalPayment);
-		// paymentTransaction.getTotalCommission() - creditCardFee - paymentTransaction.getTotalBookingpalPayment();
+				"Total bookingnet payment: " + totalbookingnetPayment);
+		System.out.println(totalCommission - creditCardFee - totalbookingnetPayment);
+		// paymentTransaction.getTotalCommission() - creditCardFee - paymentTransaction.getTotalbookingnetPayment();
 	}
 	
 	public static PropertyManagerCancellationRule getRuleForCurrentDate(SqlSession sqlSession, Reservation reservation, Integer propertyManagerId) {
@@ -581,7 +581,7 @@ public abstract class PaymentHelper {
 		if (pmi == null || amount == null) {
 			return creditCardFee;
 		}
-		if (pmi.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER){
+		if (pmi.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER){
 			creditCardFee = amount * CommissionCalculationUtil.CREDIT_CARD_FEE;
 		}			 
 		return creditCardFee;
@@ -604,20 +604,20 @@ public abstract class PaymentHelper {
 	public static Double convertToDefaultMbpCurrency(SqlSession sqlSession, Reservation reservation, PropertyManagerInfo propertyManagerInfo, Double amount, String currency) throws ParseException {
 		SqlSession convertionSqlSession = RazorServer.openSession();
 		try {
-			Double bookingpalDefaultCurrencyAmount = amount;
-			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER) {
-				bookingpalDefaultCurrencyAmount = PaymentService.convertCurrency(sqlSession, currency, DEFAULT_BOOKINGPAL_CURRENCY, amount);
-				bookingpalDefaultCurrencyAmount = getAmountWithTwoDecimals(bookingpalDefaultCurrencyAmount);
+			Double bookingnetDefaultCurrencyAmount = amount;
+			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER) {
+				bookingnetDefaultCurrencyAmount = PaymentService.convertCurrency(sqlSession, currency, DEFAULT_bookingnet_CURRENCY, amount);
+				bookingnetDefaultCurrencyAmount = getAmountWithTwoDecimals(bookingnetDefaultCurrencyAmount);
 				ConvertionInfo convertion = new ConvertionInfo();
 				convertion.setConvertionDate(new Date());
 				convertion.setFromAmount(amount);
 				convertion.setFromCurrency(currency);
-				convertion.setRate(bookingpalDefaultCurrencyAmount / amount);
+				convertion.setRate(bookingnetDefaultCurrencyAmount / amount);
 				convertionSqlSession.getMapper(ConvertionInfoMapper.class).create(convertion);
 				convertionSqlSession.commit();
-				reservation.setCurrency(DEFAULT_BOOKINGPAL_CURRENCY);
+				reservation.setCurrency(DEFAULT_bookingnet_CURRENCY);
 			}
-			return bookingpalDefaultCurrencyAmount;
+			return bookingnetDefaultCurrencyAmount;
 		} finally {
 			convertionSqlSession.close();
 		}

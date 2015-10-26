@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.form;
@@ -395,7 +395,7 @@ extends AbstractForm<Organization> {
 
 			posValue = Party.encrypt(organization.getId());
 			emailValue = organization.getEmailaddresses();
-			registerUrl = "http://uat.mybookingpal.com/registration/index.html?pos=" + posValue + "&email="
+			registerUrl = "http://uat.bookingnet.com/registration/index.html?pos=" + posValue + "&email="
 					+ emailValue;
 			
 			refreshStackPanel();

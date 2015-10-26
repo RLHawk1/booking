@@ -46,6 +46,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
+import com.bookingnet.config.RazorConfig;
 import com.escapia.evrn._2007._02.AddressType;
 import com.escapia.evrn._2007._02.ArrayOfCalendarAvailType;
 import com.escapia.evrn._2007._02.ArrayOfEVRNPoliciesTypePolicy.Policy;
@@ -77,7 +78,6 @@ import com.escapia.evrn._2007._02.UnitDescriptiveInfoStream.EVRNUnitDescriptiveI
 import com.escapia.evrn._2007._02.UnitInfoType;
 import com.google.gwt.thirdparty.guava.common.collect.ArrayListMultimap;
 import com.google.gwt.thirdparty.guava.common.collect.Multimap;
-import com.mybookingpal.config.RazorConfig;
 
 public class A_Handler extends PartnerHandler implements IsPartner {
 	

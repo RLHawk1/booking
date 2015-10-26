@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.widget.text;
@@ -28,6 +28,7 @@ import net.cbtltd.shared.Text;
 import net.cbtltd.client.resource.Hosts;
 import net.cbtltd.shared.text.WidgetText;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -39,7 +40,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class TextWidget is to display text via a widget that can be hosted by a web page. */
 public class TextWidget

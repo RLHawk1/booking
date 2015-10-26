@@ -21,7 +21,7 @@
 		<result column="currency" jdbcType="VARCHAR" property="currency" />
 		<result column="total_commission" jdbcType="DOUBLE" property="totalCommission" />
 		<result column="partner_payment" jdbcType="DOUBLE" property="partnerPayment" />
-		<result column="total_bookingpal_payment" jdbcType="DOUBLE" property="totalBookingpalPayment" />
+		<result column="total_bookingnet_payment" jdbcType="DOUBLE" property="totalbookingnetPayment" />
 		<result column="final_amount" jdbcType="DOUBLE" property="finalAmount" />
 		<result column="credit_card_fee" jdbcType="DOUBLE" property="creditCardFee" />
 		<result column="charge_type" jdbcType="VARCHAR" property="chargeType" />
@@ -33,14 +33,14 @@
 
 	<sql id="columns">
 		ID, create_date, server_id, reservation_id, pms_confirmation_id, payment_method, gateway_transaction_id, gateway_id, funds_holder, partial_iin,
-		status, message, partner_id, supplier_id, charge_date, total_amount, currency, total_commission, partner_payment, total_bookingpal_payment, final_amount,
+		status, message, partner_id, supplier_id, charge_date, total_amount, currency, total_commission, partner_payment, total_bookingnet_payment, final_amount,
 		credit_card_fee, charge_type, net_rate, pm_commission_value, pms_payment, additional_commission_value
 	</sql>
 
 	<insert id="create" parameterType="PaymentTransaction" useGeneratedKeys="true" keyProperty="id">
 		insert into payment_transaction (create_date, server_id, reservation_id, pms_confirmation_id, payment_method, gateway_transaction_id, gateway_id,
 		funds_holder, partial_iin, status, message, partner_id, supplier_id, charge_date, total_amount, currency, total_commission,
-		partner_payment, total_bookingpal_payment, final_amount, credit_card_fee, charge_type, net_rate,
+		partner_payment, total_bookingnet_payment, final_amount, credit_card_fee, charge_type, net_rate,
 		pm_commission_value, pms_payment, additional_commission_value)
 		
 		values (
@@ -48,7 +48,7 @@
 		#{paymentMethod,jdbcType=BOOLEAN}, #{gatewayTransactionId,jdbcType=VARCHAR}, #{gatewayId,jdbcType=INTEGER}, #{fundsHolder,jdbcType=INTEGER},
 		#{partialIin,jdbcType=INTEGER}, #{status,jdbcType=VARCHAR}, #{message,jdbcType=VARCHAR}, #{partnerId,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER},
 		#{chargeDate,jdbcType=TIMESTAMP}, #{totalAmount,jdbcType=DOUBLE}, #{currency,jdbcType=VARCHAR}, #{totalCommission,jdbcType=DOUBLE},
-		#{partnerPayment,jdbcType=DOUBLE}, #{totalBookingpalPayment,jdbcType=DOUBLE}, #{finalAmount,jdbcType=DOUBLE}, #{creditCardFee,jdbcType=DOUBLE},
+		#{partnerPayment,jdbcType=DOUBLE}, #{totalbookingnetPayment,jdbcType=DOUBLE}, #{finalAmount,jdbcType=DOUBLE}, #{creditCardFee,jdbcType=DOUBLE},
 		#{chargeType,jdbcType=VARCHAR}, #{netRate,jdbcType=BOOLEAN}, #{pmCommissionValue,jdbcType=DOUBLE},
 		#{pmsPayment,jdbcType=DOUBLE}, #{additionalCommissionValue,jdbcType=DOUBLE}
 		)
@@ -136,8 +136,8 @@
 			<if test="partnerPayment != null">
 				partner_payment = #{partnerPayment,jdbcType=DOUBLE},
 			</if>
-			<if test="totalBookingpalPayment != null">
-				total_bookingpal_payment = #{totalBookingpalPayment,jdbcType=DOUBLE},
+			<if test="totalbookingnetPayment != null">
+				total_bookingnet_payment = #{totalbookingnetPayment,jdbcType=DOUBLE},
 			</if>
 			<if test="finalAmount != null">
 				final_amount = #{finalAmount,jdbcType=DOUBLE},
@@ -189,7 +189,7 @@
 		currency = #{currency,jdbcType=VARCHAR},
 		total_commission = #{totalCommission,jdbcType=DOUBLE},
 		partner_payment = #{partnerPayment,jdbcType=DOUBLE},
-		total_bookingpal_payment = #{totalBookingpalPayment,jdbcType=DOUBLE},
+		total_bookingnet_payment = #{totalbookingnetPayment,jdbcType=DOUBLE},
 		final_amount = #{finalAmount,jdbcType=DOUBLE},
 		credit_card_fee = #{creditCardFee,jdbcType=DOUBLE},
 		charge_type = #{chargeType,jdbcType=VARCHAR},

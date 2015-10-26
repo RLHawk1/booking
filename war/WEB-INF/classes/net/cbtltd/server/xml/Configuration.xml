@@ -158,7 +158,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</typeAliases>
 		
 	<plugins>
-  		<plugin interceptor="com.mybookingpal.service.interceptor.SqlInterceptor">
+  		<plugin interceptor="com.bookingnet.service.interceptor.SqlInterceptor">
     		<property name="someProperty" value="100"/>
   		</plugin>
 	</plugins>
@@ -173,11 +173,11 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 				
 				<!-- 		
 				<property name="url" value="jdbc:mysql://razor-cloud-test.cl8byaopxglx.us-east-1.rds.amazonaws.com:3306/demo" /> 	
-				<property name="url" value="jdbc:mysql://uat.mybookingpal.com:3306/razor" /> 
+				<property name="url" value="jdbc:mysql://uat.bookingnet.com:3306/razor" /> 
  				<property name="url" value="jdbc:mysql://razor-cloud-test.cl8byaopxglx.us-east-1.rds.amazonaws.com:3306/demo" /> 
 				<property name="url" value="jdbc:mysql://razor-cloud.crax8xvg1vwz.us-east-1.rds.amazonaws.com:3306/razor" /> 
 				
- 				<property name="url" value="jdbc:mysql://uatdb.mybookingpal.com:3306/razor" />
+ 				<property name="url" value="jdbc:mysql://uatdb.bookingnet.com:3306/razor" />
 							 
 				<property name="username" value="root" />  
 				<property name="username" value="pavel" /> 
@@ -193,7 +193,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
- 				<property name="url" value="jdbc:mysql://uatdb.mybookingpal.com:3306/razor?characterEncoding=UTF8" /> 
+ 				<property name="url" value="jdbc:mysql://uatdb.bookingnet.com:3306/razor?characterEncoding=UTF8" /> 
  				<property name="username" value="pavel" /> 
 				<property name="password" value="password" />
 				<property name="poolMaximumActiveConnections" value="50" />
@@ -213,7 +213,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 			<transactionManager type="JDBC" />
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
- 				<property name="url" value="jdbc:mysql://demodb.mybookingpal.com:3306/razor?characterEncoding=UTF8" /> 
+ 				<property name="url" value="jdbc:mysql://demodb.bookingnet.com:3306/razor?characterEncoding=UTF8" /> 
 				<property name="username" value="root" />
 				<property name="password" value="4eVfWDdP" />
 				<property name="poolMaximumActiveConnections" value="50" />
@@ -295,10 +295,10 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 		<mapper resource="net/cbtltd/server/xml/RatesMapper.xml"/>	
 		<mapper resource="net/cbtltd/server/xml/PropertyDealRatesMapper.xml"/>	
 		
-		<mapper resource="com/mybookingpal/server/test/xml/LocationMapper.xml"/>
-		<mapper resource="com/mybookingpal/server/test/xml/PriceMapper.xml"/>
-		<mapper resource="com/mybookingpal/server/test/xml/ProductMapper.xml"/>
-		<mapper resource="com/mybookingpal/server/test/xml/RelationMapper.xml"/>
+		<mapper resource="com/bookingnet/server/test/xml/LocationMapper.xml"/>
+		<mapper resource="com/bookingnet/server/test/xml/PriceMapper.xml"/>
+		<mapper resource="com/bookingnet/server/test/xml/ProductMapper.xml"/>
+		<mapper resource="com/bookingnet/server/test/xml/RelationMapper.xml"/>
 		<mapper resource="net/cbtltd/server/xml/ManagerToChannelMapper.xml"/>
 		
 		<mapper resource="net/cbtltd/server/xml/ConvertionInfoMapper.xml"/>

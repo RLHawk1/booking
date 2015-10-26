@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.panel;
@@ -28,6 +28,7 @@ import net.cbtltd.shared.mail.MailSend;
 import net.cbtltd.shared.party.PartyRead;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -38,7 +39,6 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class ReportPopup is to generate and display report instances. */
 public class ReportPopup

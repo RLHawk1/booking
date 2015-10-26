@@ -36,11 +36,11 @@ public class PropertyManagerPayment {
 private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName());
 	
 	public static void execute() {
-		LOG.debug("PropertyManagerPayment processing payments from BookingPal to property managers");
+		LOG.debug("PropertyManagerPayment processing payments from bookingnet to property managers");
 		SqlSession sqlSession = RazorServer.openSession();
 		Date currentDate = new Date();
 		try {
-			bookingPalFundsHolder(sqlSession, currentDate);
+			bookingnetFundsHolder(sqlSession, currentDate);
 			propertyManagerFundsHolder(sqlSession, currentDate);
 			splittedFunds(sqlSession, currentDate);
 			noneHolder(sqlSession, currentDate);
@@ -49,11 +49,11 @@ private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName(
 		finally {sqlSession.close();}
 	}
 	
-	private static void bookingPalFundsHolder(SqlSession sqlSession, Date date) throws Exception {
+	private static void bookingnetFundsHolder(SqlSession sqlSession, Date date) throws Exception {
 		NameIdAction action = new NameIdAction();
 		action.setId("1"); // funds_holder
 		action.setVersion(date);
-		// find all transactions within the last day where funds holder is BookingPal
+		// find all transactions within the last day where funds holder is bookingnet
 		List<PaymentTransaction> paymentTransactions = sqlSession.getMapper(PaymentTransactionMapper.class).listLast24hours(action);
 		for(PaymentTransaction paymentTransaction : paymentTransactions) {
 			PaymentProcessingTypeEnum paymentMethod = PaymentProcessingTypeEnum.getByInt(paymentTransaction.getPaymentMethod());
@@ -75,19 +75,19 @@ private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName(
 	}
 	
 	private static void gatewayPayment(SqlSession sqlSession, PaymentTransaction paymentTransaction) throws Exception {
-		double amountToCharge = paymentTransaction.getFinalAmount() - paymentTransaction.getTotalBookingpalPayment();
+		double amountToCharge = paymentTransaction.getFinalAmount() - paymentTransaction.getTotalbookingnetPayment();
 		Party pm = sqlSession.getMapper(PartyMapper.class).read(String.valueOf(paymentTransaction.getSupplierId()));
 		amountToCharge = PaymentService.convertCurrency(sqlSession, paymentTransaction.getCurrency(), pm.getCurrency(), amountToCharge);
 		PaypalAccount account = new PaypalAccount();
 //		account.set
-		PaypalHandlerNew.accountToAccountPayment(pm.getEmailaddress(), HasUrls.MYBOOKINGPAL_PAYPAL_EMAIL, null /* TODO */, amountToCharge, pm.getCurrency());
+		PaypalHandlerNew.accountToAccountPayment(pm.getEmailaddress(), HasUrls.bookingnet_PAYPAL_EMAIL, null /* TODO */, amountToCharge, pm.getCurrency());
 		
 		PaymentRegister paymentRegister = initializePaymentRegister(sqlSession, paymentTransaction, 2, true);
 		sqlSession.getMapper(PaymentRegisterMapper.class).create(paymentRegister);
 	}
 	
 	private static void eCheckPayment(SqlSession sqlSession, PaymentTransaction paymentTransaction) {
-		double amountToCharge = paymentTransaction.getFinalAmount() - paymentTransaction.getTotalBookingpalPayment();
+		double amountToCharge = paymentTransaction.getFinalAmount() - paymentTransaction.getTotalbookingnetPayment();
 		Party pm = sqlSession.getMapper(PartyMapper.class).read(String.valueOf(paymentTransaction.getSupplierId()));
 		amountToCharge = PaymentService.convertCurrency(sqlSession, paymentTransaction.getCurrency(), pm.getCurrency(), amountToCharge);
 		PaymentMethod paymentMethod = sqlSession.getMapper(PaymentMethodMapper.class).read_by_pm(paymentTransaction.getSupplierId());
@@ -95,10 +95,10 @@ private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName(
 		// set up bank account info parameters
 		Integer reservationId = paymentTransaction.getReservationId();
 		GatewayInfo gatewayInfo = new GatewayInfo();
-		gatewayInfo.setId(Constants.ANET_BOOKINGPAL_ACC_ID);
-		gatewayInfo.setToken(Constants.ANET_BOOKINGPAL_TRANSACTION_KEY);
+		gatewayInfo.setId(Constants.ANET_bookingnet_ACC_ID);
+		gatewayInfo.setToken(Constants.ANET_bookingnet_TRANSACTION_KEY);
 		ANetHandler handler = new ANetHandler(gatewayInfo);
-		handler.createBankPaymentProfile(sqlSession, reservationId, bankAccountInfo, Constants.ANET_BOOKINGPAL_ACC_ID, Constants.ANET_BOOKINGPAL_TRANSACTION_KEY);
+		handler.createBankPaymentProfile(sqlSession, reservationId, bankAccountInfo, Constants.ANET_bookingnet_ACC_ID, Constants.ANET_bookingnet_TRANSACTION_KEY);
 		handler.createPaymentByProfile(sqlSession, pm.getCurrency(), amountToCharge, reservationId);
 	}
 	
@@ -106,7 +106,7 @@ private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName(
 		NameIdAction action = new NameIdAction();
 		action.setId("0");
 		action.setVersion(date);
-		// find all transactions within the last day where funds holder is BookingPal
+		// find all transactions within the last day where funds holder is bookingnet
 		List<PaymentTransaction> paymentTransactions = sqlSession.getMapper(PaymentTransactionMapper.class).listLast24hours(action);
 		
 //		Double transactionsSum = 0.;
@@ -121,7 +121,7 @@ private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName(
 		NameIdAction action = new NameIdAction();
 		action.setId("2");
 		action.setVersion(date);
-		// find all transactions within the last day where funds holder is BookingPal
+		// find all transactions within the last day where funds holder is bookingnet
 		List<PaymentTransaction> paymentTransactions = sqlSession.getMapper(PaymentTransactionMapper.class).listLast24hours(action);
 		for(PaymentTransaction paymentTransaction : paymentTransactions) {
 			// Set the Type to 5-Auto Distributed and Set Cleared = True
@@ -134,7 +134,7 @@ private static final Logger LOG = Logger.getLogger(PendingPayment.class.getName(
 		NameIdAction action = new NameIdAction();
 		action.setId("3");
 		action.setVersion(date);
-		// find all transactions within the last day where funds holder is BookingPal
+		// find all transactions within the last day where funds holder is bookingnet
 		List<PaymentTransaction> paymentTransactions = sqlSession.getMapper(PaymentTransactionMapper.class).listLast24hours(action);
 		for(PaymentTransaction paymentTransaction : paymentTransactions) {
 			// Set the Type to 6-Invoice Partner and Set Cleared = False

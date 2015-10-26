@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	3.0.10
  */
 package net.cbtltd.rest;
@@ -77,8 +77,8 @@ import net.cbtltd.server.config.RazorHostsConfig;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.config.RazorConfig;
+import com.bookingnet.server.ImageService;
 
 /** 
  * The Class ProductRest implements REST service for products and properties.
@@ -122,7 +122,7 @@ public abstract class AbstractProduct {
 		else if (!property.hasState(Constants.CREATED)) {throw new ServiceException(Error.product_inactive, productid);}
 		
 		PropertyManagerInfo propertyManagerInfo = sqlSession.getMapper(PropertyManagerInfoMapper.class).readbypmid(Integer.valueOf(property.getSupplierid()));
-		String currency = PartyService.checkMybookingpalCurrency(property.getCurrency(), propertyManagerInfo);
+		String currency = PartyService.checkbookingnetCurrency(property.getCurrency(), propertyManagerInfo);
 		property.setCurrency(currency);
 		
 		LicenseService.checkAccess(sqlSession, property.getSupplierid(), partyid, productid, License.Type.JSON_XML, License.PRODUCT_WAIT);

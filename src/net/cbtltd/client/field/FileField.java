@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.field;
@@ -20,6 +20,7 @@ import net.cbtltd.shared.api.HasUrls;
 import net.cbtltd.shared.text.TextRead;
 import net.cbtltd.shared.text.TextUpdate;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -40,7 +41,6 @@ import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
-import com.mybookingpal.config.RazorConfig;
 
 /** 
  * The Class FileField is to manage a list of files on the server.

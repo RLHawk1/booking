@@ -19,7 +19,7 @@ import net.cbtltd.server.config.RazorHostsConfig;
 import org.apache.cxf.jaxrs.model.wadl.Description;
 import org.apache.cxf.jaxrs.model.wadl.DocTarget;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 

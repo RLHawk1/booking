@@ -331,7 +331,7 @@ public class FullDataResponse extends StepResponse implements RegistrationRespon
 
 							this.setPaymentGatewayInfo(gatewayInfo);
 						}
-					} else if (this.getPayment() == 1) { // Bookingpal payment gateway selected to process payments. See FifthStepResponse
+					} else if (this.getPayment() == 1) { // bookingnet payment gateway selected to process payments. See FifthStepResponse
 						
 						PaymentMethod paymentMethod = sqlSession.getMapper(PaymentMethodMapper.class).read_by_pm(this.getPmId());
 						if (paymentMethod != null) {
@@ -544,8 +544,8 @@ public class FullDataResponse extends StepResponse implements RegistrationRespon
 				if (managerInfo.getFundsHolder() != null && managerInfo.getPaymentProcessingType() != null) {
 
 					if (managerInfo.getPaymentProcessingType() == PaymentProcessingTypeEnum.GATEWAY.type()) {
-						if (managerInfo.getFundsHolder() == FundsHolderEnum.BookingPal.value()) {
-							this.setPayment(1); /* BookingPal payment gateway selected to process payments.*/
+						if (managerInfo.getFundsHolder() == FundsHolderEnum.bookingnet.value()) {
+							this.setPayment(1); /* bookingnet payment gateway selected to process payments.*/
 						} else if (managerInfo.getFundsHolder() == FundsHolderEnum.External.value()) {
 							this.setPayment(0); /* Another payment gateway selected (PayPal, Authorize .NET, ...) */
 						}

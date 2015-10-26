@@ -14,7 +14,7 @@ import net.cbtltd.shared.NameId;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.server.ImageService;
 
 public class UtilsHandler {
 	

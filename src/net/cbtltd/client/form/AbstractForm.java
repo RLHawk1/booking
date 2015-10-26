@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.form;
@@ -42,6 +42,7 @@ import net.cbtltd.shared.session.PasswordUpdate;
 import net.cbtltd.shared.session.SessionAutoLogin;
 import net.cbtltd.shared.session.SessionLogout;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ChangeEvent;
@@ -68,7 +69,6 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.mybookingpal.config.RazorConfig;
 
 /**
  * The Class AbstractForm is the parent of all concrete form classes to display and change a value of type T.

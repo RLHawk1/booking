@@ -112,7 +112,7 @@ public class UploadUtils {
 				System.out.println("processing "+cnt+ " : "+bpProduct.getId()+" : "+bpProduct.getAltpartyid()+" : "+ bpProduct.getAltid());
 				
 				utils.exportProductDataToXLSX(cnt, propertyUploadData);
-				utils.exportProductImage(com.mybookingpal.server.ImageService.getProductRegularImageURLs(sqlSession, bpProduct.getId()),bpProduct.getId());
+				utils.exportProductImage(com.bookingnet.server.ImageService.getProductRegularImageURLs(sqlSession, bpProduct.getId()),bpProduct.getId());
 				utils.exportExtraCost(cnt,bpProduct.getId(),propertyUploadData);
 				utils.exportProductPolicies(propertyUploadData,rules,bpProduct.getId());
 				} catch (Exception e) {

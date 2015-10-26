@@ -82,7 +82,7 @@ public class RenterConfirmationMailContent {
 			"Property Manager Email address:" + STRING + NEW_LINE + NEW_LINE +
 			 
 			"Thank You" + NEW_LINE +
-			"Your support team at BookingPal";
+			"Your support team at bookingnet";
 
 	public String buildMailWithoutPayment() {
 		return String.format(renterMailWithoutPayment, getChannelPartnerName(), getBookingCreated(), getPropertyAddress(), getArrivalDate(), getCheckInTime(), getDepartureDate(), getCheckOutTime(),

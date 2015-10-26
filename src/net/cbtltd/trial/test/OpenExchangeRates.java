@@ -39,7 +39,7 @@ public class OpenExchangeRates {
 	 * @return the JSON response transformed to a Java object by Gson.
 	 */
 	private static final Exchangerates refreshRates() {
-		try {          // username isaac@mybookingpal.com psassword: bookingpal 
+		try {          // username isaac@bookingnet.com psassword: bookingnet 
 			if (rs == null || rs.isExpired()) {
 				String jsonString = getJson(new URL("http://openexchangerates.org/api/latest.json?app_id=6ecab8a3764a4e32828974e4e0e436e7"));
 				rs = GSON.fromJson(jsonString,Exchangerates.class);

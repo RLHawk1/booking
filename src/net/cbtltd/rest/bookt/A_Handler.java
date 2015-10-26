@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall And Isaac Mahgrefteh 
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet And Isaac Mahgrefteh 
+ * @
  * @version	3.0.10
  */
 
@@ -477,7 +477,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			List<Integer> propertyids = port.getPropertyIDs(apikey, getXGC(new Date(0))).getInt();
 			Date version = new Date();
 			int i = 0;
-			String bppropertyid;//bookingpal id. 
+			String bppropertyid;//bookingnet id. 
 			for (Integer propertyid : propertyids) {         //property BookT //product razor. 
 				
 				Property property = port.getProperty(apikey, String.valueOf(propertyid), useInternalID);

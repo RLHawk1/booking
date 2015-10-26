@@ -1,5 +1,5 @@
 /**
- * @author	Chris Marshall
+ * @author	bookingnet
  * @see		License at http://razorpms.com/razor/License.html
  * @version	2.00
  */

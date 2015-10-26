@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.shared;
@@ -21,7 +21,7 @@ implements HasResponse, HasService {
 	private String recipients;
 	private String contentType;
 	private int status;	
-	private static final String SENDER = "noreply@mybookingpal.com";
+	private static final String SENDER = "noreply@bookingnet.com";
 	
 	public Mail() {
 		super();

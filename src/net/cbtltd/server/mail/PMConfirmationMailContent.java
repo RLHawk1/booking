@@ -44,9 +44,9 @@ public class PMConfirmationMailContent {
 			"Property Information" + NEW_LINE +
 			TAB + "PMS Property ID: " + STRING + NEW_LINE +
 			TAB + "Property Address: " + STRING  + NEW_LINE +
-			TAB + "BookingPal Product ID: " + STRING + NEW_LINE +
+			TAB + "bookingnet Product ID: " + STRING + NEW_LINE +
 //			TAB + "PMS Confirmation: - " + STRING + NEW_LINE +
-//			TAB + "BookingPal Confirmation: " + STRING + NEW_LINE +
+//			TAB + "bookingnet Confirmation: " + STRING + NEW_LINE +
 			TAB + "Channel Partner: " + STRING + NEW_LINE +
 			TAB + "Reserved From: " + DATE + " to " + DATE + NEW_LINE + NEW_LINE + NEW_LINE;
 			
@@ -80,7 +80,7 @@ public class PMConfirmationMailContent {
 			
 	public static String propertyManagerThanksPart =
 			"Thank You" + NEW_LINE +
-			"BookingPal Support Team";
+			"bookingnet Support Team";
 	
 	public String buildPropertyInfoPart() {
 		return String.format(propertyManagerPropertyInfoPart, getPropertyAddress(), getArrivalDate(), getDepartureDate(), getPropertyAltId(), getPropertyAddress(),

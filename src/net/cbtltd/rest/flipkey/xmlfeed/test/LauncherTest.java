@@ -632,10 +632,10 @@ public class LauncherTest {
 	 @Test
 	public void testInquireReservation() throws Exception {
 		System.out.println("Inside testInquireReservation");
-	//http://localhost:8090/Razor/xml/rest/reservation/inquiry?pos=5e7e3a77b3714ea2&productid=3&fromdate=2014-07-17&todate=2014-07-21&notes=test&adult=2&child=2&emailaddress=sen@mybookingpal1.com&familyname=family&firstname=sen&telnumber=1234567&cc_address=test address&cc_country=IN&cc_city=Chennai&cc_zip=600044&cc_state=TN&cc_bdd=31&cc_bdm=10&cc_bdy=1983
+	//http://localhost:8090/Razor/xml/rest/reservation/inquiry?pos=5e7e3a77b3714ea2&productid=3&fromdate=2014-07-17&todate=2014-07-21&notes=test&adult=2&child=2&emailaddress=sen@bookingnet1.com&familyname=family&firstname=sen&telnumber=1234567&cc_address=test address&cc_country=IN&cc_city=Chennai&cc_zip=600044&cc_state=TN&cc_bdd=31&cc_bdm=10&cc_bdy=1983
 
 		HttpURLConnection connection = null;
-		String localURL = "http://localhost:8090/Razor/xml/rest/reservation/inquiry?pos=5e7e3a77b3714ea2&productid=3&fromdate=2014-08-17&todate=2014-08-21&notes=test&adult=2&child=2&emailaddress=sen@mybookingpal1.com&familyname=family&firstname=sen&telnumber=1234567&cc_address=test%20address&cc_country=IN&cc_city=Chennai&cc_zip=600044&cc_state=TN&cc_bdd=31&cc_bdm=10&cc_bdy=1983";
+		String localURL = "http://localhost:8090/Razor/xml/rest/reservation/inquiry?pos=5e7e3a77b3714ea2&productid=3&fromdate=2014-08-17&todate=2014-08-21&notes=test&adult=2&child=2&emailaddress=sen@bookingnet1.com&familyname=family&firstname=sen&telnumber=1234567&cc_address=test%20address&cc_country=IN&cc_city=Chennai&cc_zip=600044&cc_state=TN&cc_bdd=31&cc_bdm=10&cc_bdy=1983";
 		LOG.info(" Reservation Inquiry URL " + localURL);
 	    try {
 	        URL url = new URL(localURL);

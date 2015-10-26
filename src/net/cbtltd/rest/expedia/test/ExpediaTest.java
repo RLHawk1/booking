@@ -25,9 +25,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.bookingnet.config.RazorModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.mybookingpal.config.RazorModule;
 
 public class ExpediaTest {
 	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");

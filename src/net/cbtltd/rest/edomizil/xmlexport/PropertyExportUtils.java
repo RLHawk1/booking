@@ -42,7 +42,7 @@ import net.cbtltd.shared.Text;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 /**
@@ -54,7 +54,7 @@ public class PropertyExportUtils  {
 	private static final Logger LOG = Logger.getLogger(PropertyExportUtils.class.getName());
 	private static final String FILE_LOCATION="bp.e-domizil.xml.export.location";
 	private static final String PROPERTIES_PER_FILE="bp.e-domizil.xml.export.property.count";
-	static String exportWithAccessPointAs=  "mybookingpal.com";
+	static String exportWithAccessPointAs=  "bookingnet.com";
 	
 	List<ChannelProductMap> getProducts(SqlSession sqlSession,String id){
 		
@@ -203,7 +203,7 @@ public class PropertyExportUtils  {
 
 	private void buildUnitPictures(SqlSession sqlSession, Product product,
 			Unit unit) {
-		List<String> listImage=com.mybookingpal.server.ImageService.getProductRegularImageURLs(sqlSession, product.getId());
+		List<String> listImage=com.bookingnet.server.ImageService.getProductRegularImageURLs(sqlSession, product.getId());
 		ProductUnits.Unit.Pictures pictures=new ProductUnits.Unit.Pictures();
 		ProductUnits.Unit.Pictures.Picture picture=null;
 		int id=243; int count=1;

@@ -129,7 +129,7 @@
                 </ex-property>
             </list-property>
             <property name="odaDriverClass">com.mysql.jdbc.Driver</property>
-            <property name="odaURL">jdbc:mysql://uatdb.mybookingpal.com:3306/razor</property>
+            <property name="odaURL">jdbc:mysql://uatdb.bookingnet.com:3306/razor</property>
             <property name="odaUser">root</property>
             <encrypted-property name="odaPassword" encryptionID="base64">NGVWZldEZFA=</encrypted-property>
         </oda-data-source>

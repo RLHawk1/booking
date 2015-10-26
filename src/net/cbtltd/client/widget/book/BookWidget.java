@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.widget.book;
@@ -38,6 +38,7 @@ import net.cbtltd.shared.Report;
 import net.cbtltd.shared.Service;
 import net.cbtltd.shared.Time;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -50,7 +51,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class BookWidget is to display and enter reservations via a widget that can be hosted by a web page. */
 public class BookWidget

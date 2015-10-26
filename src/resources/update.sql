@@ -4,9 +4,9 @@ USE `razor`;
  * ID 					- ID of entry
  * create_date 			- time and date entry was created 
  * payment_gateway_id	- foreign key to PaymentGatewayProviders
- * funds_holder 		- this value is set based on whether the PM is using their Payment Gateway account or BookingPal payment gateway account
+ * funds_holder 		- this value is set based on whether the PM is using their Payment Gateway account or bookingnet payment gateway account
  * 							0 - Indicates that the PM is holding the funds for this property and that we need to invoice the PM for the funds
- * 							1 - Indicates that BookingPal is holding the funds and those we need to send a check to the PM for the booking
+ * 							1 - Indicates that bookingnet is holding the funds and those we need to send a check to the PM for the booking
  * 							2 - Indicates that the Payment processor has split the funds with all parties
  * supplier_id 			- property manager ID
  * gateway_code 		- Username or code used for the payment gateways
@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS manager_to_gateway (id INT NOT NULL auto_increment, c
  * name			- name of the payment gateway, these values should be displayed in all dropdowns when selecting a payment gateway provider 
  * create_date	- date and time that this entry was created
  * fee			- the fee that is charged for each transaction by the payment gateway
- * autopay		- this will indicate if the all the payments will be made by the payment gateway or BookingPal will need to call the payment 
+ * autopay		- this will indicate if the all the payments will be made by the payment gateway or bookingnet will need to call the payment 
  * 				  gateway for each additional payment
  * 					0 - payment gateway will charge remaining payments
- * 					1 - BookingPal will need to call payment gateway for each additional charge
+ * 					1 - bookingnet will need to call payment gateway for each additional charge
  */
 CREATE TABLE IF NOT EXISTS payment_gateway_provider (id INT NOT NULL auto_increment, name VARCHAR(100), create_date DATETIME, fee TINYINT, autopay TINYINT(1), PRIMARY KEY  USING BTREE (id));
 
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS payment_gateway_provider (id INT NOT NULL auto_increm
  * gateway_id				- ID of payment gateay that was used for the transaction
  * funds_holder				- this value is set based on the vakue in the manager_to_gateway table
  * 								0 - indicates that the PM is holding the funds for this property and that we need to invoice the PM for the funds
- * 								1 - indicates that BookingPal is holding the funds ant those we need to send a check to the OM for the booking
+ * 								1 - indicates that bookingnet is holding the funds ant those we need to send a check to the OM for the booking
  * 								2 - indeicates that the payment processor has split the funds with all parties
  * 								3 - indicates that the channel partner is holding the funds for this booking
  * partial_iin				- last 4 digits of the credit card used
@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS payment_gateway_provider (id INT NOT NULL auto_increm
  * total_commission			- this should the total commission that was paid for this property. This should be determined by looking up the commission for this property
  * partner_payment			- the amount that will be paid to the partner
  * 								when calculating this value find the partner in the partner table and use the percentage entered for this partner
- * total_bookingpal_payment	- the amount that will be paid to BookingPal from the total commission collected for the TotalAmountCharged
- * 								this percentage will be saved in a settings table under 'BookingPal Commission'
+ * total_bookingnet_payment	- the amount that will be paid to bookingnet from the total commission collected for the TotalAmountCharged
+ * 								this percentage will be saved in a settings table under 'bookingnet Commission'
  * final_amount 			- the amount to be collected once the complete payment to the property is made
  * credit_card_fee			- the fee that is charged by the payment gateway provider. If the valie is not returned, use the value from payment_gateway_provider provider table
  * charge_type				- this value should indicate the type of charge that was made
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS payment_gateway_provider (id INT NOT NULL auto_increm
  */
 CREATE TABLE IF NOT EXISTS payment_transaction (id BIGINT NOT NULL auto_increment, create_date DATETIME, server_id INT, reservation_id INT, pms_confirmation_id INT, payment_method INT,
 	gateway_transaction_id VARCHAR(100), gateway_id INT, funds_holder TINYINT, partial_iin INT, status VARCHAR(100), message VARCHAR(1000), partner_id INT, supplier_id INT,
-	charge_date DATETIME, total_amount DOUBLE, currency VARCHAR(100), total_commission DOUBLE, partner_payment DOUBLE, total_bookingpal_payment DOUBLE,
+	charge_date DATETIME, total_amount DOUBLE, currency VARCHAR(100), total_commission DOUBLE, partner_payment DOUBLE, total_bookingnet_payment DOUBLE,
 	final_amount DOUBLE, credit_card_fee DOUBLE, charge_type VARCHAR(100), cancelled (TINYINT), PRIMARY KEY USING BTREE (id));
 	
 /*
@@ -170,7 +170,7 @@ ALTER TABLE `product`
  * payment_gateway_id - ID of payment gateway that was used for the transaction
  * funds_holder - This value should be set based on the value set in the PropertyManagerToPaymentGatewayMap table
  * 	0 - Indicates that the PM is holding the funds for this property and that we need to invoice the PM for the funds
- * 	1 - Indicates that BookingPal is holding the funds and those we need to send a check ti the PM for the booking
+ * 	1 - Indicates that bookingnet is holding the funds and those we need to send a check ti the PM for the booking
  *  2 - Indicates that the Payment processor has split the funds with all parties
  *  3 - Indicates that the Channel Partner is holding the funds for this booking 
  * partial_iin - last 4 digits of the credit card used
@@ -185,8 +185,8 @@ ALTER TABLE `product`
  * commission - commission remaining to be collected. This should determined by looking up the commission for this property.
  * partner_payment - The amount that will be paid to the partner
  * 	When calculating this value, find the partner in the partner table and use the percentage entered for this partner 
- * bookingpal_payment - the amount that is pending from the remaining balance to be charged
- * 	this percentage will be saved in a settings table under 'BookingPal Commission'
+ * bookingnet_payment - the amount that is pending from the remaining balance to be charged
+ * 	this percentage will be saved in a settings table under 'bookingnet Commission'
  * gateway_transaction_id - this is ID returned by the payment gateway when the initial payment was made. 
  * This ID should be used to verify the payment and or make additional payments
  * status -
@@ -198,11 +198,11 @@ ALTER TABLE `product`
  * 	6 - Cancelled = the reservation was cancelled by the PMS 
  * autopay - this value will come from the selected patment gateway
  * 	0 - payment gatewat will charge remaining payments
- * 	1 - BookingPal will need to call payment gateway for each additional charge
+ * 	1 - bookingnet will need to call payment gateway for each additional charge
  */
 CREATE TABLE IF NOT EXISTS pending_transaction(id INT NOT NULL auto_increment, entry_date_time DATETIME, booking_id INT, pms_confirmation_id INT, payment_gateway_id INT,
 	funds_holder INT, partial_iin INT, first_name VARCHAR(100), last_name VARCHAR(100), phone_number VARCHAR(100), partner_id INT, supplier_id INT, charge_date DATE, charge_amount DOUBLE,
-	currency VARCHAR(100), commission DOUBLE, partner_payment DOUBLE, bookingpal_payment DOUBLE, gateway_transaction_id VARCHAR(100), status SMALLINT, autopay TINYINT(1),
+	currency VARCHAR(100), commission DOUBLE, partner_payment DOUBLE, bookingnet_payment DOUBLE, gateway_transaction_id VARCHAR(100), status SMALLINT, autopay TINYINT(1),
 	PRIMARY KEY USING BTREE (id));
 
 /* Adding the AltID column to the Price table */
@@ -1217,7 +1217,7 @@ update party set skip_license = 1 where id in ('837', '7905', '61447', '90640', 
 '296095', '296147', '302874', '303914', '307047', '310312', '314370', '314372', '314381', '314534', '314545', '314547', '315850', '325061', '210254', '325369', '321479', '231057', '317832',
 '314757', '210270', '324833', '324431', '102017', '254061', '324539', '325252', '205124', '231048', '191908', '231049', '231050', '231051', '231053', '318396')
 
--- Table that is responsible for convertion from custom currency to USD in case of Bookingpal is funds holder. BP-1190 ticket.
+-- Table that is responsible for convertion from custom currency to USD in case of bookingnet is funds holder. BP-1190 ticket.
 create table if not exists convertion_info (id INT NOT NULL auto_increment, from_currency VARCHAR(255), from_amount DOUBLE, rate DOUBLE,
 	convertion_date DATETIME, PRIMARY KEY  USING BTREE (id));
 	
@@ -1230,7 +1230,7 @@ ALTER TABLE `razor`.`party` CHANGE COLUMN `AltID` `AltID` VARCHAR(40) NULL DEFAU
 -- NET Rate flag is true if net rate and false if retail rate
 alter table payment_transaction add column net_rate tinyint(1) not null default 0;
 
--- BookingPal commission
+-- bookingnet commission
 -- alter table product add column bp_commission double not null default 2;
 
 -- When the transaction is being saved we will need to save the PMS dollar amount of their commission in this column
@@ -1243,11 +1243,11 @@ alter table property_manager_info add column commission double;
 -- alter table product add column net_rate tinyint(1) not null default 0;
 alter table property_manager_info add column net_rate tinyint(1) not null default 0;
 
--- BookingPal commission
+-- bookingnet commission
 alter table property_manager_info add column bp_commission double;
 
 -- Storing all commission values:
--- Total BookingPal Payment
+-- Total bookingnet Payment
 -- Partner Payment
 -- PM Payment
 -- PMS Payment

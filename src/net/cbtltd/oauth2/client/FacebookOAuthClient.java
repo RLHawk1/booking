@@ -18,14 +18,14 @@ public static void main(String[] args) {
 @GET
 @Path("/authorize")
 	public void authorize() {
-		BookingPalOAuthService bookingPalOAuthService = new BookingPalOAuthService();
+	BookingPalOAuthService bookingnetOAuthService = new BookingPalOAuthService();
 		OAuthAccessTokenParams oauthAccessTokenParams = new OAuthAccessTokenParams();
 		// http://localhost:8080/Razor/xml/rest/product/143/propertydetail?pos=5e7e3a77b3714ea2&test=true
 		oauthAccessTokenParams.setRequestURL("https://graph.facebook.com/oauth/authorize");
 		oauthAccessTokenParams.setClientId("211012835683755");
 		oauthAccessTokenParams.setRedirectURL("http://localhost:8090/Razor/xml/rest/facebookOAuthClient/redirect");
 		oauthAccessTokenParams.setScope("email");
-		bookingPalOAuthService.authorize(oauthAccessTokenParams);
+		bookingnetOAuthService.authorize(oauthAccessTokenParams);
 	}
 	
 	@GET
@@ -42,7 +42,7 @@ public static void main(String[] args) {
 		LOG.info("Code from OAuth Authorization server " + code);
 		System.out.println("Code from OAuth Authorization server " + code);
 		
-		BookingPalOAuthService bookingPalOAuthService = new BookingPalOAuthService();
+		BookingPalOAuthService bookingnetOAuthService = new BookingPalOAuthService();
 		OAuthAccessTokenParams oauthAccessTokenParams = new OAuthAccessTokenParams();
 		oauthAccessTokenParams.setRequestURL("https://graph.facebook.com/oauth/access_token");
 		oauthAccessTokenParams.setRedirectURL("http://localhost:8090/Razor/xml/rest/facebookOAuthClient/redirect");
@@ -50,7 +50,7 @@ public static void main(String[] args) {
 		
 		oauthAccessTokenParams.setClientId("211012835683755");
 		oauthAccessTokenParams.setClientSecret("7201e8c79146e26635fec203b6f84763");
-		String oAuthResponse = bookingPalOAuthService
+		String oAuthResponse = bookingnetOAuthService
 				.fetchAccessToken(oauthAccessTokenParams);
 		System.out.println("oAuthResponse "+oAuthResponse);
 		LOG.info("oAuthResponse "+oAuthResponse);

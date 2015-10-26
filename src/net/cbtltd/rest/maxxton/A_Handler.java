@@ -89,11 +89,11 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final String reservationCategoryCode = "touroperatorboeking";
 	*/
 	//new test credentials
-	private static final String username = "bookingpal";
+	private static final String username = "bookingnet";
 	private static final String password = "2014alpBP39";
 	private static final String languageCode = "en";
 	private static final String distributionchannelCode = "TOBP";
-	private static final String reservationCategoryCode = "bookingpal";
+	private static final String reservationCategoryCode = "bookingnet";
 	
 //	private static final String RESERVATION_ACCOMMODATION_TYPE_CODE = "accommodationtype";
 	
@@ -1251,7 +1251,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					SortedSet<DateTime> accommodationAvailableDates = new TreeSet<DateTime>();
 					
 					Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altId, false);
-					//do not have the product in mybookingpal move on.
+					//do not have the product in bookingnet move on.
 					if (product == null) {
 						LOG.error(Error.product_altid.getMessage() + ", Product not exsit, altId:" + altId);
 						continue;

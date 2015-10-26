@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- pending_transaction(id INT NOT NULL auto_increment, entry_date_time DATETIME, booking_id INT, pms_confirmation_id INT, payment_gateway_id INT,
 	funds_holder INT, partial_iin INT, first_name VARCHAR, last_name VARCHAR, phone_number VARCHAR, partner_id INT, supplier_id INT, charge_date DATE,
-	charge_amount DOUBLE, currency VARCHAR, commission DOUBLE, partner_payment DOUBLE, bookingpal_payment DOUBLE, gateway_transaction_id VARCHAR, status VARCHAR,
+	charge_amount DOUBLE, currency VARCHAR, commission DOUBLE, partner_payment DOUBLE, bookingnet_payment DOUBLE, gateway_transaction_id VARCHAR, status VARCHAR,
 	autopay TINYINT(1), PRIMARY KEY USING BTREE (id)); -->
 <mapper namespace="net.cbtltd.server.api.PendingTransactionMapper">
 	<resultMap id="ResultMap" type="PendingTransaction">
@@ -23,7 +23,7 @@
 		<result column="currency" jdbcType="VARCHAR" property="currency" />
 		<result column="commission" jdbcType="DOUBLE" property="commission" />
 		<result column="partner_payment" jdbcType="DOUBLE" property="partnerPayment" />
-		<result column="bookingpal_payment" jdbcType="DOUBLE" property="bookingpalPayment" />
+		<result column="bookingnet_payment" jdbcType="DOUBLE" property="bookingnetPayment" />
 		<result column="gateway_transaction_id" jdbcType="VARCHAR" property="gatewayTransactionId" />
 		<result column="status" jdbcType="VARCHAR" property="status" />
 		<result column="autopay" jdbcType="BOOLEAN" property="autopay" />
@@ -36,18 +36,18 @@
 
 	<sql id="columns">
 		ID, entry_date_time, booking_id, <!-- pms_confirmation_id, --> payment_gateway_id, funds_holder, partial_iin, first_name, last_name, phone_number, partner_id,
-		supplier_id, charge_date, charge_amount, currency, commission, partner_payment, bookingpal_payment, gateway_transaction_id, status, autopay,
+		supplier_id, charge_date, charge_amount, currency, commission, partner_payment, bookingnet_payment, gateway_transaction_id, status, autopay,
 		net_rate, pm_commission_value, pms_payment, additional_commission_value, credit_card_fee
 	</sql>
 
 	<insert id="create" parameterType="PendingTransaction" useGeneratedKeys="true" keyProperty="id">
 		insert into pending_transaction (entry_date_time, booking_id, <!-- pms_confirmation_id,  -->payment_gateway_id, funds_holder, partial_iin, first_name, last_name,
-		phone_number, partner_id, supplier_id, charge_date, charge_amount, currency, commission, partner_payment, bookingpal_payment, gateway_transaction_id, status, 
+		phone_number, partner_id, supplier_id, charge_date, charge_amount, currency, commission, partner_payment, bookingnet_payment, gateway_transaction_id, status, 
 		autopay, net_rate, pm_commission_value, pms_payment, additional_commission_value, credit_card_fee)
 		values (#{entryDateTime,jdbcType=TIMESTAMP}, #{bookingId,jdbcType=VARCHAR}, <!-- #{pmsConfirmationId,jdbcType=VARCHAR},  -->#{paymentGatewayId,jdbcType=INTEGER},
 		#{fundsHolder,jdbcType=INTEGER}, #{partialIin,jdbcType=INTEGER}, #{firstName,jdbcType=VARCHAR}, #{lastName,jdbcType=VARCHAR}, #{phoneNumber,jdbcType=VARCHAR},
 		#{partnerId,jdbcType=INTEGER}, #{supplierId,jdbcType=INTEGER}, #{chargeDate,jdbcType=TIMESTAMP}, #{chargeAmount,jdbcType=DOUBLE}, #{currency,jdbcType=VARCHAR},
-		#{commission,jdbcType=DOUBLE}, #{partnerPayment,jdbcType=DOUBLE}, #{bookingpalPayment,jdbcType=DOUBLE}, #{gatewayTransactionId,jdbcType=VARCHAR},
+		#{commission,jdbcType=DOUBLE}, #{partnerPayment,jdbcType=DOUBLE}, #{bookingnetPayment,jdbcType=DOUBLE}, #{gatewayTransactionId,jdbcType=VARCHAR},
 		#{status,jdbcType=VARCHAR}, #{autopay,jdbcType=BOOLEAN}, #{netRate,jdbcType=BOOLEAN}, #{pmCommissionValue,jdbcType=DOUBLE}, #{pmsPayment,jdbcType=DOUBLE},
 		#{additionalCommissionValue,jdbcType=DOUBLE}, #{creditCardFee,jdbcType=DOUBLE} )
 	</insert>
@@ -116,8 +116,8 @@
 			<if test="partnerPayment != null">
 				partner_payment = #{partnerPayment,jdbcType=DOUBLE},
 			</if>
-			<if test="bookingpalPayment != null">
-				bookingpal_payment = #{bookingpalPayment,jdbcType=DOUBLE},
+			<if test="bookingnetPayment != null">
+				bookingnet_payment = #{bookingnetPayment,jdbcType=DOUBLE},
 			</if>
 			<if test="gatewayTransactionId != null">
 				gateway_transaction_id = #{gatewayTransactionId,jdbcType=VARCHAR},
@@ -171,7 +171,7 @@
 		currency = #{currency,jdbcType=VARCHAR},
 		commission = #{commission,jdbcType=DOUBLE},
 		partner_payment = #{partnerPayment,jdbcType=DOUBLE},
-		bookingpal_payment = #{bookingpalPayment,jdbcType=DOUBLE},
+		bookingnet_payment = #{bookingnetPayment,jdbcType=DOUBLE},
 		gateway_transaction_id = #{gatewayTransactionId,jdbcType=VARCHAR},
 		status = #{status,jdbcType=VARCHAR},
 		autopay = #{autopay,jdbcType=BOOLEAN},

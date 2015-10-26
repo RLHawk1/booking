@@ -1,5 +1,5 @@
 /**
- * @author	Chris Marshall
+ * @author	bookingnet
  * @see		License at http://razorpms.com/razor/License.html
  * @version	2.00
  */
@@ -60,8 +60,8 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.config.RazorConfig;
+import com.bookingnet.server.ImageService;
 
 /**
  * The Class UploadFileService extends HttpServlet to upload files from client to server.

@@ -1,5 +1,5 @@
 /**
- * @author	Chris Marshall
+ * @author	bookingnet
  * @see		License at http://razorpms.com/razor/License.html
  * @version	2.00
  */
@@ -40,8 +40,8 @@ public class Constants {
 	public static final String AGENT_USER_TYPE = "ChannelPartner";
 	public static final String RENTER_USER_TYPE = "Renter";
 	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
-	public static final String ANET_BOOKINGPAL_ACC_ID = "47R5Rjv2PP";
-	public static final String ANET_BOOKINGPAL_TRANSACTION_KEY = "544j66HY9seWAv4k";
+	public static final String ANET_bookingnet_ACC_ID = "47R5Rjv2PP";
+	public static final String ANET_bookingnet_TRANSACTION_KEY = "544j66HY9seWAv4k";
 	
 
 	/**

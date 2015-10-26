@@ -30,7 +30,7 @@ public class PaymentConfiguration {
 			gatewayId = props.get(GATEWAY_ACCOUNT_ID_PROPERTY).toString();
 			gatewayToken = props.get(GATEWAY_ACCOUNT_TOKEN_PROPERTY).toString();
 		} catch (NumberFormatException exception) {
-			throw new ServiceException(Error.number_format, "during BookingPal configuration file parsing");
+			throw new ServiceException(Error.number_format, "during bookingnet configuration file parsing");
 		}
 	}
 	
@@ -80,7 +80,7 @@ public class PaymentConfiguration {
 		String toString = "Gateway: " + instance.getGateway() + "\n" +
 				"Gateway account ID: " + instance.getGatewayId() + "\n" +
 				"Gateway account token: " + instance.getGatewayToken() + "\n" +
-				"BookingPal Commission: " + instance.getCommission();
+				"bookingnet Commission: " + instance.getCommission();
 		return toString;
 	}
 }

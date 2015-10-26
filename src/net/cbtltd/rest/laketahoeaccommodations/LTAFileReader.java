@@ -22,7 +22,7 @@ import java.util.List;
 
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.SftpException;
-import com.mybookingpal.utils.SFTP.SFTP;
+import com.bookingnet.utils.SFTP.SFTP;
 
 import org.apache.commons.lang3.SystemUtils;
 import org.apache.log4j.Logger;
@@ -59,7 +59,7 @@ import org.apache.log4j.Logger;
  *  not be considered to be a pair.
  * 
  * Note: these three files provide some more additional information that was omitted
- * because some information is not necessary for BookingPal. For more information about
+ * because some information is not necessary for bookingnet. For more information about
  * the specifics on each file, see the Google Drive folder for Lake Tahoe Accommodations.
  * 
  *  CHANGES

@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see			License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @see			License at abookingnet.com/license
  * @version		2.00
  */
 package net.cbtltd.client.panel;
@@ -66,6 +66,7 @@ import net.cbtltd.shared.reservation.ReservationEntities;
 import net.cbtltd.shared.tax.TaxTable;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.cell.client.NumberCell;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
@@ -84,7 +85,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.NoSelectionModel;
 import com.google.gwt.view.client.SelectionChangeEvent;
-import com.mybookingpal.config.RazorConfig;
 
 /**
  * The Class JournalPopup is the primary accounting panel for several different types of financial transaction.

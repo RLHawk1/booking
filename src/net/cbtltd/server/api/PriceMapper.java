@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server.api;
@@ -11,7 +11,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.mybookingpal.service.annotations.SqlUpdateMarker;
+import com.bookingnet.service.annotations.SqlUpdateMarker;
 
 import net.cbtltd.json.price.WeeklyPrice;
 import net.cbtltd.shared.NameId;

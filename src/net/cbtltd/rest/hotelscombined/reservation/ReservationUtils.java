@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 public class ReservationUtils {
 
@@ -298,7 +298,7 @@ public class ReservationUtils {
 			LOG.info("Processing reservation id " + reservation.getAltid());
 			LOG.info("Processing reservation status " + reservation.getState());
 			if (processReservationWithPayment) {
-				reservation.setCardholder("BookingPal");
+				reservation.setCardholder("bookingnet");
 				reservation.setCardType("MasterCard");
 				reservation.setCardnumber("5346330641608164");
 				reservation.setCardmonth("01");

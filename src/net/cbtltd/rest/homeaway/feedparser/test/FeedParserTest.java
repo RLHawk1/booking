@@ -40,7 +40,7 @@ public class FeedParserTest {
 	}
 	
 	//static String allProductUrl= "http://www.lodgix.com/homeaway/feed/contentindex/listings";
-	static String allProductUrl= "http://www.lodgix.com/partners/feed/bookingpal/en/contentindex/listings";
+	static String allProductUrl= "http://www.lodgix.com/partners/feed/bookingnet/en/contentindex/listings";
 	@Test
 	public void loadCompleteStaticData() {
 		try {

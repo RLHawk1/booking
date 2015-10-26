@@ -27,7 +27,7 @@ import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
  * Service for OAuth2.0 implementation
  * 
  */
-@Path("/bookingPalOAuthService")
+@Path("/bookingnetOAuthService")
 public class BookingPalOAuthService {
 	public static final Logger LOG = Logger
 			.getLogger(BookingPalOAuthService.class.getName());
@@ -37,7 +37,7 @@ public class BookingPalOAuthService {
 	@Path("/authorize")
 	public void authorize(OAuthAccessTokenParams oauthAccessTokenParams) {
 		// sample usage
-		// http://localhost:8080/Razor/bookingPalOAuthService/authorize?pos=1234&requestURL=https://www.bookingsync.com/oauth/authorize&clientId=123&scope=test
+		// http://localhost:8080/Razor/bookingnetOAuthService/authorize?pos=1234&requestURL=https://www.bookingsync.com/oauth/authorize&clientId=123&scope=test
 
 		try {
 			OAuthClientRequest request = this

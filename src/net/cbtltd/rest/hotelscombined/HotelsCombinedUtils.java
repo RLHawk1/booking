@@ -18,7 +18,7 @@ import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 public class HotelsCombinedUtils {
 	public static final String HOTELS_COMBINED_URL = "bp.hotelscombined.url";
@@ -47,7 +47,7 @@ public class HotelsCombinedUtils {
 		DefaultHttpClient client = new DefaultHttpClient();
 	
 		CredentialsProvider provider = new BasicCredentialsProvider();
-		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(RazorConfig.getValue(HOTELS_COMBINED_USERNAME,"bookingpal"), RazorConfig.getValue(HOTELS_COMBINED_PWD,"C9DVLb+5zbwdMCYvWVjg"));
+		UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(RazorConfig.getValue(HOTELS_COMBINED_USERNAME,"bookingnet"), RazorConfig.getValue(HOTELS_COMBINED_PWD,"C9DVLb+5zbwdMCYvWVjg"));
 		provider.setCredentials(AuthScope.ANY, credentials);
 		client.setCredentialsProvider(provider);
 		
@@ -57,7 +57,7 @@ public class HotelsCombinedUtils {
 				+ RazorConfig.getValue(HOTELS_COMBINED_URL,"https://cmi.hotelscombined.com/v1.0/ota"));
 		
 		LOG.info("HOTELS_COMBINED_USERNAME : "
-				+ RazorConfig.getValue(HOTELS_COMBINED_USERNAME,"bookingpal"));
+				+ RazorConfig.getValue(HOTELS_COMBINED_USERNAME,"bookingnet"));
 		
 		LOG.info("HOTELS_COMBINED_PWD : "
 				+ RazorConfig.getValue(HOTELS_COMBINED_PWD,"C9DVLb+5zbwdMCYvWVjg"));

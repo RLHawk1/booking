@@ -70,6 +70,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.jdom.Element;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.thirdparty.guava.common.collect.ArrayListMultimap;
 import com.google.gwt.thirdparty.guava.common.collect.Multimap;
 import com.instantsoftware.secureweblinkplusapi.ClsAddress;
@@ -96,7 +97,6 @@ import com.instantsoftware.secureweblinkplusapi.ClsSeasonRates;
 import com.instantsoftware.secureweblinkplusapi.ObjectFactory;
 import com.instantsoftware.secureweblinkplusapi.WsWeblinkPlusAPI;
 import com.instantsoftware.secureweblinkplusapi.WsWeblinkPlusAPISoap;
-import com.mybookingpal.config.RazorConfig;
 
 /**
  * @author nibodha

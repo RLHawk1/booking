@@ -138,7 +138,7 @@
                     <div class="form-checkbox">
                         <label>
                             <input required type="checkbox" name="privacyPolicyAgreeCheckbox">  I have read and agree to the terms of the <a onclick="popup()">
-                            BookingPal Privacy Policy
+                            bookingnet Privacy Policy
                             </a>
 						</label>
                     </div>
@@ -177,7 +177,7 @@
 					%>
 					</b>
 				<div class="contentTextBlue">
-					In case of queries, please contact BookingPal at +1949-333-0724
+					In case of queries, please contact bookingnet at +1949-333-0724
 				</div>
 			</div>
 			
@@ -189,7 +189,7 @@
         </div>
         <div class="col-lg-4 col-md-5 col-sm-5 right_content">
             <div class="reg_info">
-                <div class="reg_info_heading"><%= cname %> and BookingPal have partnered to make listings distribution a snap.
+                <div class="reg_info_heading"><%= cname %> and bookingnet have partnered to make listings distribution a snap.
                     Manage your listings on dozens of major travel websites and apps through one simple interface.
                 </div>
 
@@ -234,7 +234,7 @@
 			</div>
 		</div>
 		
-		<object id="privacyObject" name="privacyObject" type="text/html" data="https://www.mybookingpal.com/privacy-policy/html"></object>
+		<object id="privacyObject" name="privacyObject" type="text/html" data="https://www.bookingnet.com/privacy-policy/html"></object>
 		
 	</div>
 	

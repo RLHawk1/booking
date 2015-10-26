@@ -58,8 +58,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.config.RazorConfig;
+import com.bookingnet.server.ImageService;
 
 /**
  * Handler to do the load operation of xml from flipkey
@@ -1562,9 +1562,9 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			 data.setPhoneNumber(reservation.getPhoneNumber()); 
 			//TODO SN:To check with chirayu on ipaddress. 
 			 data.setUserIp("");
-			  data.setPointOfSale("mybookingpal.com");
+			  data.setPointOfSale("bookingnet.com");
 			  data.setUtmMedium("csynd"); 
-			  data.setUtmSource("bookingpal");
+			  data.setUtmSource("bookingnet");
 			  data.setUtmCampaign("Host&Post");
 			  
 			}
@@ -1577,12 +1577,12 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			data.setCheckOut("2014-07-20");
 			data.setComment("hi could u please confirm there is availability and location wise are we close to Edinburgh centre as we have 2 young children. look forward to hearing from you. Thanks,John ");
 			data.setPropertyId(417793);
-			data.setEmail("sen@mybookingpal1.com");
+			data.setEmail("sen@bookingnet1.com");
 			data.setPhoneNumber("07747484202");
 			data.setUserIp("90.221.169.227");
-			data.setPointOfSale("mybookingpal.com");
+			data.setPointOfSale("bookingnet.com");
 			data.setUtmMedium("csynd");
-			data.setUtmSource("bookingpal");
+			data.setUtmSource("bookingnet");
 			data.setUtmCampaign("Host&Post");*/
 
 			

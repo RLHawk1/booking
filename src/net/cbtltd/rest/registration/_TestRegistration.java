@@ -106,7 +106,7 @@ public class _TestRegistration {
 		
 		managerInfo.setPropertyManagerId(111);
 		managerInfo.setPmsId(222);
-		managerInfo.setFundsHolder(FundsHolderEnum.BookingPal.value());
+		managerInfo.setFundsHolder(FundsHolderEnum.bookingnet.value());
 		managerInfo.setPaymentProcessingType(PaymentProcessingTypeEnum.API.type());
 		managerInfo.setRegistrationStepId(8);
 		managerInfo.setDamageCoverageType(1);

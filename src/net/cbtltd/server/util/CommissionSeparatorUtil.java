@@ -149,7 +149,7 @@ public class CommissionSeparatorUtil {
 	}
 	
 	public Boolean isBPFundsHolder(){
-		return pmInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER;
+		return pmInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER;
 	}
 	
 	public Double getNightlyRate() {

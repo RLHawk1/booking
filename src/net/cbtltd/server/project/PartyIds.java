@@ -1,6 +1,6 @@
 package net.cbtltd.server.project;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 public class PartyIds {
 	public static final String PARTY_BAREFOOT_ID = RazorConfig.getBarefootId();

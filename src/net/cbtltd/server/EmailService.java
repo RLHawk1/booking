@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -68,7 +68,7 @@ import net.cbtltd.shared.reservation.Brochure;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 /**
  * The Class Email is to send email messages in response to reservation events.
@@ -84,10 +84,10 @@ public class EmailService {
 	private static final String DATE_FORMAT_PATTERN = "MMMM dd, yyyy";
 	
 	
-	private static final String REGISTRATION_MAIL_SUBJECT = "Bookingpal and PMS registration information";
-	private static final String REGISTRATION_MAIL_CONTENT = "On behalf of %s and Bookingpal we would like to welcome you to the Bookingpal platform. Your user credentials are provided below. "
+	private static final String REGISTRATION_MAIL_SUBJECT = "bookingnet and PMS registration information";
+	private static final String REGISTRATION_MAIL_CONTENT = "On behalf of %s and bookingnet we would like to welcome you to the bookingnet platform. Your user credentials are provided below. "
 			+ "If you have not completed your registration then please use the credentials to complete your registration process.<br><br><br>username: %s <br>password: %s <br><br>Click  %s to log-in."
-			+ "<br><br><br>Thank you <br><br>BookingPal Support Team";
+			+ "<br><br><br>Thank you <br><br>bookingnet Support Team";
 
 	/**
 	 * Sends an email message to an affiliate with its affiliate code.
@@ -234,7 +234,7 @@ public class EmailService {
 				"Thank You\n" +
 				"Your Support Team";
 		content = String.format(content, reservation.getFromdate(), reservation.getTodate(), refund);
-		String subject = "MyBookingpal - Cancel Confirmation for property at " + propertyAddress + "";
+		String subject = "bookingnet - Cancel Confirmation for property at " + propertyAddress + "";
 		String recipients = propertyManager.getEmailaddress();
 		
 		sendEmail(subject, content, recipients);
@@ -249,11 +249,11 @@ public class EmailService {
 				"Email Address: " + renter.getEmailaddress() + "\n" +
 				"Telephone Number: " + renter.getDayphone() + "\n\n" +
 				"Thank You\n" +
-				"Your Support Team  at MyBookingPal";
+				"Your Support Team  at bookingnet";
 
 		content = String.format(content, reservation.getFromdate(), reservation.getTodate(), refund);
 		
-		String subject = "MyBookingpal - Cancel Confirmation for property at " + propertyAddress + "";
+		String subject = "bookingnet - Cancel Confirmation for property at " + propertyAddress + "";
 		String recipients = propertyManager.getEmailaddress();
 		
 		sendEmail(subject, content, recipients);
@@ -290,7 +290,7 @@ public class EmailService {
 
 		content = String.format(content, reservation.getFromdate(), reservation.getTodate(), refund);
 		
-		String subject = "MyBookingpal - Cancel Confirmation for property at " + propertyAddress + "";
+		String subject = "bookingnet - Cancel Confirmation for property at " + propertyAddress + "";
 		String recipients = propertyManager.getEmailaddress();
 		
 		sendEmail(subject, content, recipients);
@@ -306,18 +306,18 @@ public class EmailService {
 				"Telephone Number: " + renter.getDayphone() + "\n\n" +
 				
 				"Thank You\n" +
-				"Your Support Team at MyBookingPal";
+				"Your Support Team at bookingnet";
 
 		content = String.format(content, reservation.getFromdate(), reservation.getTodate(), refund);
 		
-		String subject = "MyBookingpal - Cancel Confirmation for property at " + propertyAddress + "";
+		String subject = "bookingnet - Cancel Confirmation for property at " + propertyAddress + "";
 		String recipients = propertyManager.getEmailaddress();
 		
 		sendEmail(subject, content, recipients);
 	}
 	
 	public static void cancelPMWithoutFundsHolder(SqlSession sqlSession, Party propertyManager, Party renter, Reservation reservation, String propertyAddress) {
-		String content = "The property at " + propertyAddress + " has been requested to be canceled. Please contact the renter and cancel the property in your PMS or through the MyBookingPal portal.\n\n" +
+		String content = "The property at " + propertyAddress + " has been requested to be canceled. Please contact the renter and cancel the property in your PMS or through the bookingnet portal.\n\n" +
 				"Renter Information: " + "\n" +
 				"\tFirst Name: " + renter.getFirstName() + "\n" +
 				"\tLast Name: " + renter.getFamilyName() + "\n" +
@@ -335,7 +335,7 @@ public class EmailService {
 				"Balance to be charged on: " + TextHelper.DATE + "\n" +
 				"Last 4 credit card: " + TextHelper.INTEGER + "\n" + "\n" +
 				
-				"The please cancel this booking by logging into http://admin.mybookingpal.com or on your PMS.";
+				"The please cancel this booking by logging into http://admin.bookingnet.com or on your PMS.";
 		
 		List<PaymentTransaction> paymentTransactions = sqlSession.getMapper(PaymentTransactionMapper.class).readByReservationId(Integer.valueOf(reservation.getId()));
 		Double collectedAmount = getCollectedAmount(paymentTransactions);
@@ -349,7 +349,7 @@ public class EmailService {
 		}
 		Integer lastFour = getLastFour(paymentTransactions);
 		
-		String subject = "MyBookingpal - Booking Cancellation for " + propertyAddress;
+		String subject = "bookingnet - Booking Cancellation for " + propertyAddress;
 		content = String.format(content, reservation.getFromdate(), reservation.getTodate(), reservation.getQuote(), collectedAmount, product.getDiscount(), totalCommission,
 				creditCardFee, secondPaymentDate, lastFour);
 		String recipients = propertyManager.getEmailaddress();
@@ -370,7 +370,7 @@ public class EmailService {
 		String state = customer.getRegion() == null ? "" : "\n\tState: " + customer.getRegion(); 
 		String partnerName = partner.getName() == null || partner.getName().equals("") ? "" : "\n\tBooking site:  " + partner.getName();
 		String errorReason = resultMap == null || resultMap.get(GatewayHandler.ERROR_MSG) == null ? " (reason unknown)" : " (" + resultMap.get(GatewayHandler.ERROR_MSG) + ")"; 
-		String content = "The following booking was generated by BookingPal. There was a problem processing the credit card. Please follow up with the traveler to sort out the credit card issue." +
+		String content = "The following booking was generated by bookingnet. There was a problem processing the credit card. Please follow up with the traveler to sort out the credit card issue." +
 		"\n\tBooking Reference number: " +  reservation.getAltid() +
 		"\n\tDate of Booking: " + reservationDate +
 		partnerName + 
@@ -392,9 +392,9 @@ public class EmailService {
 		"\n\tZip: " + customer.getPostalcode() +
 		"\n\tCountry: " + customerCountry +
 
-		"\n\nIf you need additional information please contact us at:  Support@mybookingpal.com or Telephone : 1-949-216-7137.";
+		"\n\nIf you need additional information please contact us at:  Support@bookingnet.com or Telephone : 1-949-216-7137.";
 		
-		String subject = "MyBookingpal - Payment failed for reservation " + reservation.getAltid();
+		String subject = "bookingnet - Payment failed for reservation " + reservation.getAltid();
 		String recipients = propertyManager.getEmailaddress();
 		
 		sendEmail(subject, content, recipients);
@@ -454,17 +454,17 @@ public class EmailService {
 		ChannelPartner channelPartner = sqlSession.getMapper(ChannelPartnerMapper.class).readByPartyId(Integer.valueOf(reservation.getAgentid()));
 		Party customer = sqlSession.getMapper(PartyMapper.class).read(reservation.getCustomerid());
 		
-		//String confirmationLine = reservation.getConfirmationId() == null ? "" : TextHelper.TAB + "BookingPal Confirmation: " + reservation.getConfirmationId() + TextHelper.NEW_LINE; 
+		//String confirmationLine = reservation.getConfirmationId() == null ? "" : TextHelper.TAB + "bookingnet Confirmation: " + reservation.getConfirmationId() + TextHelper.NEW_LINE; 
 		
 		String subject = "Property at " + TextHelper.STRING + " has been requested for " + TextHelper.DATE + " to " + TextHelper.DATE;
 		String content = "Your property at " + TextHelper.STRING + " has been requested from " + TextHelper.DATE + " to " + TextHelper.DATE + ".\n\n" +
 				"Please note that an email has been sent to the renter indicating that the booking is on hold and not yet confirmed until you send them a confirmation email " +
-				"or call them with confirmation details. Also, if you would like to cancel this reservation either log into the BookingPal portal or your PMS portal and cancel " +
+				"or call them with confirmation details. Also, if you would like to cancel this reservation either log into the bookingnet portal or your PMS portal and cancel " +
 				"this booking.\n\n\n" +
 				"Here are the details for this booking:\n\n" +
 				"Property Information" +
 				TextHelper.TAB + "PMS Property ID: " + TextHelper.STRING + TextHelper.NEW_LINE +
-				TextHelper.TAB + "BookingPal Product ID: " + TextHelper.INTEGER + TextHelper.NEW_LINE +
+				TextHelper.TAB + "bookingnet Product ID: " + TextHelper.INTEGER + TextHelper.NEW_LINE +
 //				confirmationLine + 
 				TextHelper.TAB + "Channel Partner: " + TextHelper.STRING + TextHelper.NEW_LINE +
 				TextHelper.TAB + "Reserved From: " + TextHelper.DATE + " to " + TextHelper.DATE + TextHelper.NEW_LINE + TextHelper.NEW_LINE +
@@ -476,7 +476,7 @@ public class EmailService {
 				TextHelper.TAB + "Telephone Number: " + customer.getDayphone() + TextHelper.NEW_LINE + TextHelper.NEW_LINE +
 		"Additional information from client:" + TextHelper.NEW_LINE + reservation.getNotes() + TextHelper.NEW_LINE + TextHelper.NEW_LINE +
 		"Thank You" + TextHelper.NEW_LINE + 
-		"BookingPal Support Team";
+		"bookingnet Support Team";
 		
 		
 		String recipients = propertyManager.getEmailaddress();
@@ -484,7 +484,7 @@ public class EmailService {
 		String propertyLocation = ReservationService.getPropertyLocation(sqlSession, product);
 		Date fromDate = reservation.getFromdate();
 		Date toDate = reservation.getTodate();
-		String channelPartnerName = channelPartner == null ? "BookingPal" : channelPartner.getChannelName();
+		String channelPartnerName = channelPartner == null ? "bookingnet" : channelPartner.getChannelName();
 		
 		// formatting subject and content
 		subject = String.format(subject, propertyLocation, fromDate, toDate);
@@ -498,7 +498,7 @@ public class EmailService {
 		String subject = "Property at " + TextHelper.STRING + " has been requested for " + TextHelper.DATE + " to " + TextHelper.DATE;
 		String content = "Your request to reserve the property at " + TextHelper.STRING + " has been requested from " + TextHelper.DATE + " to " + TextHelper.DATE + ". The property manager for this property should be contacting you shortly." + TextHelper.NEW_LINE + TextHelper.NEW_LINE +
 				"Thank You" + TextHelper.NEW_LINE +
-				"BookingPal Support Team";
+				"bookingnet Support Team";
 
 		Date fromDate = reservation.getFromdate();
 		Date toDate = reservation.getTodate();
@@ -535,7 +535,7 @@ public class EmailService {
 		Double securityDeposit = product.getSecuritydeposit();
 		Double cleeningFee = product.getCleaningfee();
 		String currency = reservation.getCurrency();
-		String channelPartnerName = channelPartner == null ? "BookingPal" : channelPartner.getChannelName();
+		String channelPartnerName = channelPartner == null ? "bookingnet" : channelPartner.getChannelName();
 		String reservationPos = Model.encrypt(reservation.getId());
 		
 		Set<CancellationItem> cancellationItems = PaymentHelper.getCancellationItems(sqlSession, reservation);
@@ -643,7 +643,7 @@ public class EmailService {
 		String propertyId = reservation.getProductid();
 //		String pmsConfirmation = reservation.getConfirmationId() == null ? "" : reservation.getConfirmationId();
 		String confirmation = reservation.getId();
-		String channelPartnerName = channelPartner == null ? "BookingPal" : channelPartner.getChannelName();
+		String channelPartnerName = channelPartner == null ? "bookingnet" : channelPartner.getChannelName();
 		Double firstPayment = paymentTransaction.getTotalAmount();
 		Double totalAmount = reservation.getQuote();
 		Double commissionAmount = paymentTransaction.getTotalCommission();
@@ -766,7 +766,7 @@ public class EmailService {
 		
 		String additionalInfo = reservation.getNotes();
 		String altProductId = product.getAltid();
-		String channelPartnerName = channelPartner == null ? "BookingPal" : channelPartner.getChannelName();
+		String channelPartnerName = channelPartner == null ? "bookingnet" : channelPartner.getChannelName();
 		Double commissionAmount = pendingTransaction.getCommission();
 		Double commissionPercentage = product.getDiscount();
 //		String confirmationId = reservation.getConfirmationId() == null ? "" : reservation.getConfirmationId();
@@ -1133,16 +1133,16 @@ public class EmailService {
 		sb.append(" These tutorials can be found on our <a href=\"http://www.razorpms.com/info/support/getting-started/\" target=\"_blank\">Getting started</a> pages of our website, click on the relevant user to view the tutorials.");
 		
 		sb.append("<p>Alternatively you can contact us to set up some online training. ");		
-		sb.append("Contact our Partner Relations Manager Charlie Gordon-Finlayson on charlie@mybookingpal.com and he will get the required sessions set up. ");
+		sb.append("Contact our Partner Relations Manager Charlie Gordon-Finlayson on charlie@bookingnet.com and he will get the required sessions set up. ");
 		
-		sb.append("<p>We hope that you will use Razor as a gateway to the My BookingPal distribution network.  ");
+		sb.append("<p>We hope that you will use Razor as a gateway to the My bookingnet distribution network.  ");
 		sb.append("My BookignPal has the ability to get your properties in front of millions of new potential clients from around the world.  ");
-		sb.append("Take a look at our service on our website, www.mybookingpal.com, or check out the videos below that explain the My BookingPal services.");
+		sb.append("Take a look at our service on our website, www.bookingnet.com, or check out the videos below that explain the My bookingnet services.");
 		
-		sb.append("<p><a href=\"http://www.youtube.com/watch?v=aAWVPUNkiY4&amp;authuser=0\" style=\"font-size:12.7272720336914px\" target=\"_blank\">My BookingPal - Accommodation Supplier services</a>");
-		sb.append("<p><a href=\"http://www.youtube.com/watch?v=aVMtNy5azFw&amp;authuser=0\" target=\"_blank\">My BookingPal - Demand channel services</a>");
+		sb.append("<p><a href=\"http://www.youtube.com/watch?v=aAWVPUNkiY4&amp;authuser=0\" style=\"font-size:12.7272720336914px\" target=\"_blank\">My bookingnet - Accommodation Supplier services</a>");
+		sb.append("<p><a href=\"http://www.youtube.com/watch?v=aVMtNy5azFw&amp;authuser=0\" target=\"_blank\">My bookingnet - Demand channel services</a>");
 		
-		sb.append("<p>Should you have any queries on the My BookingPal service please contact Charlie, he will provide you with all the information you will need.");
+		sb.append("<p>Should you have any queries on the My bookingnet service please contact Charlie, he will provide you with all the information you will need.");
 		sb.append("<p>All the best.<p>Razor and My BookignPal</body></html>");
 		
 		Mail mail = new Mail();
@@ -1170,7 +1170,7 @@ public class EmailService {
 		mail.setContentType(Mail.CONTENT_TYPE_TEXT_PLAIN);
 		mail.setContent(sb.toString());
 		mail.setSubject("New Razor User: " + party.getName());
-		mail.setRecipients("charlie@mybookingpal.com");
+		mail.setRecipients("charlie@bookingnet.com");
 		MailService.send(mail);
 	}
 
@@ -1282,7 +1282,7 @@ public class EmailService {
 		sb.append("\navailability, pricing or other information. Please ensure that all information on the system is correct");
 		sb.append("\nat all times. If you cannot commit to this, please let us know so we can deactivate your account.");
 		sb.append("\nPlease also note that your account may be deactivated if amount owing is not paid without delay!");
-		sb.append("\n\nDo not hesitate to contact us at marcella@mybookingpal.com if you have an queries.");
+		sb.append("\n\nDo not hesitate to contact us at marcella@bookingnet.com if you have an queries.");
 		sb.append("\n\nYours sincerely,\n\nRazor Team");
 		mail.setContent(sb.toString()); //getBalanceBody(balance.getBalance(), currencyrate));
 		mail.setRecipients(emailaddress);
@@ -1307,7 +1307,7 @@ public class EmailService {
 		sb.append("\nYour Razor account has been updated.");
 		sb.append("\nYou can print the details in the Report page of Razor console.");
 		sb.append(paymentaccounts(balance, currencyrate));
-		sb.append("\n\nDo not hesitate to contact us at marcella@mybookingpal.com if you have an queries.");
+		sb.append("\n\nDo not hesitate to contact us at marcella@bookingnet.com if you have an queries.");
 		sb.append("\n\nYours sincerely,\n\nRazor Team");
 		
 		mail.setContent(sb.toString());
@@ -1334,7 +1334,7 @@ public class EmailService {
 		sb.append("\nYou can view your statement in the Razor console.");
 		sb.append("\nYour account has been suspended until such time that it is paid.");
 		sb.append(paymentaccounts(balance, currencyrate));
-		sb.append("\n\nDo not hesitate to contact us at marcella@mybookingpal.com if you have an queries.");
+		sb.append("\n\nDo not hesitate to contact us at marcella@bookingnet.com if you have an queries.");
 		sb.append("\n\nYours sincerely,\n\nRazor Team");
 		mail.setContent(sb.toString());
 		MailService.send(mail);
@@ -1346,7 +1346,7 @@ public class EmailService {
 		Mail mail = new Mail();
 		mail.setContentType(Mail.CONTENT_TYPE_TEXT_HTML);
 		mail.setSubject(REGISTRATION_MAIL_SUBJECT);
-		mail.setContent(String.format(REGISTRATION_MAIL_CONTENT, companyName, emailaddress, password, "<a href=\"http://mybookingpal.com/registration/index.html\" target=\"_blank\">here</a>"));
+		mail.setContent(String.format(REGISTRATION_MAIL_CONTENT, companyName, emailaddress, password, "<a href=\"http://bookingnet.com/registration/index.html\" target=\"_blank\">here</a>"));
 		mail.setRecipients(emailaddress);
 		MailService.send(mail);
 		
@@ -1370,8 +1370,8 @@ public class EmailService {
 		Mail mail = new Mail();
 		mail.setSubject("Booking Reservation Failed to Persist");
 		mail.setContent(bookingComResponse);
-		//listRecipients.add("chirayu@mybookingpal.com");
-		listRecipients.add("senthil@mybookingpal.com");
+		//listRecipients.add("chirayu@bookingnet.com");
+		listRecipients.add("senthil@bookingnet.com");
 		mail.setRecipients(listRecipients);
 		
 		MailService.send(mail);

@@ -312,11 +312,11 @@
 		</copy>
     	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
     	<replace file="war/WEB-INF/classes/Hosts.properties">
-    		 <replacefilter token="%hostname%" value="mybookingpal.com"/>
+    		 <replacefilter token="%hostname%" value="bookingnet.com"/>
     	</replace>
     	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
     	<replace file="war/WEB-INF/classes/net/cbtltd/client/resource/Hosts.properties">
-    		<replacefilter token="%hostname%" value="mybookingpal.com"/>
+    		<replacefilter token="%hostname%" value="bookingnet.com"/>
     	</replace>
 	</target>
     	
@@ -327,11 +327,11 @@
 
     	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
     	<replace file="war/WEB-INF/classes/Hosts.properties">
-    		 <replacefilter token="%hostname%" value="demo.mybookingpal.com"/>
+    		 <replacefilter token="%hostname%" value="demo.bookingnet.com"/>
     	</replace>
     	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
     	<replace file="war/WEB-INF/classes/net/cbtltd/client/resource/Hosts.properties">
-    		<replacefilter token="%hostname%" value="demo.mybookingpal.com"/>
+    		<replacefilter token="%hostname%" value="demo.bookingnet.com"/>
     	</replace>
 	</target>
     	
@@ -341,11 +341,11 @@
 		</copy>
     	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes"/>
     	<replace file="war/WEB-INF/classes/Hosts.properties">
-    		 <replacefilter token="%hostname%" value="uat.mybookingpal.com"/>
+    		 <replacefilter token="%hostname%" value="uat.bookingnet.com"/>
     	</replace>
     	<copy file="src/resources/Hosts.properties" todir="war/WEB-INF/classes/net/cbtltd/client/resource"/>
     	<replace file="war/WEB-INF/classes/net/cbtltd/client/resource/Hosts.properties">
-    		<replacefilter token="%hostname%" value="uat.mybookingpal.com"/>
+    		<replacefilter token="%hostname%" value="uat.bookingnet.com"/>
     	</replace>
 	</target>
     	
@@ -670,7 +670,7 @@
 		<pathconvert property="expanded.main.class.path" refid="Razor.classpath"/>
 		<echo message="${expanded.main.class.path}"
 		          file="${user.home}/deps.txt"/>
-	    <java classname="com.mybookingpal.server.api.junit.UploadLegacyImagesToS3" fork="true" maxmemory="4096m">
+	    <java classname="com.bookingnet.server.api.junit.UploadLegacyImagesToS3" fork="true" maxmemory="4096m">
 			<classpath>
 				<path refid="Razor.classpath" />
 			</classpath>
@@ -682,7 +682,7 @@
 			<pathconvert property="expanded.main.class.path" refid="Razor.classpath"/>
 			<echo message="${expanded.main.class.path}"
 			          file="${user.home}/deps.txt"/>
-		    <java classname="com.mybookingpal.server.api.junit.MoveNewImagesInS3" fork="true" maxmemory="8192m">
+		    <java classname="com.bookingnet.server.api.junit.MoveNewImagesInS3" fork="true" maxmemory="8192m">
 				<classpath>
 					<path refid="Razor.classpath" />
 				</classpath>

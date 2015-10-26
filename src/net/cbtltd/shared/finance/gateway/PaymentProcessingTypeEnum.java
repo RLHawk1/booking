@@ -6,7 +6,7 @@ package net.cbtltd.shared.finance.gateway;
  */
 public enum PaymentProcessingTypeEnum {
 
-	GATEWAY(1),		/* Payment gateway selected (BookingPal, PayPal, Authorize .NET). */
+	GATEWAY(1),		/* Payment gateway selected (bookingnet, PayPal, Authorize .NET). */
 	Mail(2),		/* Booking confirmations via email. */
 	API(3),			/* API(PMS support credit card processing); */
 	ACH(4);

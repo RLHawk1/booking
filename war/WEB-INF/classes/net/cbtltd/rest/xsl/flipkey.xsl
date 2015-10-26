@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
   <!--
-    (c)2009 CBT Ltd controlling License at http://razor-cloud.com/razor/License.html
+    (c)2009 CBT Ltd controlling License at abookingnet.com/license
     You may use this XSL and any derivative product to transform data served
     by any Razor or other FlitePlan web service. Razor REST services are described at:
 	http://razor-cloud.com/xml/rest?_wadl&type=xml

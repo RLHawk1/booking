@@ -50,9 +50,9 @@ public class PMPendingPaymentMailContent {
 			
 	private static String altProductIdString = TAB + "PMS Property ID: " + STRING + NEW_LINE;
 	
-	private static String propertyInfoDetailsPart = TAB + "BookingPal Product ID: " + STRING + NEW_LINE +
+	private static String propertyInfoDetailsPart = TAB + "bookingnet Product ID: " + STRING + NEW_LINE +
 //			TAB + "PMS Confirmation: " + STRING + NEW_LINE +
-//			TAB + "BookingPal Confirmation: " + STRING + NEW_LINE +
+//			TAB + "bookingnet Confirmation: " + STRING + NEW_LINE +
 			TAB + "Channel Partner: " + STRING + NEW_LINE +
 			TAB + "Reserved From: " + DATE + " to " + DATE + NEW_LINE + NEW_LINE;
 	
@@ -74,7 +74,7 @@ public class PMPendingPaymentMailContent {
 	private static String additionalInfoPart = "Additional information form client:"  + STRING + NEW_LINE + NEW_LINE;
 	
 	private static String thanksPart = "Thank You" + NEW_LINE +
-			"BookingPal Support Team";
+			"bookingnet Support Team";
 
 	public String buildSuccessfulSubject() {
 		return String.format(successfulSubject, getPropertyAddress());

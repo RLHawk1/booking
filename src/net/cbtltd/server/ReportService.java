@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -430,7 +430,7 @@ implements IsService {
 //			if (RazorServer.isLive()) {task.setParameterValue("RP_Database", "jdbc:mysql://razor-cloud-2012-07-01.cl8byaopxglx.us-east-1.rds.amazonaws.com:3306/razor");}
 //			else {task.setParameterValue("RP_Database", "jdbc:mysql://razor-cloud-2012-07-01.cl8byaopxglx.us-east-1.rds.amazonaws.com:3306/demo");}
 			if (RazorServer.isLive()) {task.setParameterValue("RP_Database", "jdbc:mysql://54.197.247.82:3306/razor");}
-			else {task.setParameterValue("RP_Database", "jdbc:mysql://demodb.mybookingpal.com:3306/razor");}
+			else {task.setParameterValue("RP_Database", "jdbc:mysql://demodb.bookingnet.com:3306/razor");}
 			task.validateParameters();
 			LOG.debug("Report RP_ReportID " + task.getParameterValue("RP_ReportID"));
 			LOG.debug("Report RP_Database " + task.getParameterValue("RP_Database"));

@@ -120,6 +120,9 @@
 			<if test="notes != null">
 				notes = #{notes,jdbcType=VARCHAR},
 			</if>
+			<if test="url != null">
+				notes = #{url,jdbcType=VARCHAR},
+			</if>
 			<if test="data != null">
 				data = #{data,jdbcType=LONGVARBINARY},
 			</if>
@@ -146,6 +149,7 @@
 			state = #{state,jdbcType=VARCHAR},
 			type = #{type,jdbcType=VARCHAR},
 			notes = #{notes,jdbcType=VARCHAR},
+			url = #{url,jdbcType=VARCHAR},
 			data = #{data,jdbcType=LONGVARBINARY},
 			version = #{version,jdbcType=TIMESTAMP}
 		where ID = #{id,jdbcType=INTEGER}
@@ -231,12 +235,21 @@
 			and product_id = #{id}
 		order by ID
 	</select>
-
-	<select id="imageidsbyurl" parameterType="NameId" resultType="String">
-		select distinct name
+	
+	<select id="imageurlsbyproductid" parameterType="NameId" resultType="String">
+		select distinct url
 		from image
 		where State = 'Created'
 			and product_id = #{id}
+		order by ID
+	</select>
+
+	<select id="imageidsbyurl" parameterType="Image" resultType="String">
+		select distinct ID
+		from image
+		where State = 'Created'
+			and product_id = #{productId,jdbcType=INTEGER}
+			and url = #{url,jdbcType=VARCHAR}
 		order by name
 	</select>
 

@@ -42,9 +42,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 
-import sun.misc.BASE64Encoder;
+import com.bookingnet.config.RazorConfig;
 
-import com.mybookingpal.config.RazorConfig;
+import sun.misc.BASE64Encoder;
 
 public class FlipKeyUtils extends CommonUtils{
 	

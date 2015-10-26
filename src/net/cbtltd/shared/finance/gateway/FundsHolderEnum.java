@@ -6,7 +6,7 @@ package net.cbtltd.shared.finance.gateway;
 public enum FundsHolderEnum {
 	
 	External(0), 	/* Another payment gateway selected (PayPal, Authorize .NET) or PMS support credit card processing */
-	BookingPal(1); 	/* Bookingpal selected to process payments */
+	bookingnet(1); 	/* bookingnet selected to process payments */
 
 	private Integer value;
 	
@@ -18,7 +18,7 @@ public enum FundsHolderEnum {
 	public static FundsHolderEnum getByInt(Integer value) {
 		switch(value) {
 		case 0 : return External;
-		case 1 : return BookingPal;
+		case 1 : return bookingnet;
 		default : return null;
 		}
 	}

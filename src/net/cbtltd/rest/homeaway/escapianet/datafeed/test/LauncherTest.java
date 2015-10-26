@@ -65,7 +65,7 @@ public class LauncherTest {
 		ArrayOfSourceType aos = new ArrayOfSourceType();
 		SourceType st = new SourceType();
 		RequestorID id = new RequestorID();
-		id.setID("Mybookingpal");
+		id.setID("bookingnet");
 		id.setMessagePassword("k6g2anbc!mK9");
 		st.setRequestorID(id);
 		aos.getSource().add(st);

@@ -117,20 +117,20 @@ import org.xml.sax.InputSource;
 
 import sun.misc.BASE64Encoder;
 
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.utils.CustomHttpConnection;
-import com.mybookingpal.utils.ISO8859CharacterNormalizer;
+import com.bookingnet.config.RazorConfig;
+import com.bookingnet.utils.CustomHttpConnection;
+import com.bookingnet.utils.ISO8859CharacterNormalizer;
 
 /**
  * Class A_Handler manages the Nextpax API
  * ONLY file being used. ALL other files have NO use.
  * FTP server = ftp://secure.nextpax.com
- * FTP username = mybookingpal
+ * FTP username = bookingnet
  * FTP password = FEJvvn$LYGCUd-2_Vq4zI
  * Super-XML sender ID = MYB112 (OLD)
  * New SenderID = FLI112 (updated on Dec. 2, 2014)
  * https://secure.nextpax.com/extranet/index.php
- * The username for the Extranet is "mybookingpal" and the password is "BAD5PqtE".
+ * The username for the Extranet is "bookingnet" and the password is "BAD5PqtE".
  * 
  * @author cshah issac
  * @version Apr 18, 2014
@@ -142,7 +142,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final DateFormat TF = new SimpleDateFormat("hh:mm:ss");
 	private static final String IMAGE_URL = "http://secure.nextpax.net/img/";
 	private static final String BASE_NEXTPAX_URL = "https://secure.nextpax.com";
-	private static final String CANCELLATION_URL = BASE_NEXTPAX_URL + "/comm/bookingpal_cancel_novasol.php?";
+	private static final String CANCELLATION_URL = BASE_NEXTPAX_URL + "/comm/bookingnet_cancel_novasol.php?";
 	private static final String SENDERID = "FLI112";
 	// private static final String NEXTPAXTESTURL = "https://secure.nextpax.com/testxml/xml/";
 	// private static final String NEXTPAX_PRODUCTION_URL = "https://secure.nextpax.com/live/xml/";
@@ -191,7 +191,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 //			connection.setRequestProperty("Content-Type", "application/xml");
 			BASE64Encoder enc = new sun.misc.BASE64Encoder();
 			Security.addProvider(new BouncyCastleProvider());
-			String userpassword = "mybookingpal" + ":" + "BAD5PqtE";
+			String userpassword = "bookingnet" + ":" + "BAD5PqtE";
 			String encodedAuthorization = enc.encode(userpassword.getBytes());
 //			connection.setRequestProperty("Authorization", "Basic " + encodedAuthorization);
 //			connection.setRequestProperty("Authorization", "Basic " + userpassword);
@@ -247,7 +247,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	 * @throws Throwable the exception that can be thrown.
 	 */
 	private final synchronized InputStream ftp(String fn) throws Throwable {
-		String urlname = "ftp://mybookingpal:FEJvvn$LYGCUd-2_Vq4zI@secure.nextpax.com/" + fn + ".gz;type=i";
+		String urlname = "ftp://bookingnet:FEJvvn$LYGCUd-2_Vq4zI@secure.nextpax.com/" + fn + ".gz;type=i";
 		URL url = new URL(urlname);
 		URLConnection urlc = url.openConnection();
 
@@ -289,8 +289,8 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		StringBuilder sb = new StringBuilder();
 		Date now = new Date();
 		long time = now.getTime();
-		String SenderSessionID = time + "BookingpalS";
-		String ReceiverSessionID = time + "BookingpalR";
+		String SenderSessionID = time + "bookingnetS";
+		String ReceiverSessionID = time + "bookingnetR";
 		String rq;
 		String rs = null;
 		boolean available = false;
@@ -328,17 +328,17 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			sb.append("   <MessageSequence>1</MessageSequence>");
 			sb.append("   <SenderID>" + SENDERID + "</SenderID>");
 			sb.append("  <ReceiverID>NPS001</ReceiverID>");
-			sb.append("   <RequestID>AvailabilityBookingPalRequest</RequestID>");
-			sb.append("   <ResponseID>AvailabilityBookingPalResponse</ResponseID>");
+			sb.append("   <RequestID>AvailabilitybookingnetRequest</RequestID>");
+			sb.append("   <ResponseID>AvailabilitybookingnetResponse</ResponseID>");
 			sb.append(" </Control>");
 			sb.append("  <TRequest>");
-			sb.append("    <AvailabilityBookingPalRequest>");
+			sb.append("    <AvailabilitybookingnetRequest>");
 			sb.append("      <PackageDetails WaitListCheck='ja'>");
 			sb.append("          <AccommodationID>" + "A" + product.getAltid() + "</AccommodationID>");
 			sb.append("          <ArrivalDate>" + DF.format(reservation.getFromdate()) + "</ArrivalDate>");
 			sb.append("        <Duration DurationType='dagen'>" + reservation.getDuration(Time.DAY).intValue() + "</Duration>");
 			sb.append("     </PackageDetails>");
-			sb.append("   </AvailabilityBookingPalRequest>");
+			sb.append("   </AvailabilitybookingnetRequest>");
 			sb.append("  </TRequest>");
 			sb.append("</TravelMessage>");
 
@@ -380,8 +380,8 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 		StringBuilder sb = new StringBuilder();
 		long time = timestamp;
-		String SenderSessionID = time + "BookingpalS";
-		String ReceiverSessionID = time + "BookingpalR";
+		String SenderSessionID = time + "bookingnetS";
+		String ReceiverSessionID = time + "bookingnetR";
 		LOG.error("Block 2 entry");
 		try {
 			if (reservation.notActive()) {
@@ -638,7 +638,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			Product product = sqlSession.getMapper(ProductMapper.class).read(reservation.getProductid());
 			Party customer = sqlSession.getMapper(PartyMapper.class).read(reservation.getCustomerid());
 			WebClient webClient = WebClient.create(BASE_NEXTPAX_URL);
-			webClient.path("comm/bookingpal_confirm_option_novasol.php");
+			webClient.path("comm/bookingnet_confirm_option_novasol.php");
 			webClient.accept(MediaType.TEXT_XML_TYPE);
 			webClient.query("reservation_number", reservation.getAltid()).query("sender_id", SENDERID).query("house_id", product.getAltid()).query("email_address", customer.getEmailaddress());
 			Response response = webClient.get();
@@ -666,7 +666,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		try {
 			Product product = sqlSession.getMapper(ProductMapper.class).read(reservation.getProductid());
 			// Example of URL: 
-			// https://secure.nextpax.com/comm/bookingpal_cancel_novasol.php?
+			// https://secure.nextpax.com/comm/bookingnet_cancel_novasol.php?
 			// reservation_number=[NOVASOL_RESERVATION_NUMBER]
 			// &sender_id=[YOUR_SENDER_ID]
 			// &house_id=[NEXTPAX_HOUSE_ID]
@@ -2505,7 +2505,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 		LOG.debug(message);
 		final SqlSession sqlSession = RazorServer.openSession();
-		String filename = "paxgenerator_available_bookingpal_" + getApikey() + ".csv";
+		String filename = "paxgenerator_available_bookingnet_" + getApikey() + ".csv";
 		try {
 			// RelationService.load(sqlSession, Downloaded.PRODUCT_DOWNLOAD_DATE, getAltpartyid(), new Date().toString());
 
@@ -2905,8 +2905,8 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 
 		Map<String, String> result = new HashMap<String, String>();
 		StringBuilder sb = new StringBuilder();
-		String senderSessionID = timestamp + "BookingpalS";
-		String receiverSessionID = timestamp + "BookingpalR";
+		String senderSessionID = timestamp + "bookingnetS";
+		String receiverSessionID = timestamp + "bookingnetR";
 		String creditCardInormation;
 		String fakeBankAccountInformation;
 		try {
@@ -3180,8 +3180,8 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		StringBuilder sb = new StringBuilder();
 		Date now = new Date();
 		long time = now.getTime();
-		String SenderSessionID = time + "BookingpalS";
-		String ReceiverSessionID = time + "BookingpalR";
+		String SenderSessionID = time + "bookingnetS";
+		String ReceiverSessionID = time + "bookingnetR";
 		String rq;
 		String rs = null;
 
@@ -3196,17 +3196,17 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			sb.append("   <MessageSequence>1</MessageSequence>");
 			sb.append("   <SenderID>" + SENDERID + "</SenderID>");
 			sb.append("  <ReceiverID>NPS001</ReceiverID>");
-			sb.append("   <RequestID>AvailabilityBookingPalRequest</RequestID>");
-			sb.append("   <ResponseID>AvailabilityBookingPalResponse</ResponseID>");
+			sb.append("   <RequestID>AvailabilitybookingnetRequest</RequestID>");
+			sb.append("   <ResponseID>AvailabilitybookingnetResponse</ResponseID>");
 			sb.append(" </Control>");
 			sb.append("  <TRequest>");
-			sb.append("    <AvailabilityBookingPalRequest>");
+			sb.append("    <AvailabilitybookingnetRequest>");
 			sb.append("      <PackageDetails WaitListCheck='ja'>");
 			sb.append("          <AccommodationID>" + "A" + productAltId + "</AccommodationID>");
 			sb.append("          <ArrivalDate>" + DF.format(reservation.getFromdate()) + "</ArrivalDate>");
 			sb.append("        <Duration DurationType='dagen'>" + reservation.getDuration(Time.DAY).intValue() + "</Duration>");
 			sb.append("     </PackageDetails>");
-			sb.append("   </AvailabilityBookingPalRequest>");
+			sb.append("   </AvailabilitybookingnetRequest>");
 			sb.append("  </TRequest>");
 			sb.append("</TravelMessage>");
 

@@ -9,7 +9,7 @@ class Address {
 	public String Address1;
 	public String Address2;
 	public String City;
-	public State State;
+	public String State;
 	public String ZipCode;
 	public Country Country;
 	public String Region;
@@ -26,7 +26,7 @@ class Address {
 		this.Address1 = address1;
 		this.Address2 = address2;
 		this.City = city;
-		this.State = new State(state, region);
+		this.State = state;
 		this.ZipCode = zipCode;
 		this.Country = new Country(country, countryname);
 		this.Region = region;

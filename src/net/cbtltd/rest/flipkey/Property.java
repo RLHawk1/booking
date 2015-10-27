@@ -24,7 +24,7 @@ implements HasXsl {
 	@XmlAttribute (name = "manager_id")
 	private String Manager_id;
 	@XmlAttribute (name = "last_update")
-	private String lastUpdate = (new SimpleDateFormat("yyyy-mm-dd hh:mm:ss")).format(new Date());
+	private String lastUpdate = (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")).format(new Date());
 	private String Name;
 	private Address Address;
 	private Details Details;
@@ -33,6 +33,7 @@ implements HasXsl {
 	private Amenities Amenities;
 	private Photos Photos;
 	private Rates Rates;
+	private Fees Fees;
 	private String xsl;
 	
 	public Property(){}
@@ -43,7 +44,7 @@ implements HasXsl {
 
 	public Property(String property_id, String manager_id, String name, Address address,
 			Details details, Descriptions descriptions, Suitability suitability, Amenities amenities,
-			Photos photos, Rates rates, String xsl) {
+			Photos photos, Rates rates, Fees fees, String xsl) {
 		super();
 		Property_id = property_id;
 		Manager_id = manager_id;
@@ -55,6 +56,7 @@ implements HasXsl {
 		Amenities = amenities;
 		Photos = photos;
 		Rates = rates;
+		Fees = fees;
 		this.xsl = xsl;
 	}
 	
@@ -147,6 +149,15 @@ implements HasXsl {
 
 	public void setRates(Rates rates) {
 		this.Rates = rates;
+	}
+
+	@XmlElement( name = "Fees" , required = true )
+	public Fees getFees() {
+		return Fees;
+	}
+
+	public void setFees(Fees fees) {
+		this.Fees = fees;
 	}
 
 	//---------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
 .idea
-/war/WEB-INF/classes
+/war
 /gwt-unitCache
 *.log

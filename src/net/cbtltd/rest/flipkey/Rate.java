@@ -19,6 +19,8 @@ public class Rate {
 	private String endDate;
 	private Double dailyMinRate;
 	private Double dailyMaxRate;
+	private Double weekendMinRate;
+	private Double weekendMaxRate;
 	private Double weeklyMinRate;
 	private Double weeklyMaxRate;
 	private Double monthlyMinRate;
@@ -78,6 +80,24 @@ public class Rate {
 
 	public void setDailyMaxRate(Double dailyMaxRate) {
 		this.dailyMaxRate = dailyMaxRate;
+	}
+
+	@XmlElement( name = "WeekendMinRate" , required = false )
+	public Double getWeekendMinRate() {
+		return weekendMinRate;
+	}
+
+	public void setWeekendMinRate(Double weekendMinRate) {
+		this.weekendMinRate = weekendMinRate;
+	}
+
+	@XmlElement( name = "WeekendMaxRate" , required = false )
+	public Double getWeekendMaxRate() {
+		return weekendMaxRate;
+	}
+
+	public void setWeekendMaxRate(Double weekendMaxRate) {
+		this.weekendMaxRate = weekendMaxRate;
 	}
 
 	@XmlElement( name = "WeeklyMinRate" , required = false )

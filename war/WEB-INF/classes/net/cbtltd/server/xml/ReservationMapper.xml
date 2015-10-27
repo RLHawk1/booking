@@ -1473,12 +1473,14 @@
 
 	<select id="flipkeyproperties" parameterType="Void" resultType="net.cbtltd.rest.flipkey.Updated">
 		select distinct 
-			ID as property_id, 
+			product.ID as property_id, 
 			now() as last_update
 		from product
-		where State = 'Created'
-			and Type = 'Accommodation'
-		order by ID
+		    join text on text.ID = CONCAT('Product',product.ID,'public') and text.Language = 'EN' and text.Type = 'Text'
+		    join image on image.product_id = product.id
+		where product.State = 'Created'
+			and product.Type = 'Accommodation'
+		order by product.ID
 	</select>
 
 	<select id="flipkeylocation" parameterType="String" resultType="net.cbtltd.rest.flipkey.Location">

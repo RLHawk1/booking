@@ -28,6 +28,7 @@ import net.cbtltd.server.RazorServer;
 import net.cbtltd.server.RelationService;
 import net.cbtltd.server.TextService;
 import net.cbtltd.server.WebService;
+import net.cbtltd.server.api.FeeMapper;
 import net.cbtltd.server.api.ImageMapper;
 import net.cbtltd.server.api.PartyMapper;
 import net.cbtltd.server.api.PriceMapper;
@@ -138,8 +139,11 @@ public class FlipkeyRest {
 		Property result = null;
 		try {
 			Product product = sqlSession.getMapper(ProductMapper.class).read(id);
-			//if (product == null || !product.hasState(Constants.CREATED)) {throw new RuntimeException("The property id is invalid or does not exist");}
-			if (product == null ) {throw new RuntimeException("The property id is invalid or does not exist");}
+			if (product == null) {
+			//if (product == null || !product.hasState(Constants.CREATED)) {
+				throw new RuntimeException("The property id is invalid or does not exist");
+			}
+			//if (product == null ) {throw new RuntimeException("The property id is invalid or does not exist");}
 			int bedrooms = product.getRoom();
 			int maximumOccupancy = product.getPerson();
 			int bathrooms = bedrooms;
@@ -180,7 +184,13 @@ public class FlipkeyRest {
 					}
 				}
 			}
-			Suitability Suitability = new Suitability(Pets, Smoking, Children, HandicapAccessible, ElderlyAccessible);
+			Suitability Suitability = null;
+			if (	Pets != null && 
+					Smoking != null && 
+					Children != null && 
+					HandicapAccessible != null) {
+				Suitability = new Suitability(Pets, Smoking, Children, HandicapAccessible, ElderlyAccessible);
+			}
 			
 			Amenities Amenities = null;
 //			if (amenity.size() > 0) {
@@ -200,7 +210,7 @@ public class FlipkeyRest {
 
 			Location location = sqlSession.getMapper(ReservationMapper.class).flipkeylocation(product.getLocationid());
 			String city = (location == null) ? "" : location.getName();
-			String state = (location == null) ? "" : location.getSubdivision();
+			String state = (location == null) ? "none" : location.getSubdivision();
 			String country = (location == null) ? "" : location.getCountry();
 			String countryname = (location == null) ? "" : location.getCountryname();
 			String region = (location == null) ? "" : location.getSubdivisionname();
@@ -241,6 +251,12 @@ public class FlipkeyRest {
 				Rates = new Rates(getRates(sqlSession, product));
 			}
 			
+			Fees Fees = null;
+			Collection<Fee> feesCol = getFees(sqlSession, product);
+			if (feesCol != null && feesCol.size() > 0) {
+				Fees = new Fees(feesCol);
+			}
+			
 			result = new Property(
 					product.getId(),
 					product.getSupplierid(),
@@ -266,14 +282,15 @@ public class FlipkeyRest {
 							1,							//MinimuStayLength
 							null,					    //CheckIn
 							null,					    //CheckOut
-							Currency.Code.USD.name()				//Currency
+							product.getCurrency()	    //Currency
 					),
 					Descriptions, //PropertyDescription (no HTML)
 					Suitability,
 					Amenities,
 					Photos,
 					Rates,
-					null
+					Fees,
+					xsl
 			);
 		} 
 		catch (Throwable x) {
@@ -456,28 +473,52 @@ public class FlipkeyRest {
 		ArrayList<net.cbtltd.shared.Price> prices = sqlSession.getMapper(PriceMapper.class).restread(action);
 		if (prices == null || prices.isEmpty()) {return null;}
 		for (net.cbtltd.shared.Price price : prices){
+
+			System.out.println("PRICE: " + price.getName() + ", " + price.getType() + ", " + price.getValue());
+
+			Rate rate = new Rate();
+			
+			String name = price.getName();
+			String type = price.getType();
 			double value = price.getValue();
-			Date endDate = new Date(0);
-			Rate rate = new Rate(endDate);
-			if (price.getDate().after(endDate)) {
-				endDate = price.getDate();
-				rate.setEndDate(endDate);
-				rate = new Rate(endDate);
+			if(NameId.Type.Reservation.name().equals(type)) {
+				if("Price per day".equals(name)) {
+					rate.setDailyMinRate(value);
+				} else
+				if("Price per weekend".equals(name)) {
+					rate.setWeekendMinRate(value);
+				} else
+				if("Price per week".equals(name)) {
+					rate.setWeeklyMinRate(value);
+				} else
+				if("Price per month".equals(name)) {
+					rate.setMonthlyMinRate(value);
+				} else {
+					continue;
+				}
 				rates.add(rate);
-			}
-			if (price.getQuantity() <= 1){
-				rate.setDailyMinRate(Model.round(value * exchangerate, 0));
-				rate.setDailyMaxRate(Model.round(value * exchangerate, 0));
-			}
-			else if (price.getQuantity() <= 7){
-				rate.setWeeklyMinRate(Model.round(value * exchangerate * 7.0, 0));
-				rate.setWeeklyMaxRate(Model.round(value * exchangerate * 7.0, 0));
-			}
-			else if (price.getQuantity() <= 30){
-				rate.setMonthlyMinRate(Model.round(value * exchangerate * 30.0, 0));
-				rate.setMonthlyMaxRate(Model.round(value * exchangerate * 30.0, 0));
 			}
 		}
 		return rates;
+	}
+	
+	private static final Collection<Fee> getFees(SqlSession sqlSession, Product product) {
+		Collection<Fee> fees = new ArrayList<Fee>();
+		
+		net.cbtltd.shared.Fee feeParams = new net.cbtltd.shared.Fee();
+		feeParams.setPartyId(product.getSupplierid());
+		feeParams.setState(net.cbtltd.shared.Fee.CREATED);
+		feeParams.setProductId(product.getId());
+		
+		ArrayList<net.cbtltd.shared.Fee> feeList = sqlSession.getMapper(FeeMapper.class).readbyproductandstate(feeParams);
+		if (feeList == null || feeList.isEmpty()) {return null;}
+		
+		for (net.cbtltd.shared.Fee feeObject : feeList){
+
+			System.out.println("FEE: " + feeObject.getName() + ", " + feeObject.getValue());
+			Fee fee = new Fee(feeObject.getName(), feeObject.getValue());
+			fees.add(fee);
+		}
+		return fees;
 	}
 }

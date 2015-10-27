@@ -904,116 +904,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		MonitorService.monitor(message, version);
 	}
 
-	private static HashMap<String, String> AMOUNTTYPE = null;
-
-	private static final String getAmountType(String amounttype) {
-		if (AMOUNTTYPE == null) {
-			AMOUNTTYPE = new HashMap<String, String>();
-			AMOUNTTYPE.put("BAG ", "Price per refuse bag");
-			AMOUNTTYPE.put("CUB ", "Per cubic meter");
-			AMOUNTTYPE.put("DAY ", "Price per day");
-			AMOUNTTYPE.put("DAU ", "Price per day per unit");
-			AMOUNTTYPE.put("HOU", " Per hour");
-			AMOUNTTYPE.put("KWH ", "Price per kWh");
-			AMOUNTTYPE.put("MON ", "Price per month");
-			AMOUNTTYPE.put("LIT ", "Price per litre");
-			AMOUNTTYPE.put("NIG", " Price per night");
-			AMOUNTTYPE.put("NOR", " Entity not relevant");
-			AMOUNTTYPE.put("PAC ", "Price per set");
-			AMOUNTTYPE.put("PER ", "Per person");
-			AMOUNTTYPE.put("PPD", " Price per person per day");
-			AMOUNTTYPE.put("PPH ", "Price per person per hour");
-			AMOUNTTYPE.put("PPN ", "Price per person per night");
-			AMOUNTTYPE.put("PPS", " Price per person per stay");
-			AMOUNTTYPE.put("PPW ", "Price per person per week");
-			AMOUNTTYPE.put("STA ", "Price per stay");
-			AMOUNTTYPE.put("STU ", "Price per stay per unit");
-			AMOUNTTYPE.put("UNI", " Price per unit");
-			AMOUNTTYPE.put("USE", " Based on usage");
-			AMOUNTTYPE.put("WEE ", "Price per week");
-			AMOUNTTYPE.put("WEU", "Price per week per unit");
-		}
-		return AMOUNTTYPE.get(amounttype);
-	}
-
-	private static HashMap<String, String> COSTCODE = null;
-
-	private static final String getCostCode(String costcode) {
-		if (COSTCODE == null) {
-			COSTCODE = new HashMap<String, String>();
-			COSTCODE.put("AIR", "Air conditioning");
-			COSTCODE.put("BAT", "Bath linen");
-			COSTCODE.put("BBE", "Baby bed");
-			COSTCODE.put("BED", "Bed linen");
-			COSTCODE.put("BEM", "Bed making");
-			COSTCODE.put("BIK", "Bikes");
-			COSTCODE.put("BRF", "Breakfast");
-			COSTCODE.put("BSK", "Basket");
-			COSTCODE.put("C6N", "Final cleaning for < 6 nights");
-			COSTCODE.put("CBE", "Child bed");
-			COSTCODE.put("CCH", "Child chair");
-			COSTCODE.put("CFR", "Toeslag kindvriendelijke woning");
-			COSTCODE.put("CHP", "Kinderpakket (kinderstoel en kinderbed)");
-			COSTCODE.put("CRP", "Parking place");
-			COSTCODE.put("DCL", "Dishcloths");
-			COSTCODE.put("DEP", "Guarantee / deposit");
-			COSTCODE.put("ELC", "Electricity");
-			COSTCODE.put("ENE", "Energy use");
-			COSTCODE.put("ENS", "Energy use in summer");
-			COSTCODE.put("ENV", "Environment tax");
-			COSTCODE.put("ENW", "Energy use in winter");
-			COSTCODE.put("F10", "Fishing boat/10 hp");
-			COSTCODE.put("F15", "Fishing boat /15 hp (small)");
-			COSTCODE.put("F25", "Fishing boat /25 hp (maxi)");
-			COSTCODE.put("FIN", "Final cleaning");
-			COSTCODE.put("FIR", "Firewood");
-			COSTCODE.put("GAR", "Garage");
-			COSTCODE.put("GAS", "Gas");
-			COSTCODE.put("HEA", "Heating");
-			COSTCODE.put("HLF", "Half-board");
-			COSTCODE.put("ICL", "Interim cleaning");
-			COSTCODE.put("INT", "Internet");
-			COSTCODE.put("KAY", "Kayak");
-			COSTCODE.put("KIT", "Kitchen linen");
-			COSTCODE.put("G7", "Super-XML 33/43");
-			COSTCODE.put("L6N", "Bed & bath linen for < 6 nights");
-			COSTCODE.put("LAD", "Legoland ticket, adult");
-			COSTCODE.put("LAY", "Layette (baby)");
-			COSTCODE.put("LCH", "Legoland ticket, child");
-			COSTCODE.put("LIN", "Linen (First set bed- en bath linen)");
-			COSTCODE.put("LOC", "Local taxes");
-			COSTCODE.put("LWC", "Weekly change linen (bed & bath linen)");
-			COSTCODE.put("MBO", "Motorboat");
-			COSTCODE.put("MOT", "Motor");
-			COSTCODE.put("OIL", "Oil");
-			COSTCODE.put("PCL", "Pet cleaning fee");
-			COSTCODE.put("PET", "Pets");
-			COSTCODE.put("PLH", "Pool heating");
-			COSTCODE.put("ROW", "Rowing boat");
-			COSTCODE.put("SAT", "Satellite TV");
-			COSTCODE.put("SER", "Service package");
-			COSTCODE.put("TEL", "Telephone");
-			COSTCODE.put("TOC", "Tourist tax children");
-			COSTCODE.put("TOU", "Tourist tax");
-			COSTCODE.put("TWL", "Towels");
-			COSTCODE.put("TWP", "Towel package (bath sheet & bath towel)");
-			COSTCODE.put("WAT", "Water");
-			COSTCODE.put("XBD", "Extra bed");
-			COSTCODE.put("XCP", "Extra parking place");
-			COSTCODE.put("XPT", "Extra person");
-		}
-		if (costcode == null) {
-			return "";
-		} else if (COSTCODE.get(costcode.toUpperCase()) == null) {
-			return "";
-		} else {
-			return COSTCODE.get(costcode.toUpperCase());
-		}
-	}
-
-	// This is only for additional cost. TODO://check for breakfest and if it is
-	// 0 put ATTRIBUTES.put("breakfast", "HAC138");
-
 	
 	@Override
 	public void readPrices() {
@@ -1021,16 +911,155 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		String message = "readPrices NextpaxAPIKEY: " + this.getApikey() + "STARTED";
 		LOG.debug(message);
 
-		String fn = "paxgenerator_house_additional_costs_" + getApikey() + ".xml";
 		final SqlSession sqlSession = RazorServer.openSession();
 		try {
-			// costs
-			// additional_costs
+			// rates
+			
+			Element rootNode = document.getRootElement();
+			List<Element> houses = rootNode.getChildren("offer", ns);
+			int ij = 0;
+			for (Element house : houses) {
+				ij++;
+				if (ij>650) {
+					break;
+				}
+				if (ij < 500) {
+					continue;
+				}
+				String altid = house.getAttributeValue("internal-id");
+				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
+
+				if (product == null) {
+					continue;
+				}
+
+				Element costs = house.getChild("rateperiods", ns);
+				if (costs == null) {
+					continue;
+				}
+				List<Element> costList = costs.getChildren("rateperiod", ns);
+				for (Element cost : costList) {
+					try {
+						LOG.debug("cost " + cost);
+						
+						String from = cost.getChildText("startdate", ns);
+						String until = cost.getChildText("enddate", ns);
+						String costcurrency = cost.getChildText("currency", ns);
+						
+						Double dailyrate = 0d;
+						String dailyrateS = cost.getChildText("dailyrate", ns);
+						if (dailyrateS != null && !dailyrateS.isEmpty()) dailyrate = Double.valueOf(dailyrateS);
+
+						Double weekendrate = 0d;
+						String weekendrateS = cost.getChildText("weekendrate", ns);
+						if (weekendrateS != null && !weekendrateS.isEmpty()) weekendrate = Double.valueOf(weekendrateS);
+						
+						Double weekrate = 0d;
+						String weekrateS = cost.getChildText("weekrate", ns);
+						if (weekrateS != null && !weekrateS.isEmpty()) weekrate = Double.valueOf(weekrateS);
+						
+						Double monthrate = 0d;
+						String monthrateS = cost.getChildText("monthrate", ns);
+						if (monthrateS != null && !monthrateS.isEmpty()) monthrate = Double.valueOf(monthrateS);
+	
+						String costcode = "";
+						Double costamount = 0.0;
+						for(int i=0; i<4; i++) {
+							switch(i) {
+								case 0: 
+									costamount = dailyrate; 
+									costcode = "Price per day";  
+									break;
+								case 1: 
+									costamount = weekendrate; 
+									costcode = "Price per weekend";  
+									break;
+								case 2: 
+									costamount = weekrate; 
+									costcode = "Price per week"; 
+									break;
+								case 3: 
+									costamount = monthrate; 
+									costcode = "Price per month"; 
+									break;
+								default: break;
+							}
+	
+							System.out.println("costamount = " + costamount);
+							if (costamount != 0.0) {
+	
+								Price price = new Price();
+								price.setPartyid(getAltpartyid());
+								price.setEntitytype(NameId.Type.Product.name());
+								price.setEntityid(product.getId());// productID
+								price.setCurrency(costcurrency);
+								price.setQuantity(0.0);
+								price.setName(costcode);
+								price.setType(NameId.Type.Reservation.name());
+								price.setDate(DF.parse(from));
+								price.setTodate(DF.parse(until));
+								price.setAvailable(1);
+	
+								LOG.debug("price " + price);
+								Price exists = sqlSession.getMapper(PriceMapper.class).exists(price);
+								if (exists == null) {
+									sqlSession.getMapper(PriceMapper.class).create(price);
+								} else {
+									price = exists;
+								}
+	
+								// price.setAltid(costcode);
+								price.setAltpartyid(getAltpartyid());
+								price.setFactor(1.0);
+								price.setOrganizationid(getAltpartyid());
+								price.setRule(Price.Rule.FixedRate.name());
+								price.setState(Price.CREATED);
+								price.setValue(Double.valueOf(costamount));
+								price.setMinimum(0.0);
+								price.setVersion(version);
+								sqlSession.getMapper(PriceMapper.class).update(price);
+								// sqlSession.getMapper(PriceMapper.class).cancelversion(price);
+								// If it just has not been updated we are deleting it.
+								// Will decide how we want to handle updates
+							}
+						}
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+				}
+				sqlSession.commit();
+				LOG.debug("readPrices NextpaxAPIKEY: " + this.getApikey() + "DONE");
+			}
+		} catch (Throwable x) {
+			sqlSession.rollback();
+			LOG.error(x.getMessage());
+			x.printStackTrace();
+		} finally {
+			sqlSession.close();
+		}
+		MonitorService.monitor(message, version);
+	}
+	
+
+	
+	public void readFeesOld() {
+		
+		Date version = new Date();
+		String message = "readPrices NextpaxAPIKEY: " + this.getApikey() + "STARTED";
+		LOG.debug(message);
+
+		String fn = "c:\\parsing\\p.xml";
+		
+		final SqlSession sqlSession = RazorServer.openSession();
+		try {
+		
 			SAXBuilder parser = new SAXBuilder();
-			Document document = parser.build(ftp(fn));
+		
+		//	Document document = parser.build(ftp(fn));
+			Document document = parser.build(new FileInputStream(fn));
+			
 			Element rootNode = document.getRootElement();
 			List<Element> houses = rootNode.getChildren("AdditionalCosts");
-			int i = 0;
 			for (Element house : houses) {
 				String altid = house.getChildText("HouseID");
 				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
@@ -1051,40 +1080,15 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					String from = cost.getChildText("From");
 					String until = cost.getChildText("Until");
 					
-					Price price = new Price();
-					price.setPartyid(getAltpartyid());
-					price.setEntitytype(NameId.Type.Product.name());
-					price.setEntityid(product.getId());// productID
-					price.setCurrency(costcurrency);
-					price.setQuantity(0.0);
-					price.setUnit(costamounttype);
-					price.setName(getCostCode(costcode));
-					price.setType(costtype.equalsIgnoreCase("MAN") ? NameId.Type.Mandatory.name() : NameId.Type.Feature.name());
-					price.setDate(DF.parse(from));
-					price.setTodate(DF.parse(until));
-					price.setAvailable(1);
-
-					LOG.debug("price " + price);
-					Price exists = sqlSession.getMapper(PriceMapper.class).exists(price);
-					if (exists == null) {
-						sqlSession.getMapper(PriceMapper.class).create(price);
-					} else {
-						price = exists;
-					}
-
-					// price.setAltid(costcode);
-					price.setAltpartyid(getAltpartyid());
-					price.setFactor(1.0);
-					price.setOrganizationid(getAltpartyid());
-					price.setRule(Price.Rule.FixedRate.name());
-					price.setState(Price.CREATED);
-					price.setValue(Double.valueOf(costamount));
-					price.setMinimum(0.0);
-					price.setVersion(version);
-					sqlSession.getMapper(PriceMapper.class).update(price);
-					// sqlSession.getMapper(PriceMapper.class).cancelversion(price);
-					// If it just has not been updated we are deleting it.
-					// Will decide how we want to handle updates
+					Fee feeObject = new Fee();
+					feeObject.setProductId(product.getId());
+					feeObject.setPartyId(product.getAltpartyid());
+					//feeObject.setState(Fee.CREATED);
+				
+					feeObject.setName(""/*getCostCode(costcode)*/);
+					feeObject.setEntityType(21);
+					sqlSession.getMapper(FeeMapper.class).create(feeObject);
+                   
 				}
 				sqlSession.commit();
 				LOG.debug("readPrices NextpaxAPIKEY: " + this.getApikey() + "DONE");
@@ -1096,6 +1100,112 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		} finally {
 			sqlSession.close();
 			delete(fn);
+		}
+		MonitorService.monitor(message, version);
+		
+	}
+	
+	public void readFees() {
+		Date version = new Date();
+		String message = "readFees Yandex";
+		LOG.debug(message);
+
+		final SqlSession sqlSession = RazorServer.openSession();
+		try {
+			// fees
+			
+			Element rootNode = document.getRootElement();
+			List<Element> houses = rootNode.getChildren("offer", ns);
+			int ij = 0;
+			for (Element house : houses) {
+//				ij++;
+//				if (ij>10) {
+//					break;
+//				}
+				String altid = house.getAttributeValue("internal-id");
+				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
+
+				if (product == null) {
+					continue;
+				}
+
+				Element fees = house.getChild("fees", ns);
+				if (fees == null) {
+					continue;
+				}
+				List<Element> feeList = fees.getChildren("fee", ns);
+				for (Element fee : feeList) {
+					try {
+						LOG.debug("fee " + fee);
+						
+						String feecode = fee.getAttributeValue("type");
+						String feecurrency = fee.getChildText("currency", ns);
+	
+						Double feecost = 0d;
+						String feecostS = fee.getChildText("cost", ns);
+						if (feecostS != null && !feecostS.isEmpty()) feecost = Double.valueOf(feecostS);
+	
+						Fee feeObject = new Fee();
+						feeObject.setProductId(product.getId());
+						feeObject.setPartyId(product.getAltpartyid());
+						feeObject.setState(Fee.CREATED);
+						feeObject.setUnit(1);
+						feeObject.setValueType(1);
+					
+						feeObject.setName(feecode);
+						feeObject.setEntityType(21);
+						feeObject.setCurrency(feecurrency);
+						feeObject.setValue(feecost);
+	
+						Fee exists = sqlSession.getMapper(FeeMapper.class).exists(feeObject);
+						if (exists == null) {
+							sqlSession.getMapper(FeeMapper.class).create(feeObject);
+						}
+						
+						/*Price price = new Price();
+						price.setPartyid(getAltpartyid());
+						price.setEntitytype(NameId.Type.Product.name());
+						price.setEntityid(product.getId());// productID
+						price.setCurrency(feecurrency);
+						price.setQuantity(0.0);
+						price.setName(feecode);
+						price.setType(NameId.Type.Tax.name());
+						price.setAvailable(1);
+						
+						Date date = new Date();
+						price.setDate(date);
+						price.setTodate(date);
+	
+						LOG.debug("price " + price);
+						Price exists = sqlSession.getMapper(PriceMapper.class).exists(price);
+						if (exists == null) {
+							sqlSession.getMapper(PriceMapper.class).create(price);
+						} else {
+							price = exists;
+						}
+	
+						price.setAltpartyid(getAltpartyid());
+						price.setFactor(1.0);
+						price.setOrganizationid(getAltpartyid());
+						price.setRule(Price.Rule.FixedRate.name());
+						price.setState(Price.CREATED);
+						price.setValue(Double.valueOf(feecost));
+						price.setMinimum(0.0);
+						price.setVersion(version);
+						sqlSession.getMapper(PriceMapper.class).update(price);*/
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				sqlSession.commit();
+				LOG.debug("readFees Yandex DONE");
+			}
+		} catch (Throwable x) {
+			sqlSession.rollback();
+			LOG.error(x.getMessage());
+			x.printStackTrace();
+		} finally {
+			sqlSession.close();
 		}
 		MonitorService.monitor(message, version);
 	}
@@ -1117,18 +1227,19 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			document = parseXML(new URL("http://staytoday.ru/advToAbook.xml"));
 			ns = document.getRootElement().getNamespace();
 			
-			createOrUpdateProducts(productsProceeded);
+			//createOrUpdateProducts(productsProceeded);
 			
-			//readHousePropertyCodes();
-			//updateInactiveProducts(productsProceeded);
+			//    readHousePropertyCodes();
+			//    updateInactiveProducts(productsProceeded);
 			
 			//readDescriptions();
 			//readImages();
 			
-			// setLocation();
-			//readPrices();
+			//    setLocation();
 			
-			//readSchedule();
+			readPrices();
+			//readFees();
+			//    readSchedule();
 			
 			//MonitorService.monitor(message, version);
 		} catch (Throwable x) {
@@ -1369,7 +1480,6 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					//=== additional properties ===//
 					int rooms = 0;
 					try {
-						System.out.println("!!!!!!ROOMS = " + house.getChildText("rooms", ns));
 						rooms = Integer.parseInt(house.getChildText("rooms", ns)); // Number of rooms.
 					} catch (NumberFormatException e) {}
 					product.setRoom(rooms);
@@ -1383,9 +1493,10 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					} catch (NumberFormatException e) {}
 					
 					product.setPhysicaladdress(address);
+					
+					product.setState(Product.CREATED);
 					//=== additional properties ===//
-					System.out.println("SOME PROPERTIES");
-					System.out.println(maxpersons);
+					
 					
 					
 					sqlSession.getMapper(ProductMapper.class).update(product);
@@ -1734,54 +1845,61 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			int i = 0;
 			StringBuilder sb;
 			for (Element house : houses) {
-				altid = house.getAttributeValue("internal-id");
-				product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid, false);
-				if (product == null) {
-					continue;
-				}
-
-				HashMap<String, String> texts = new HashMap<String, String>(); // Maps language to its text
-				Element description = house.getChild("description", ns);
-				if (description == null) {
-					continue;
-				}
-				String language = "RU";
-				String text = description.getText();
-
-				texts.put(language, text.length() <= IsPartner.TEXT_NOTES_LENGTH ?
-						text : text.substring(0, IsPartner.TEXT_NOTES_LENGTH));
-
-				//if (!texts.containsKey(Language.EN) && RazorConfig.doTranslation()) {// must have an English description!
-				if (!texts.containsKey(Language.EN)) {// must have an English description!
-					String englishTranslation;
-					for (String lang : texts.keySet()) {
-						// sleep for a while to meet google's rate limit
-						Thread.sleep(50);
-						System.out.println("TRY TO TRANSLATE: " + texts.get(lang) + ", " + lang + ", " + Language.EN);
-						englishTranslation = TextService.translate(texts.get(lang), lang, Language.EN);
-						if (StringUtils.isNotEmpty(englishTranslation)) {
-							texts.put(Language.EN, englishTranslation);
-							LOG.debug("English_Translation : " + texts.get(Language.EN));
-							break;
+				try {
+					i++;
+					//if (i < 430) {
+					//	continue;
+					//}
+					altid = house.getAttributeValue("internal-id");
+					product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid, false);
+					if (product == null) {
+						continue;
+					}
+	
+					HashMap<String, String> texts = new HashMap<String, String>(); // Maps language to its text
+					Element description = house.getChild("description", ns);
+					if (description == null) {
+						continue;
+					}
+					String language = "RU";
+					String text = description.getText();
+	
+					texts.put(language, text.length() <= IsPartner.TEXT_NOTES_LENGTH ?
+							text : text.substring(0, IsPartner.TEXT_NOTES_LENGTH));
+	
+					//if (!texts.containsKey(Language.EN) && RazorConfig.doTranslation()) {// must have an English description!
+					if (!texts.containsKey(Language.EN)) {// must have an English description!
+						String englishTranslation;
+						for (String lang : texts.keySet()) {
+							// sleep for a while to meet google's rate limit
+							Thread.sleep(50);
+							System.out.println("TRY TO TRANSLATE: " + texts.get(lang) + ", " + lang + ", " + Language.EN);
+							englishTranslation = TextService.translate(texts.get(lang), lang, Language.EN);
+							if (StringUtils.isNotEmpty(englishTranslation)) {
+								texts.put(Language.EN, englishTranslation);
+								LOG.debug("English_Translation : " + texts.get(Language.EN));
+								break;
+							}
 						}
 					}
-				}
-
-				for (String lang : texts.keySet()) {
-					LOG.debug("language " + lang + " notes " + texts.get(lang));
-					product.setPublicText(new Text(product.getPublicId(),
-							product.getPublicLabel(),
-							Text.Type.Text,
-							new Date(),
-							texts.get(lang),
-							lang));
-					TextService.update(sqlSession, product.getTexts());
-				}
-
-				i++;
-				if (i > 0 && i % IsPartner.PRICE_BATCH_SIZE == 0) {
-					LOG.debug("Smart flush for description: " + i);
-					sqlSession.commit();
+	
+					for (String lang : texts.keySet()) {
+						LOG.debug("language " + lang + " notes " + texts.get(lang));
+						product.setPublicText(new Text(product.getPublicId(),
+								product.getPublicLabel(),
+								Text.Type.Text,
+								new Date(),
+								texts.get(lang),
+								lang));
+						TextService.update(sqlSession, product.getTexts());
+					}
+	
+					if (i > 0 && i % IsPartner.PRICE_BATCH_SIZE == 0) {
+						LOG.debug("Smart flush for description: " + i);
+						sqlSession.commit();
+					}
+				} catch(Exception e) {
+					e.printStackTrace();
 				}
 			}
 			sqlSession.commit();
@@ -1907,9 +2025,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					image.setState("Created");
 					
 					List<String> idList = sqlSession.getMapper(ImageMapper.class).imageidsbyurl(image);
-					System.out.println("IMAGE LIST SIZE: " + idList.size());
 					if (idList != null && idList.size() > 0) {
-						System.out.println("ID FROM IMAGE: " + idList.get(0));
 						image.setId(idList.get(0));
 						sqlSession.getMapper(ImageMapper.class).update(image);
 					} else {

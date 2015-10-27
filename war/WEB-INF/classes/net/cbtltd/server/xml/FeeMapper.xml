@@ -42,8 +42,12 @@
 			and fee.ProductID = #{productId,jdbcType=INTEGER}
 			and fee.PartyID = #{partyId,jdbcType=INTEGER}
 			and fee.Name = #{name,jdbcType=VARCHAR}
-			and fee.FromDate = #{fromDate,jdbcType=DATE}
-			and fee.ToDate = #{toDate,jdbcType=DATE}
+			<if test="fromDate != null">
+				and fee.FromDate = #{fromDate,jdbcType=DATE}
+			</if>
+			<if test="toDate != null">
+				and fee.ToDate = #{toDate,jdbcType=DATE}
+			</if>
 			<if test="state != null">
 				and fee.State = #{state,jdbcType=INTEGER}
 			</if>

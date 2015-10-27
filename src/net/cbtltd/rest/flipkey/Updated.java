@@ -40,6 +40,6 @@ public class Updated {
 	}
 
 	public void setLast_update(Date last_update) {
-		this.lu = (new SimpleDateFormat("yyyy-mm-dd hh:mm:ss")).format(last_update);
+		this.lu = (new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")).format(last_update);
 	}
 }

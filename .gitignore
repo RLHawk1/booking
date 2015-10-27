@@ -2,3 +2,6 @@
 /war
 /gwt-unitCache
 *.log
+Razor.log.1
+Razor.war
+/.gwt

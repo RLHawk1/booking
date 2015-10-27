@@ -34,12 +34,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.apache.tools.ant.types.CommandlineJava.SysProperties;
 
+import com.bookingnet.config.RazorConfig;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.Session;
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.server.ImageService;
 import com.mybookingpal.storage.exception.StorageException;
 
 import net.cbtltd.rest.AbstractReservation;
@@ -82,7 +82,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final double DEPOSITPERCENTAGE = 0.40;
 	private static final int FTP_ID_START_NUM = 1001;
 	private static final String IMAGES_LOCATION = "ftp.japeck.com";
-	private static final String IMAGES_USERNAME = "mybookingpal@japeck.com";
+	private static final String IMAGES_USERNAME = "bookingnet@japeck.com";
 	private static final String IMAGES_PASSWORD = "HH88bb567a";
 	private static final String LAKE_TAHOE_AFFILIATE_NUMBER = "153980";
 	private static final String RESERVATION_REQUEST_COLUMN_HEADER = "Request Number,Reservation,Property ID,Arrive Date,Depart Date,Number Nights,RentalAmtOnly,Booking Fee,ResSvc / Clng,Rental Amt,OcpTax Amt,Insure Amt,Total Amt,Deposit Amt,Special Rate,Nmbr Guests,First Name,Last Name,Street Address P.O.box,City,State,Zip Code,Daytime Phone,Alternate Phone,E-Mail Address,E-Mail LTA Newsletter,Credit Card Type,Credit Card Number,CCard Expiration Date,CSV Number,Sales Agent,Guest Comments,Agent Comments,Affiliate ID";
@@ -383,7 +383,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			reservationRequest.write(",");
 			reservationRequest.write(",");
 
-			reservationRequest.write("BookingPal,"); // Agent name
+			reservationRequest.write("bookingnet,"); // Agent name
 			reservationRequest.write(reservation.getNotes() == null ? ","
 					: reservation.getNotes().replaceAll(",", "") + ","); // Reservation notes
 			reservationRequest.write(","); // Agent notes
@@ -525,7 +525,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	//	tripInsurance
 	//			.setDescription("Lake Tahoe Accommodations trip insurance (currently not supported, not included)");
 	//	tripInsurance
-	//			.setPaymentInfo("Not currently supported by BookingPal. Not included in total.");
+	//			.setPaymentInfo("Not currently supported by bookingnet. Not included in total.");
 	//	tripInsurance.setAmount(String.valueOf("0"));
 	//	tripInsurance.setIncluded(false);
 	//	quoteDetails.add(tripInsurance);

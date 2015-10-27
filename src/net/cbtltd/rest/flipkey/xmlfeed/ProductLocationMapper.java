@@ -36,7 +36,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
 import com.allen_sauer.gwt.log.client.Log;
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 public class ProductLocationMapper extends PartnerHandler {
 

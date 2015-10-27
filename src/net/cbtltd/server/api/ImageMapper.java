@@ -13,7 +13,7 @@ import org.apache.ibatis.session.RowBounds;
 
 /**
  * @author	Chirayu Shah
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @
  * @version	1.0.0
  */
 public interface ImageMapper extends AbstractMapper<Image> {

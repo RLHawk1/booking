@@ -1,5 +1,5 @@
 /**
- * @author	Chris Marshall
+ * @author	bookingnet
  * @see		License at http://razorpms.com/razor/License.html
  * @version	2.00
  */
@@ -170,10 +170,10 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		WebServiceSoap port = ss.getWebServiceSoap();  
 
 		ServiceAuthHeader sah = new ServiceAuthHeader();
-		username = "CH1001116"; // BookingPal partner ID 
+		username = "CH1001116"; // bookingnet partner ID 
 		//username = "CH1000768"; //live at "https://webservices.interhome.com/partnerV3/WebService.asmx"
 		sah.setUsername(username);
-		sah.setPassword("BOOKINGPAL");
+		sah.setPassword("bookingnet");
 
 		List<Header> headers = new ArrayList<Header>();
 		((BindingProvider) port).getRequestContext().put(Header.HEADER_LIST, headers);

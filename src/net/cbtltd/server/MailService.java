@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -130,7 +130,7 @@ implements IsService {
 		if (mail.getRecipients().indexOf(',') > 0) {message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(mail.getRecipients()));}
 		else {message.setRecipient(Message.RecipientType.TO, new InternetAddress(mail.getRecipients()));}
 
-		message.setFrom(new InternetAddress("noreply@mybookingpal.com"));
+		message.setFrom(new InternetAddress("noreply@bookingnet.com"));
 		
 		return message;
 	}

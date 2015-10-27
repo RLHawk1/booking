@@ -10,7 +10,7 @@ import net.cbtltd.rest.expedia.utils.ExpediaUtils;
 
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 public class PARRUtils {
 	private static final Logger LOG = Logger.getLogger(PARRUtils.class

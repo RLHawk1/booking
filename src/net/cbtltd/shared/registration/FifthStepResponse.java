@@ -103,26 +103,26 @@ public class FifthStepResponse extends StepResponse implements RegistrationRespo
 
 			/* Funds holder:
 				0 - Another payment gateway selected (PayPal, Authorize .NET),
-				1 - Bookingpal selected to process payments, 
+				1 - bookingnet selected to process payments, 
 				0 - API(PMS support credit card processing). 
 			*/
 			
 			/* Payment Processing Method:
 				3 - API(PMS support credit card processing);
 				2 - Email;
-				1 - Payment gateway selected (BookingPal, PayPal, Authorize .NET).
+				1 - Payment gateway selected (bookingnet, PayPal, Authorize .NET).
 			 */
 			
-			if (payment.equals(1)) { 			// Bookingpal payment gateway selected to process payments.
+			if (payment.equals(1)) { 			// bookingnet payment gateway selected to process payments.
 
-				PaymentGatewayProvider bookingpalPaymentGateway = sqlSession.getMapper(PaymentGatewayProviderMapper.class).readByName("BookingPal");
+				PaymentGatewayProvider bookingnetPaymentGateway = sqlSession.getMapper(PaymentGatewayProviderMapper.class).readByName("bookingnet");
 				
-				if (bookingpalPaymentGateway != null){
+				if (bookingnetPaymentGateway != null){
 					
-					gatewayInfo  = new PaymentGatewayInfo("BookingPal", "", "", "", "");
-					setManagerGateway(sqlSession, gatewayInfo, this.getPmId(), bookingpalPaymentGateway);
+					gatewayInfo  = new PaymentGatewayInfo("bookingnet", "", "", "", "");
+					setManagerGateway(sqlSession, gatewayInfo, this.getPmId(), bookingnetPaymentGateway);
 					
-					managerInfo.setFundsHolder(FundsHolderEnum.BookingPal.value()); 				 
+					managerInfo.setFundsHolder(FundsHolderEnum.bookingnet.value()); 				 
 					managerInfo.setPaymentProcessingType(PaymentProcessingTypeEnum.GATEWAY.type());
 					
 				}else {

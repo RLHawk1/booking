@@ -1,3 +1,0 @@
-# Module razor
-# RPC service class, partial path of RPC policy file
-net.cbtltd.client.RazorService, DF4D004BA9B0CD2CCAED5ACE92EDA325.gwt.rpc

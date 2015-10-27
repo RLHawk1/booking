@@ -76,7 +76,7 @@ import org.apache.log4j.Logger;
  * Roger Parry roger@ciirus.com
  * 
  * CiiRUS App:
- *   Username: 	    MyBookingPal
+ *   Username: 	    bookingnet
  *   PSWD:      	YiPL46Rfi
  */
 public class A_Handler extends PartnerHandler implements IsPartner {

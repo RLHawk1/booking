@@ -139,14 +139,14 @@ public class ReservationPaymentHandler implements Handler {
 //			if (propertyManagerInfo.getNumberOfPayments() > 1) {
 //				// TODO : Pending transaction start
 //				double chargeAmount = PaymentHelper.getSecondPayment(sqlSession, reservation, propertyManagerInfo);
-//				double bookingpalPayment = chargeAmount * 0.02; // TODO
+//				double bookingnetPayment = chargeAmount * 0.02; // TODO
 //				double commission = chargeAmount * product.getCommission() / 100.; // TODO
 //				int partialIin = PaymentHelper.getLastDigits(cardNumber, 4);
 //				int partyid = Integer.valueOf(Model.decrypt(pos));
 //				double partnerPayment = 0; // TODO
 //				String pmsConfirmationId = reservation.getConfirmationId(); // TODO
 //				pendingTransaction = new PendingTransaction(
-//						paymentGatewayProvider, reservation, bookingpalPayment,
+//						paymentGatewayProvider, reservation, bookingnetPayment,
 //						chargeAmount, propertyManagerInfo, commission,
 //						firstName, familyName, gatewayTransactionId,
 //						partialIin, partyid, partnerPayment, paymentGatewayId,

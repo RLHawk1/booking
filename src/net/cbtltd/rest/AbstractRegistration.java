@@ -122,7 +122,7 @@ public abstract class AbstractRegistration extends AbstractParty {
 	}
 
 	/*
-	 * Create new mybookingpal user
+	 * Create new bookingnet user
 	 */
 	private ChannelPartnerResponse createAccount(String pos, String managerPos,
 			String account, String companyName, String firstName,

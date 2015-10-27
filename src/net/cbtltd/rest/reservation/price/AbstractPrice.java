@@ -4,7 +4,7 @@ import java.text.ParseException;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.mybookingpal.utils.BPThreadLocal;
+import com.bookingnet.utils.BPThreadLocal;
 
 import net.cbtltd.rest.ReservationRequest;
 import net.cbtltd.rest.reservation.CreateReservationContent;
@@ -34,8 +34,8 @@ public abstract class AbstractPrice implements Pricable {
 				throw new ServiceException(Error.price_not_match, "passed: " + amountToCheck + currency + ", difference: " + amountDifference);
 			}
 			
-			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER) {
-				currency = PaymentHelper.DEFAULT_BOOKINGPAL_CURRENCY;
+			if(propertyManagerInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER) {
+				currency = PaymentHelper.DEFAULT_bookingnet_CURRENCY;
 			} else {
 				currency = product.getCurrency();
 			}

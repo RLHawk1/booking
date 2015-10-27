@@ -12,7 +12,7 @@ import net.cbtltd.shared.PropertyManagerInfo;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 /**
  * PM configuration. This is the class which is responsible for specific reservation algorithms.

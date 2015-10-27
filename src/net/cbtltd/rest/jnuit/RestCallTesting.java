@@ -32,8 +32,8 @@ import org.supercsv.io.CsvMapReader;
 import org.supercsv.io.ICsvMapReader;
 import org.supercsv.prefs.CsvPreference;
 
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.server.test.mapper.LocationMapper;
+import com.bookingnet.config.RazorConfig;
+import com.bookingnet.server.test.mapper.LocationMapper;
 
 public class RestCallTesting {
 	private static HashMap<String, HashMap<String, String>> parameters;
@@ -44,8 +44,8 @@ public class RestCallTesting {
 	private static final String webappName = "razor"; // Used for localhost testing
 	private static final String localServerPath = "/xml/json";
 	private static final String remoteServerPath = "/xml/services/json";
-	private static final String productionStr = "https://www.mybookingpal.com";
-	private static final String uatStr = "https://uat.mybookingpal.com";
+	private static final String productionStr = "https://www.bookingnet.com";
+	private static final String uatStr = "https://uat.bookingnet.com";
 	
 	private static HashMap<String, HashMap<String, String>> readCSVFile()
 	{

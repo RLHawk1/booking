@@ -21,7 +21,7 @@ import org.apache.log4j.Logger;
 
 import com.mybookingpal.service.StorageService;
 import com.mybookingpal.service.StorageServiceFactory;
-import com.mybookingpal.utils.ImageUtils;
+import com.bookingnet.utils.ImageUtils;
 
 
 public class ImageService implements IsService {
@@ -30,7 +30,7 @@ public class ImageService implements IsService {
 	private static volatile ImageService instance = null;
 	
 	private static final String RAZOR_PMS  = "raz";
-	private static final String S3_IMAGE_URL = "https://s3.amazonaws.com/mybookingpal/pictures/";
+	private static final String S3_IMAGE_URL = "https://s3.amazonaws.com/bookingnet/pictures/";
 	private static final List<String> S3_PMS_LIST = Arrays.asList(new String[]{"61447", "99064", "90640", "210252", "231053", "231051", "231044", "210254",
 		"231048", "210270", "210287", "231049", "210286", "231050", "231057", "231016", "321479"});
 	public enum Size {Regular, Standard, Thumb}
@@ -80,7 +80,7 @@ public class ImageService implements IsService {
 						throw new ServiceException(Error.database_cannot_find, "product");
 					}
 					Partner partner = sqlSession.getMapper(PartnerMapper.class).exists(product.getSupplierid());
-					com.mybookingpal.server.ImageService.setPMSPMAbbrevations(sqlSession, product, partner);
+					com.bookingnet.server.ImageService.setPMSPMAbbrevations(sqlSession, product, partner);
 					
 					// get storage service instance
 					StorageService storageService = StorageServiceFactory.getInstance();
@@ -328,7 +328,7 @@ public class ImageService implements IsService {
 		for(Image image:listNameIds) {
 			if(image.getType().equals(Image.Type.Hosted.name().toLowerCase())) {
 				if(image.isThumbnail()) {
-					String imageName  = com.mybookingpal.server.ImageService.getImageThumbFileName(image.getName());
+					String imageName  = com.bookingnet.server.ImageService.getImageThumbFileName(image.getName());
 					images.add(imageLocation + imageName);
 				}
 			} else if(image.getType().equals(Image.Type.Linked.name().toLowerCase())) {

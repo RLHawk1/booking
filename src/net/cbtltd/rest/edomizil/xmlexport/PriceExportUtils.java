@@ -35,8 +35,8 @@ import org.joda.time.Days;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.thirdparty.guava.common.base.Strings;
-import com.mybookingpal.config.RazorConfig;
 import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 public class PriceExportUtils {

@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server.api;
@@ -8,7 +8,7 @@ package net.cbtltd.server.api;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mybookingpal.service.annotations.SqlUpdateMarker;
+import com.bookingnet.service.annotations.SqlUpdateMarker;
 
 import net.cbtltd.rest.Download;
 import net.cbtltd.rest.ScheduleItem;

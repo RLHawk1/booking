@@ -87,7 +87,7 @@ public class LauncherTest {
 		LOG.info(Model.encrypt(altpartyid));
 		launcher = new Launcher(altpartyid, false);
 		localRESTURL = "http://localhost:8080/Razor/xml/rest/product/#productID#/fulldetail?pos=910c29e329fff399&test=true";
-		localRESTURL = "https://uat.mybookingpal.com/xml/rest/product/#productID#/fulldetail?pos="+Model.encrypt(altpartyid)+"&test=true";
+		localRESTURL = "https://uat.bookingnet.com/xml/rest/product/#productID#/fulldetail?pos="+Model.encrypt(altpartyid)+"&test=true";
 	}
 	
 	@Test

@@ -61,7 +61,7 @@ public class CommissionCalculationUtil {
 //		double bpCommission = pmInfo.getBpCommission() / 100.;
 //		double pmsMarkup = partner.getCommission() / 100.;
 //		double channelPartnerCommission = Integer.valueOf(channelPartner.getCommission()) / 100.; 
-//		double creditCardFee = pmInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER ? CREDIT_CARD_FEE : 0;
+//		double creditCardFee = pmInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER ? CREDIT_CARD_FEE : 0;
 //		double totalCommission = bpCommission + pmsMarkup + channelPartnerCommission + creditCardFee;
 //		return totalCommission;
 //	}
@@ -181,7 +181,7 @@ public class CommissionCalculationUtil {
 	}
 	
 	public Boolean isBPFundsHolder(){
-		return pmInfo.getFundsHolder() == ManagerToGateway.BOOKINGPAL_HOLDER;
+		return pmInfo.getFundsHolder() == ManagerToGateway.bookingnet_HOLDER;
 	}
 	
 	public Double getAdditionalCommission() {
@@ -222,7 +222,7 @@ public class CommissionCalculationUtil {
 		return totalCommission;
 	}
 	
-	// Total commission = BookingPal Commission + PMS Markup + Channel Partner Commission + Credit Card Fee (if MBP is holder)
+	// Total commission = bookingnet Commission + PMS Markup + Channel Partner Commission + Credit Card Fee (if MBP is holder)
 	public Double getTotalCommissionValue() {
 		
 		Double totalCommissionValue = getCommissionValue(calculateNetRate(), getTotalCommission());

@@ -1,7 +1,7 @@
 package net.cbtltd.rest.mybookingpal;
 import java.util.List;
 
-//import net.cbtltd.rest.mybookingpal.A_Handler.BookedDates;
+//import net.cbtltd.rest.bookingnet.A_Handler.BookedDates;
 
 ////Am i using this class??????
 //public class ReservationItem {

@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -43,7 +43,7 @@ import net.cbtltd.shared.product.WidgetProduct;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.server.ImageService;
 
 /** The Class ProductService responds to product (property) requests. */
 public class ProductService

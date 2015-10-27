@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://uat.mybookingpal.com/razor/License.html
+ * @author	bookingnet
+ * @see		License at http://uat.bookingnet.com/razor/License.html
  * @version	4.0.0
  */
 package net.cbtltd.shared.api;
@@ -84,15 +84,15 @@ public interface HasUrls {
 
 	String DB_CONFIG = "net/cbtltd/server/xml/Configuration.xml";
 	String ADMIN_EMAIL = "pavel.boiko@gmail.com";
-	String CHIRAYU_SHAH_EMAIL = "chirayu@mybookingpal.com";
-	String RAY_KARIMI_EMAIL = "ray@mybookingpal.com";
-	String MYBOOKINGPAL_PAYPAL_EMAIL = "platfo_1255077030_biz@gmail.com";
+	String CHIRAYU_SHAH_EMAIL = "chirayu@bookingnet.com";
+	String RAY_KARIMI_EMAIL = "ray@bookingnet.com";
+	String bookingnet_PAYPAL_EMAIL = "platfo_1255077030_biz@gmail.com";
 
 	String MAPS_KEY_OLD = "ABQIAAAA30LJM-VtBK-8CmbP2eic4RTf7B8Hz92uOSGpB3j3J64rWpwdFRRtnzeji201m8XeOjxG-9pkasreJg"; //http://razorpms.com
 
-	String GOOGLE_CLIENT_KEY = "AIzaSyBL5apFnTQzdcadSCBQX5WvVJ9ZXaTZNos"; //uat.mybookingpal.com maps
+	String GOOGLE_CLIENT_KEY = "AIzaSyBL5apFnTQzdcadSCBQX5WvVJ9ZXaTZNos"; //uat.bookingnet.com maps
 	String GOOGLE_SERVER_KEY = "AIzaSyDOSbnnm4pz2KRnZEUPkE_YwmlhQAeUkfc";
-	String GOOGLE_API_KEY ="AIzaSyDOSbnnm4pz2KRnZEUPkE_YwmlhQAeUkfc";//uat.mybookingpal.com translation //bookingpaltranslate@gmail.com | ps: bookingpal
+	String GOOGLE_API_KEY ="AIzaSyDOSbnnm4pz2KRnZEUPkE_YwmlhQAeUkfc";//uat.bookingnet.com translation //bookingnettranslate@gmail.com | ps: bookingnet
 	String FLIPKEY_KEY = "28816157edbf16d560e14a816c9d107c";
 
 	String PUBLIC_DIRECTORY = "";

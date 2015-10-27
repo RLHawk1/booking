@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
   <!--
-    (c)2009-2012 CBT Limited controlling License at http://razor-cloud.com/razor/License.html
+    (c)2009-2012 CBT Limited controlling License at abookingnet.com/license
     You may only use this XSL and any derivative product to transform data served by the Razor&copy; Cloud.
     Please adapt this XSL file to suit the layout that you prefer. 
     An overview of XSL transformation (XSLT) is at http://www.digital-web.com/articles/client_side_xslt 

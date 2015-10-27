@@ -24,7 +24,7 @@ public class XMLExportTest {
 	SqlSession sqlSession;
 	static String altpartyid;
 	static XMLExportUtils xmlExportUtils;
-	static String exportWithAccessPointAs= "mybookingpal.com";// "localhost:8080";
+	static String exportWithAccessPointAs= "bookingnet.com";// "localhost:8080";
 
 	@BeforeClass
 	public static void setUp() throws Exception {

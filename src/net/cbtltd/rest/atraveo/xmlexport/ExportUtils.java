@@ -53,7 +53,7 @@ import net.cbtltd.shared.Text;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 import com.sun.xml.bind.marshaller.CharacterEscapeHandler;
 
 /**
@@ -447,7 +447,7 @@ public class ExportUtils {
 	private ProductFacilities.Facility.Objects.Object.Pictures buildPictures(SqlSession sqlSession, Product product,
 			Facility facility) {
 		ProductFacilities.Facility.Objects.Object.Pictures pictures= productFactory.createFacilitiesFacilityObjectsObjectPictures();
-		List<String> listImage=com.mybookingpal.server.ImageService.getProductRegularImageURLs(sqlSession, product.getId());
+		List<String> listImage=com.bookingnet.server.ImageService.getProductRegularImageURLs(sqlSession, product.getId());
 		Iterator<String> urls= listImage.iterator(); 
 		List<Image> images=ImageService.getProductRegularImage(sqlSession, product.getId());
 		for (Image image : images) {

@@ -108,12 +108,12 @@ public class FlipkeySupplierAPITest {
 //			data.setPropertyId(417793);
 //			data.setPropertyId(53993);
 			data.setPropertyId(8495);
-			data.setEmail("chirayu@mybookingpal1.com");
+			data.setEmail("chirayu@bookingnet1.com");
 			data.setPhoneNumber("07747484202");
 			data.setUserIp("90.221.169.227");
-//			data.setPointOfSale("mybookingpal.com");
+//			data.setPointOfSale("bookingnet.com");
 			data.setUtmMedium("csynd");
-			data.setUtmSource("bookingpal");
+			data.setUtmSource("bookingnet");
 			data.setUtmCampaign("Host&Post");
 
 			

@@ -48,8 +48,8 @@ public class PropertyManagerInfo {
 	private Integer propertyManagerId; 			
 	// ID of Property Management System in Party table
 	private Integer pmsId;						
-	// This value is set based on whether the PM is using their Payment Gateway account or BookingPal payment gateway account:
-	// 	1 - BookingPal payment gateway account;
+	// This value is set based on whether the PM is using their Payment Gateway account or bookingnet payment gateway account:
+	// 	1 - bookingnet payment gateway account;
 	//  0 - using their payment gateway account.
 	private Integer fundsHolder;				
 	// This value is set based on the PM  Online Payment Options:

@@ -14,7 +14,7 @@ public class PaymentGatewayHolder {
 	private static List<PaymentGatewayProvider> paymentGatewayProviders = null;
 	public static final String PAYPAL = "PayPal";
 	public static final String ANET = "Authorize.net";
-	public static final String BOOKINGPAL = "BookingPal";
+	public static final String bookingnet = "bookingnet";
 	public static final String DIBS = "DIBS";
 	public static final String RENT = "RENT";
 	
@@ -49,8 +49,8 @@ public class PaymentGatewayHolder {
 		return getProviderByName(ANET);
 	}
 	
-	public static PaymentGatewayProvider getBookingPal() {
-		return getProviderByName(BOOKINGPAL);
+	public static PaymentGatewayProvider getbookingnet() {
+		return getProviderByName(bookingnet);
 	}
 	
 	public static PaymentGatewayProvider getDibs() {

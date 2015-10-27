@@ -79,7 +79,7 @@ public class SixthStepResponse extends StepResponse implements RegistrationRespo
 
 		if (requestObject.getManagerPaymentType() != null) {
 
-			/* PaymentType: receiving payment from BookingPal
+			/* PaymentType: receiving payment from bookingnet
 				1 - Mail Checks;
 				2 - PayPal;
 				3 - ACH/Direct deposit.
@@ -141,19 +141,19 @@ public class SixthStepResponse extends StepResponse implements RegistrationRespo
 			
 			/* Funds holder:
 				0 - Another payment gateway selected (PayPal, Authorize .NET, ...) OR API (PMS support credit card processing);
-				1 - BookingPal selected to process payments.
+				1 - bookingnet selected to process payments.
 			*/	
 		
 			/* Payment Processing Type:
 				3 - API(PMS support credit card processing);
 				2 - Email;
-				1 - Payment gateway selected (BookingPal, PayPal, Authorize .NET).
+				1 - Payment gateway selected (bookingnet, PayPal, Authorize .NET).
 			*/
 			
 			Party action = new Party();
 			action.setId(this.getPmId().toString());
 			
-			/* If funds holder isn't BookingPal then Final step. */
+			/* If funds holder isn't bookingnet then Final step. */
 			if (managerInfo.getFundsHolder() == FundsHolderEnum.External.value()){
 				isFinalStep= true;
 

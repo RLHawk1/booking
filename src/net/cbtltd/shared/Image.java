@@ -11,7 +11,7 @@ import net.cbtltd.shared.api.HasServiceResponse;
 
 /**
  * @author	Chirayu Shah
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @
  * @version	4.0.0
  */
 

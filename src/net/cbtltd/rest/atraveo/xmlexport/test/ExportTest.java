@@ -20,7 +20,7 @@ public class ExportTest {
 	SqlSession sqlSession;
 	static String channelid;
 	static ExportUtils exportUtils=new ExportUtils();
-	static String exportWithAccessPointAs= "uat.mybookingpal.com";// "localhost:8080";
+	static String exportWithAccessPointAs= "uat.bookingnet.com";// "localhost:8080";
 
 	@BeforeClass
 	public static void setUp() throws Exception {

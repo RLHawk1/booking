@@ -6,7 +6,7 @@ import java.util.Date;
  * 
  * @author Vova Kambur
  *	
- *  This class consists information about the method of receiving payment from BookingPal. 
+ *  This class consists information about the method of receiving payment from bookingnet. 
  * 
  */
 
@@ -23,7 +23,7 @@ public class PaymentMethod {
 
 	private Integer pmID;					// Property Manager ID
 	
-	private String type;					/* PaymentType: receiving payment from BookingPal
+	private String type;					/* PaymentType: receiving payment from bookingnet
 												1 - Mail Checks;
 												2 - PayPal;
 												3 - ACH/Direct deposit.*/

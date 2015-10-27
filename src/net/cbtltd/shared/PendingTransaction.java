@@ -8,7 +8,7 @@ import net.cbtltd.server.util.PaymentHelper;
  * pending_transaction(id INT NOT NULL auto_increment, entry_date_time DATETIME, booking_id INT, pms_confirmation_id INT, payment_gateway_id INT,
 	funds_holder INT, partial_iin INT, first_name VARCHAR, last_name VARCHAR, phone_number VARCHAR, partner_id INT, supplier_id INT, charge_date DATE,
 	 charge_amount DOUBLE,
-	currency VARCHAR, commission DOUBLE, partner_payment DOUBLE, bookingpal_payment DOUBLE, gateway_transaction_id VARCHAR, status VARCHAR, autopay_type TINYINT(1),
+	currency VARCHAR, commission DOUBLE, partner_payment DOUBLE, bookingnet_payment DOUBLE, gateway_transaction_id VARCHAR, status VARCHAR, autopay_type TINYINT(1),
 	PRIMARY KEY USING BTREE (id));
  */
 public class PendingTransaction {
@@ -17,12 +17,12 @@ public class PendingTransaction {
 		super();
 	}
 	
-	public PendingTransaction(boolean autopay, Reservation reservation, double bookingpalPayment, double chargeAmount,
+	public PendingTransaction(boolean autopay, Reservation reservation, double bookingnetPayment, double chargeAmount,
 			PropertyManagerInfo propertyManagerInfo, double commission, String firstName, String lastName, String gatewayTransactionId, int partialIin,
 			int partnerId, double partnerPayment, Integer paymentGatewayId, String phoneNumber, /*String pmsConfirmationId,*/ int status, int supplierId) throws ParseException {
 		setAutopay(autopay);
 		setBookingId(reservation.getId());
-		setBookingpalPayment(bookingpalPayment);
+		setbookingnetPayment(bookingnetPayment);
 		setChargeAmount(chargeAmount);
 		setChargeDate(PaymentHelper.getSecondChargeDate(reservation, propertyManagerInfo));
 		setCommission(commission);
@@ -59,7 +59,7 @@ public class PendingTransaction {
 	private String currency;
 	private double commission;
 	private double partnerPayment;
-	private double bookingpalPayment;
+	private double bookingnetPayment;
 	private String gatewayTransactionId;
 	private int status;
 	private boolean autopay;
@@ -207,12 +207,12 @@ public class PendingTransaction {
 		this.partnerPayment = partnerPayment;
 	}
 
-	public double getBookingpalPayment() {
-		return bookingpalPayment;
+	public double getbookingnetPayment() {
+		return bookingnetPayment;
 	}
 
-	public void setBookingpalPayment(double bookingpalPayment) {
-		this.bookingpalPayment = bookingpalPayment;
+	public void setbookingnetPayment(double bookingnetPayment) {
+		this.bookingnetPayment = bookingnetPayment;
 	}
 
 	public String getGatewayTransactionId() {
@@ -288,8 +288,8 @@ public class PendingTransaction {
 		builder.append(isAutopay());
 		builder.append("], [BookingId=");
 		builder.append(getBookingId());
-		builder.append("], [BookingpalPayment=");
-		builder.append(getBookingpalPayment());
+		builder.append("], [bookingnetPayment=");
+		builder.append(getbookingnetPayment());
 		builder.append("], [ChargeAmount=");
 		builder.append(getChargeAmount());
 		builder.append("], [ChargeDate=");

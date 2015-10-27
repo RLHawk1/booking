@@ -30,7 +30,7 @@ import net.cbtltd.shared.Reservation;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 
-import com.mybookingpal.feed.service.ReservationFeedGenerator;
+import com.bookingnet.feed.service.ReservationFeedGenerator;
 import com.thoughtworks.xstream.XStream;
 
 
@@ -192,7 +192,7 @@ public final class _Test implements Handleable {
 			LOG.error(x.getMessage());
 		} 
 //		finally {sqlSession.close();}
-		LOG.error("MyBookingPal Terminated not an error. ");
+		LOG.error("bookingnet Terminated not an error. ");
 		System.exit(0);
 	}
 

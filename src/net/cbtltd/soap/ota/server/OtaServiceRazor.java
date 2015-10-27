@@ -106,7 +106,7 @@ import net.cbtltd.soap.ota.server.SpecialRequestType.SpecialRequest;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 
 public class OtaServiceRazor
 extends OtaService {

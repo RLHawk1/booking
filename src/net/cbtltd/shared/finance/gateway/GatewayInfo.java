@@ -43,7 +43,7 @@ public class GatewayInfo implements HasService {
 	}
 	
 	public GatewayInfo(ManagerToGateway managerToGateway, CreditCard creditCard) {
-		if(managerToGateway.getPaymentGatewayId() == PaymentGatewayHolder.getBookingPal().getId()) {
+		if(managerToGateway.getPaymentGatewayId() == PaymentGatewayHolder.getbookingnet().getId()) {
 			this.setId(PaymentConfiguration.getInstance().getGatewayId());
 			this.setToken(PaymentConfiguration.getInstance().getGatewayToken());
 		} else {
@@ -55,7 +55,7 @@ public class GatewayInfo implements HasService {
 	}
 	
 	public GatewayInfo(ManagerToGateway managerToGateway, CreditCardType cardType, String cardNumber, String cardExpiryMonth, String cardExpiryYear, String cardFirstName, String cardLastName) {
-		if(managerToGateway.getPaymentGatewayId() == PaymentGatewayHolder.getBookingPal().getId()) {
+		if(managerToGateway.getPaymentGatewayId() == PaymentGatewayHolder.getbookingnet().getId()) {
 			this.setId(PaymentConfiguration.getInstance().getGatewayId());
 			this.setToken(PaymentConfiguration.getInstance().getGatewayToken());
 		} else {

@@ -112,7 +112,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat TF = new SimpleDateFormat("hh:mm:ss");
 	private static final String HANDLER_URL = "http://rm.rentalsunited.com/api/Handler.ashx";
-	private static final String USERNAME = "alex@mybookingpal.com";
+	private static final String USERNAME = "alex@bookingnet.com";
 	private static final String PASSWORD = "jksqfiul";
 	private static HashMap<String, Double> RU_PRICE = new HashMap<String, Double>();
 

@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -774,8 +774,8 @@ implements IsService {
 		return result;
 	}
 	
-	public static String checkMybookingpalCurrency(String currency, PropertyManagerInfo propertyManagerInfo) {
-		if((Constants.NO_CURRENCY.equalsIgnoreCase(currency) || StringUtils.isEmpty(currency)) && ManagerToGateway.BOOKINGPAL_HOLDER == propertyManagerInfo.getFundsHolder()) {
+	public static String checkbookingnetCurrency(String currency, PropertyManagerInfo propertyManagerInfo) {
+		if((Constants.NO_CURRENCY.equalsIgnoreCase(currency) || StringUtils.isEmpty(currency)) && ManagerToGateway.bookingnet_HOLDER == propertyManagerInfo.getFundsHolder()) {
 			currency = Currency.Code.USD.name();
 		}
 		return currency;

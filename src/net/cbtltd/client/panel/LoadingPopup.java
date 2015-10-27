@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see			License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @see			License at abookingnet.com/license
  * @version		2.00
  */
 package net.cbtltd.client.panel;

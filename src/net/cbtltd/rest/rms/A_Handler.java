@@ -62,7 +62,7 @@ import org.jdom.input.SAXBuilder;
 
 /**
  * The Test API credentials are:
- * Username: BookingPal_Test
+ * Username: bookingnet_Test
  * Password: zAqema743
  * 
  * @author Marko Ovuka
@@ -79,7 +79,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	
 	// Test API credentials:
 	// TODO: put production credentials 
-	private static final String RMS_USERNAME = "BookingPal_Test";
+	private static final String RMS_USERNAME = "bookingnet_Test";
 	private static final String RMS_PASSWORD = "zAqema743";
 	private static final String RMS_SERVER_AUTH = RMS_USERNAME+":"+RMS_PASSWORD;
 
@@ -446,7 +446,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			String grandTotal = unitElement.getChildText("grandTotal");
 			String depositDue = unitElement.getChildText("depositDue");
 			
-			String resOperator = "BookingPal";
+			String resOperator = "bookingnet";
 			
 			String depositType = "CREDITCARD";
 			String ccExpiration = creditCard.getMonth() + "-" + creditCard.getYear();

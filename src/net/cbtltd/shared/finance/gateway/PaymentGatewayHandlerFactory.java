@@ -19,8 +19,8 @@ public class PaymentGatewayHandlerFactory {
 			return new ANetHandler(gateway);
 		} else if (paymentGatewayProvider.getName().equalsIgnoreCase(PaymentGatewayHolder.PAYPAL)) {
 			return new PaypalHandlerNew(gateway);
-		} else if (paymentGatewayProvider.getName().equalsIgnoreCase(PaymentGatewayHolder.BOOKINGPAL)) {
-			return getBookingpalGateway(gateway);
+		} else if (paymentGatewayProvider.getName().equalsIgnoreCase(PaymentGatewayHolder.bookingnet)) {
+			return getbookingnetGateway(gateway);
 		} else if(paymentGatewayProvider.getName().equalsIgnoreCase(PaymentGatewayHolder.DIBS)) {
 			return new DibsHandler(gateway);
 		} else if (paymentGatewayProvider.getName().equalsIgnoreCase(PaymentGatewayHolder.RENT)) {
@@ -29,7 +29,7 @@ public class PaymentGatewayHandlerFactory {
 		throw new ServiceException(Error.payment_gateway);
 	}
 	
-	private static GatewayHandler getBookingpalGateway(GatewayInfo gateway) {
+	private static GatewayHandler getbookingnetGateway(GatewayInfo gateway) {
 		String gatewayName = PaymentConfiguration.getInstance().getGateway();
 		if(gatewayName.equals(PaymentGatewayHolder.ANET)) {
 			return new ANetHandler(gateway);
@@ -40,7 +40,7 @@ public class PaymentGatewayHandlerFactory {
 		} else if(gatewayName.equals(PaymentGatewayHolder.RENT)) {
 			return new RentHandler(gateway);
 		} else {
-			throw new ServiceException(Error.payment_gateway, "in BookingPal configuration");
+			throw new ServiceException(Error.payment_gateway, "in bookingnet configuration");
 		}
 	}
 }

@@ -82,10 +82,10 @@ import org.apache.log4j.Logger;
 
 import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.thirdparty.guava.common.base.Stopwatch;
-import com.mybookingpal.feed.service.LocationFeedGenerator;
-import com.mybookingpal.feed.service.PartyFeedGenerator;
-import com.mybookingpal.feed.service.ProductFeedGenerator;
-import com.mybookingpal.feed.service.ReservationFeedGenerator;
+import com.bookingnet.feed.service.LocationFeedGenerator;
+import com.bookingnet.feed.service.PartyFeedGenerator;
+import com.bookingnet.feed.service.ProductFeedGenerator;
+import com.bookingnet.feed.service.ReservationFeedGenerator;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.mapper.MapperWrapper;
 
@@ -922,6 +922,6 @@ public ChannelPartner ChannelPartnerIdFromPartyId(SqlSession sqlSession, String 
 
 	@Override
 	public void inquireReservation(SqlSession sqlSession, Reservation reservation) {
-		throw new ServiceException(Error.service_absent, "Mybookingpal inquireReservation()");
+		throw new ServiceException(Error.service_absent, "bookingnet inquireReservation()");
 	}
 }

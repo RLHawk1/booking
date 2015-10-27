@@ -13,7 +13,7 @@ public class ManagerToGateway {
 	private String additionalInfo;
 
 	public static int PROPERTY_MANAGER_HOLDER = 0;
-	public static int BOOKINGPAL_HOLDER = 1;
+	public static int bookingnet_HOLDER = 1;
 	public static int SPLITTED_HOLDER = 2;
 	public static int INVOICE = 3; // 'none' holder
 	

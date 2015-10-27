@@ -17,7 +17,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import net.cbtltd.rest.nextpax.A_Handler;
 import net.cbtltd.server.RazorServer;
-import com.mybookingpal.server.test.mapper.ProductMapper;
+import com.bookingnet.server.test.mapper.ProductMapper;
 import net.cbtltd.shared.Model;
 import net.cbtltd.shared.NameIdAction;
 import net.cbtltd.shared.Product;
@@ -163,7 +163,7 @@ public class FindImages {
 	{
 		boolean failureFlag = false;
 		
-		URI uri = new URI("https://www.mybookingpal.com/xml/services/json/product/" + productID 
+		URI uri = new URI("https://www.bookingnet.com/xml/services/json/product/" + productID 
 				+ "/propertydetail?pos=" + pos + "&test=true");
 		URL url = uri.toURL();
 		
@@ -278,7 +278,7 @@ public class FindImages {
 				
 				for(String product : productList)
 				{
-					String uriStr = "https://www.mybookingpal.com/xml/services/json/product/" + product 
+					String uriStr = "https://www.bookingnet.com/xml/services/json/product/" + product 
 							+ "/propertydetail?pos=" + pos + "&test=true";
 					try
 					{

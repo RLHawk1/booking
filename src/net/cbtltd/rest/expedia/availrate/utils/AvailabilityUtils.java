@@ -24,9 +24,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import net.cbtltd.shared.Reservation.State;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
+
+import net.cbtltd.shared.Reservation.State;
 
 public class AvailabilityUtils {
 	private static final Logger LOG = Logger.getLogger(AvailabilityUtils.class

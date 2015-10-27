@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @see		ISO standards at http://www.commondatahub.com/state_source.jsp
  * @version	4.0.0
  */

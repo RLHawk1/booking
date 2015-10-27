@@ -1,2 +1,0 @@
-serviceClass: net.cbtltd.client.RazorService
-path: DF4D004BA9B0CD2CCAED5ACE92EDA325.gwt.rpc

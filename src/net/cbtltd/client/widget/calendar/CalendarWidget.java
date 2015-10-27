@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.widget.calendar;
@@ -31,6 +31,7 @@ import net.cbtltd.shared.reservation.AvailableItem;
 import net.cbtltd.shared.reservation.AvailableWidget;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.NativeEvent;
@@ -57,7 +58,6 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class CalendarWidget is to display availability in a calendar format via a widget that can be hosted by a web page. */
 public class CalendarWidget

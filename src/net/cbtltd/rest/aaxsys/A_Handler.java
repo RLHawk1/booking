@@ -71,7 +71,7 @@ import org.xml.sax.InputSource;
 public class A_Handler extends PartnerHandler implements IsPartner {
 	
 	private static final Logger LOG = Logger.getLogger(A_Handler.class.getName());
-	private static final String SERVICE_URL = "http://www.aaxsys.com/cgi-bin/feed?Name=BookingPal2";
+	private static final String SERVICE_URL = "http://www.aaxsys.com/cgi-bin/feed?Name=bookingnet2";
 	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
 	private static final DateFormat API_FORMAT = new SimpleDateFormat("MM/dd/yy");
 	private static final String AAXSYS_RESERVATION_URL = "http://www.globalaaxsys.com/cgi-bin/makeres?BookingKey=DHJDBIHDHBECDBEEEEBHFIABEADCFEFEEDGHIEDE";

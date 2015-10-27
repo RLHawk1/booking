@@ -39,9 +39,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.bookingnet.config.RazorModule;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import com.mybookingpal.config.RazorModule;
 
 public class HotelsCombinedTest {
 	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
@@ -191,7 +191,7 @@ public class HotelsCombinedTest {
 
 		String sCurrentLine;
 
-		br = new BufferedReader(new FileReader("F:\\Nibodha\\clients\\BookingPal\\workspace\\docs\\hotelscombined\\test_reservation.xml"));
+		br = new BufferedReader(new FileReader("F:\\Nibodha\\clients\\bookingnet\\workspace\\docs\\hotelscombined\\test_reservation.xml"));
 
 		while ((sCurrentLine = br.readLine()) != null) {
 			strBuilder.append(sCurrentLine);

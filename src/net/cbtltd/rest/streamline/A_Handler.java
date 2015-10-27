@@ -100,10 +100,10 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	
 	private static final String OPTIONAL_DEFAULT_ENABLED_FEE_TAX = "optional_default_enabled";
 	
-	private static final String DEFAULT_CHANNEL_PARTNER_NAME = "BookingPal";
+	private static final String DEFAULT_CHANNEL_PARTNER_NAME = "bookingnet";
 	//sometimes during live pricing or when we creating booking Streamline auto apply some discount
 	//this will be avoided when we always send some false discount code.
-	private static final String DO_NOT_USE_DISCOUNT_CODE="<coupon_code>mybookingpal_needs_pricing_without_a_discount</coupon_code>";
+	private static final String DO_NOT_USE_DISCOUNT_CODE="<coupon_code>bookingnet_needs_pricing_without_a_discount</coupon_code>";
 	
 	private static Map<String, Location> locationMap = new HashMap<String, Location>();
 	
@@ -557,7 +557,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			otherReqParamsAttributes += "<price_total>"+reservation.getQuote()+"</price_total>" +
 					"<hear_about_new>"+channelPartnerName+"</hear_about_new>";
 			
-			String responseMakeReservation = createXMLRequestToStreamline(sqlSession,"MakeReservationBookingPal",otherReqParamsAttributes); 
+			String responseMakeReservation = createXMLRequestToStreamline(sqlSession,"MakeReservationbookingnet",otherReqParamsAttributes); 
 			
 			SAXBuilder builder = new SAXBuilder();
 			Document document = (Document) builder.build(new StringReader(responseMakeReservation));

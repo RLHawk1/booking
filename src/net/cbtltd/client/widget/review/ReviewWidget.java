@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.client.widget.review;
@@ -31,6 +31,7 @@ import net.cbtltd.shared.rate.RateNote;
 import net.cbtltd.shared.rate.RateNoteTable;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
@@ -43,7 +44,6 @@ import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.mybookingpal.config.RazorConfig;
 
 /** The Class ReviewWidget is to display and enter guest feedback via a widget that can be hosted by a web page. */
 public class ReviewWidget

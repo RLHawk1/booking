@@ -53,8 +53,8 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.mybookingpal.config.RazorConfig;
-import com.mybookingpal.utils.BPThreadLocal;
+import com.bookingnet.config.RazorConfig;
+import com.bookingnet.utils.BPThreadLocal;
 
 
 /**
@@ -468,7 +468,7 @@ public class ReservationUtils {
 		LOG.info("Inside callBookingComReservationAPI ");
 		DefaultHttpClient client = new DefaultHttpClient();
 		// keytool -import -trustcacerts -file
-		// /home/cshah/certificates/\*.mybookingpal.com -alias mybookingpal.com
+		// /home/cshah/certificates/\*.bookingnet.com -alias bookingnet.com
 		// -keystore /usr/lib/jvm/jdk1.7.0_51/jre/lib/security/cacerts
 		HttpPost post = new HttpPost(RazorConfig.getValue(BOOKINGCOM_RESERVATION_URL));
 		LOG.info("BOOKINGCOM_RESERVATION_URL : "

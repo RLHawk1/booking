@@ -1,6 +1,6 @@
 /**
- * @author	Chris Marshall
- * @see		License at http://razor-cloud.com/razor/License.html
+ * @author	bookingnet
+ * @
  * @version	4.0.0
  */
 package net.cbtltd.server;
@@ -43,9 +43,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.log4j.Logger;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gwt.user.client.rpc.SerializationException;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
-import com.mybookingpal.config.RazorConfig;
 
 /**
  * The Class RazorServer is the server side for Razor GWT client.
@@ -358,7 +358,7 @@ implements RazorService {
 		String osName = System.getProperty("os.name").toLowerCase();
 		boolean isLinux = osName.indexOf("nix") >= 0 || osName.indexOf("nux") >= 0 || osName.indexOf("aix") > 0;
 
-		if(hostname.compareToIgnoreCase("uat.mybookingpal.com")==0 || isLinux){
+		if(hostname.compareToIgnoreCase("uat.bookingnet.com")==0 || isLinux){
 			directory = HasUrls.ROOT_LINUX_DIRECTORY;
 		}
 		else if(hostname.compareToIgnoreCase("razor-cloud.com")==0){

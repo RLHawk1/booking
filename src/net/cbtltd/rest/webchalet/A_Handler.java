@@ -27,7 +27,7 @@ import org.jdom.input.SAXBuilder;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.mybookingpal.server.ImageService;
+import com.bookingnet.server.ImageService;
 
 import net.cbtltd.rest.webchalet.A_Handler;
 import net.cbtltd.rest.payment.ReservationPrice;
@@ -60,7 +60,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	
 	private static final Logger LOG = Logger.getLogger(A_Handler.class.getName());
 	private static final Gson GSON = new Gson();
-	private static final String SERVICE_URL = "https://secure.webchalet.com/wcadmin/api/bookingpal/";
+	private static final String SERVICE_URL = "https://secure.webchalet.com/wcadmin/api/bookingnet/";
 	private static final DateFormat DF = new SimpleDateFormat("yyyy-MM-dd");
 	private Calendar cal = Calendar.getInstance();
 

@@ -74,6 +74,7 @@ import org.apache.log4j.Logger;
 import org.apache.tools.tar.TarEntry;
 import org.apache.tools.tar.TarInputStream;
 
+import com.bookingnet.config.RazorConfig;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -81,7 +82,6 @@ import com.google.gson.JsonParser;
 import com.google.gwt.thirdparty.guava.common.collect.ArrayListMultimap;
 import com.google.gwt.thirdparty.guava.common.collect.LinkedListMultimap;
 import com.google.gwt.thirdparty.guava.common.collect.Multimap;
-import com.mybookingpal.config.RazorConfig;
 
 /**
  * Handler to do the load operation of xml from tripvillas

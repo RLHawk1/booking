@@ -43,7 +43,7 @@ import org.joda.time.MutableDateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
-import com.mybookingpal.config.RazorConfig;
+import com.bookingnet.config.RazorConfig;
 /**
  * AvailabilityUtils is the util class
  * using AvailabilityUtils - price and availablity changes are pushed to booking.com 

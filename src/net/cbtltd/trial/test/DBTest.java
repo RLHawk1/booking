@@ -240,7 +240,7 @@ public class DBTest {
 		PropertyManagerInfo managerInfo = new PropertyManagerInfo();
 		managerInfo.setPropertyManagerId(55);
 		managerInfo.setPmsId((int)Math.random() * 100);
-		managerInfo.setFundsHolder(FundsHolderEnum.BookingPal.value());
+		managerInfo.setFundsHolder(FundsHolderEnum.bookingnet.value());
 		managerInfo.setPaymentProcessingType(PaymentProcessingTypeEnum.API.type());
 		managerInfo.setRegistrationStepId(1);
 		managerInfo.setDamageCoverageType(1);
@@ -350,7 +350,7 @@ public class DBTest {
 		paymentTransaction.setStatus("accepted");
 		paymentTransaction.setSupplierId((int)(Math.random() * 1000));
 		paymentTransaction.setTotalAmount(Math.random() * 100);
-		paymentTransaction.setTotalBookingpalPayment(Math.random() * 100);
+		paymentTransaction.setTotalbookingnetPayment(Math.random() * 100);
 		paymentTransaction.setTotalCommission(Math.random() * 100);
 		
 		return paymentTransaction;

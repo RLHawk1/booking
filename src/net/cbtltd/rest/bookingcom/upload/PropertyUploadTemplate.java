@@ -19,7 +19,7 @@ public class PropertyUploadTemplate {
 	private String	zipcode="";
 	private String	countryCode="";
 	private String	accommodationType="Villa";
-	private String	chain="BookingPal";
+	private String	chain="bookingnet";
 	private String	starrating="";
 	private String	totalNumberofBookableOptions="1";
 	private String	checkInFrom="14:00";
@@ -131,7 +131,7 @@ public class PropertyUploadTemplate {
 	private String	contentContactPhone="";
 	private String	contentContactLanguage="";
 	private String	priceContactName="Ray Karimi";
-	private String	priceContactEmail="support@mybookingpal.com";
+	private String	priceContactEmail="support@bookingnet.com";
 	private String	priceContactPhone="949-333-0724";
 	private String	priceContactLanguage="EN";
 	
@@ -214,7 +214,7 @@ public class PropertyUploadTemplate {
 	// Invoicing details
 	private boolean useBPInvoiceDetails = true;
 	private String	companyNameForInvoicing="";
-	private String	attentionOff="Account Payable MyBookingPal";
+	private String	attentionOff="Account Payable bookingnet";
 	private String	legalAdress="101 Pacifica, Suite #250";
 	private String	legalZipCode="92618";
 	private String	legalCity="Irvine";
@@ -3571,7 +3571,7 @@ public class PropertyUploadTemplate {
 		return priceContactLanguage;
 	}
 
-//	We will use the default values (Bookingpal info) for price contact.
+//	We will use the default values (bookingnet info) for price contact.
 //	public void setPriceContactName(String priceContactName) {
 //		this.priceContactName = priceContactName;
 //	}

@@ -22,7 +22,7 @@ public class PaymentTransaction {
 	private String currency;
 	private double totalCommission;
 	private double partnerPayment;
-	private double totalBookingpalPayment;
+	private double totalbookingnetPayment;
 	private double finalAmount;
 	private Double creditCardFee;
 	private String chargeType;
@@ -194,12 +194,12 @@ public class PaymentTransaction {
 		this.partnerPayment = partnerPayment;
 	}
 
-	public double getTotalBookingpalPayment() {
-		return totalBookingpalPayment;
+	public double getTotalbookingnetPayment() {
+		return totalbookingnetPayment;
 	}
 
-	public void setTotalBookingpalPayment(double totalBookingpalPayment) {
-		this.totalBookingpalPayment = totalBookingpalPayment;
+	public void setTotalbookingnetPayment(double totalbookingnetPayment) {
+		this.totalbookingnetPayment = totalbookingnetPayment;
 	}
 
 	public double getFinalAmount() {
@@ -307,8 +307,8 @@ public class PaymentTransaction {
 		builder.append(totalCommission);
 		builder.append(", partnerPayment=");
 		builder.append(partnerPayment);
-		builder.append(", totalBookingpalPayment=");
-		builder.append(totalBookingpalPayment);
+		builder.append(", totalbookingnetPayment=");
+		builder.append(totalbookingnetPayment);
 		builder.append(", finalAmount=");
 		builder.append(finalAmount);
 		builder.append(", creditCardFee=");

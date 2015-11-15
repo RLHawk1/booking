@@ -920,12 +920,13 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			int ij = 0;
 			for (Element house : houses) {
 				ij++;
-				if (ij>650) {
-					break;
-				}
-				if (ij < 500) {
-					continue;
-				}
+//				if (ij>650) {
+//					break;
+//				}
+//				if (ij < 1012) {
+//					continue;
+//				}
+				System.out.println("product #" + ij);
 				String altid = house.getAttributeValue("internal-id");
 				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
 
@@ -1223,11 +1224,13 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		HashSet<String> productsProceeded = new HashSet<String>(); 
 
 		try {
-			//document = parseXML(new File(System.getProperty("user.dir") + "\\doc\\staytoday.xml"));
-			document = parseXML(new URL("http://staytoday.ru/advToAbook.xml"));
+			document = parseXML(new File(System.getProperty("user.dir") + "\\doc\\advToAbook.xml"));
+			//document = parseXML(new URL("http://staytoday.ru/advToAbook.xml"));
 			ns = document.getRootElement().getNamespace();
 			
-			//createOrUpdateProducts(productsProceeded);
+			//testStayToday();
+			
+			createOrUpdateProducts(productsProceeded);
 			
 			//    readHousePropertyCodes();
 			//    updateInactiveProducts(productsProceeded);
@@ -1237,7 +1240,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			
 			//    setLocation();
 			
-			readPrices();
+			//readPrices();
 			//readFees();
 			//    readSchedule();
 			
@@ -1290,6 +1293,134 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 		HashSet<String> productsProceeded = new HashSet<String>();
 		createOrUpdateProducts(productsProceeded);
 	}
+	
+	private void testStayToday() {
+		int i = 0;
+		int j = 0;
+		try {
+			Element rootNode = document.getRootElement();
+			List<Element> houses = rootNode.getChildren("offer", ns);
+			
+			for (Element house : houses) {
+				ArrayList<String> attributes = new ArrayList<String>();
+				String altid = house.getAttributeValue("internal-id");
+				System.out.println("altid = " + altid);
+				String name = house.getChildText("name", ns); // sometimes empty
+				name = "";
+				
+				Element locationNode = house.getChild("location", ns);
+				
+				String longitudeValue = locationNode.getChildText("longitude", ns);
+				String latitudeValue = locationNode.getChildText("latitude", ns);
+				Double longitude = longitudeValue == null ? null : Double.valueOf(longitudeValue);
+				Double latitude = latitudeValue == null ? null : Double.valueOf(latitudeValue);
+				
+				String country = locationNode.getChildText("country", ns);
+				String place = locationNode.getChildText("city", ns);
+				String address = locationNode.getChildText("address", ns); // never used yet
+
+				Element rateperiods = house.getChild("rateperiods", ns);
+				String currency = null;
+				if (rateperiods != null) {
+					List<Element> rateperiodList = rateperiods.getChildren("rateperiod", ns);
+					if (rateperiodList.size() > 0) {
+						currency = rateperiodList.get(0).getChildText("currency", ns);
+					}
+				}
+				
+				i++;
+				if (currency != null) {
+					j++;
+				}
+				
+				Element details = house.getChild("details", ns);
+				
+				String maxpersons = details.getChildText("maximumOccupancy", ns);
+				
+				
+				String region = house.getChildText("Region", ns); // might be empty? TODO check what to do in such case
+				if (StringUtils.isNotBlank(region) && region.length() > 2) {
+					region = region.substring(2);
+				}
+				String zipCode = house.getChildText("ZipCode", ns);
+				String minchildren = house.getChildText("MinChildren", ns); // MinChildren
+				
+				
+				// attribute list
+				String pool = house.getChildText("Pool", ns);
+				String tennis = house.getChildText("Tennis", ns);
+				String ski = house.getChildText("Ski", ns);
+				String type = house.getChildText("Type", ns);
+				String numberofstars = house.getChildText("NumberOfStars", ns);
+			    String numberofpets= house.getChildText("NumberOfPets", ns);
+			    
+			    
+				// String water = house.getChildText("Water"); // mapping is not known, probable match LOC33
+				// String arrivalday = house.getChildText("ArrivalDay"); // we may need this.
+				// String brand = house.getChildText("Brand");
+
+				// build the list
+			    
+				if (StringUtils.isBlank(numberofstars)) {
+					numberofstars = "0";
+				}
+				
+				
+				//=== suitability ===//
+				Element suitability = house.getChild("suitability", ns);
+
+				String FAM = suitability.getChildText("is_family", ns);
+				if (StringUtils.isNotBlank(FAM) && FAM.equals("true")) {
+					attributes.add(net.cbtltd.shared.Attribute.FAM);
+				}
+				String SMO = suitability.getChildText("is_nosmoking", ns);
+				if (StringUtils.isNotBlank(SMO) && SMO.equals("false")) {
+					attributes.add(net.cbtltd.shared.Attribute.SMO);
+				}
+				String PHY = suitability.getChildText("is_invalid", ns);
+				if (StringUtils.isNotBlank(PHY) && PHY.equals("true")) {
+					attributes.add(net.cbtltd.shared.Attribute.PHY);
+				}
+				//=== suitability ===//
+				
+			   
+				if (StringUtils.isNotBlank(pool) && pool.equals("Y")) {
+					attributes.add(ATTRIBUTES.get("pool"));
+				}
+				if (StringUtils.isNotBlank(tennis) && tennis.equals("Y")) {
+					attributes.add(ATTRIBUTES.get("tennis"));
+				}
+				if (StringUtils.isNotBlank(ski) && ski.equals("Y")) {
+					attributes.add(ATTRIBUTES.get("ski"));
+				}
+				
+			   if (StringUtils.isNotBlank(numberofpets) && Integer.parseInt(numberofpets) > 0){
+					attributes.add(ATTRIBUTES.get("All pets"));				
+			   }
+			   
+				if (StringUtils.isNotBlank(type) && StringUtils.isNotBlank(HOUSE_TYPES.get(type))) {
+					if (type.equals("APO")) {
+						String[] apartmentTypes = HOUSE_TYPES.get(type).split(",");
+						for (String ota : apartmentTypes) {
+							attributes.add(ota);
+						}
+					} else {
+						attributes.add(HOUSE_TYPES.get(type));
+					}
+				} else {
+					LOG.debug("Property type is not available for product <" + altid + ">: " + type);
+				}
+
+				// we can use these later on when we build POI database. Nextpax provides separate feed for holiday parks
+				String holidaypark = house.getChildText("HolidayPark");
+				String skiarea = house.getChildText("SkiArea");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("errors = " + (i-j));
+	}
 
 	private void createOrUpdateProducts(HashSet<String> productsProceeded) {
 		long startTime = System.currentTimeMillis();
@@ -1311,7 +1442,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			System.out.println("Number of properties " + houses.size());
 			int i = 0;
 			for (Element house : houses) {
-				try {
+				//try {
 					ArrayList<String> attributes = new ArrayList<String>();
 					// ArrayList<NameId> images = new ArrayList<NameId>();
 					// StringBuilder description = new StringBuilder();
@@ -1330,12 +1461,14 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					String country = locationNode.getChildText("country", ns);
 					String place = locationNode.getChildText("city", ns);
 					String address = locationNode.getChildText("address", ns); // never used yet
-	
-					Element fees = house.getChild("fees", ns);
-					List<Element> feeList = fees.getChildren("fee", ns);
+
+					Element rateperiods = house.getChild("rateperiods", ns);
 					String currency = null;
-					if (feeList.size() > 0) {
-						currency = feeList.get(0).getChildText("currency", ns);
+					if (rateperiods != null) {
+						List<Element> rateperiodList = rateperiods.getChildren("rateperiod", ns);
+						if (rateperiodList.size() > 0) {
+							currency = rateperiodList.get(0).getChildText("currency", ns);
+						}
 					}
 					
 					Element details = house.getChild("details", ns);
@@ -1456,12 +1589,12 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 						String locationName = location.getName() == null ? location.getGname() : location.getName();
 						// sometimes GeoLocation returns null, in this case, use gname.
 						locationName = locationName == null ? location.getAdminarea_lvl_1() : locationName;
-						name = "House" + " in " + locationName; // Set the Name to be sure it will not be null after this point.
+						name = "House" + " in " + locationName + " " + altid; // Set the Name to be sure it will not be null after this point.
 						if (attributes.size() > 0) {
 							ArrayList<NameId> pctList = sqlSession.getMapper(AttributeMapper.class)
 									.pctListValue(new net.cbtltd.shared.Attribute("PCT", attributes.get(0).substring("PCT".length())));
 							for (NameId attribute : pctList) { // what if list is empty?
-								name = "House in " + locationName;
+								name = "House in " + locationName + " " + altid;
 							}
 						}
 					} // check if this might go for 'else'
@@ -1507,9 +1640,9 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 	
 					LOG.debug(i++ + " " + altid + " " + product.getId() + " " + product.getId() + " " + product.getName());
 				sqlSession.commit();
-				} catch(Exception e) {
-					continue;
-				}
+				//} catch(Exception e) {
+				//	continue;
+				//}
 			}
 		} catch (Exception x) {
 			sqlSession.rollback();
@@ -1844,12 +1977,21 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			List<Element> houses = rootNode.getChildren("offer", ns);
 			int i = 0;
 			StringBuilder sb;
+			boolean needBreak = false;
 			for (Element house : houses) {
-				try {
+				//try {
 					i++;
-					//if (i < 430) {
-					//	continue;
-					//}
+//					if (i < 1093) {
+//						continue;
+//					}
+//					if (i % 30 == 0) {
+//						Thread.sleep(36000);
+//					}
+//					if (i > 735) {
+//						break;
+//					}
+
+					System.out.println("!!!DESC i = " + i);
 					altid = house.getAttributeValue("internal-id");
 					product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid, false);
 					if (product == null) {
@@ -1872,18 +2014,29 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 						String englishTranslation;
 						for (String lang : texts.keySet()) {
 							// sleep for a while to meet google's rate limit
-							Thread.sleep(50);
-							System.out.println("TRY TO TRANSLATE: " + texts.get(lang) + ", " + lang + ", " + Language.EN);
+							Thread.sleep(1200);
+							//System.out.println("TRY TO TRANSLATE: " + texts.get(lang) + ", " + lang + ", " + Language.EN);
 							englishTranslation = TextService.translate(texts.get(lang), lang, Language.EN);
 							if (StringUtils.isNotEmpty(englishTranslation)) {
 								texts.put(Language.EN, englishTranslation);
 								LOG.debug("English_Translation : " + texts.get(Language.EN));
 								break;
+							} else {
+								System.out.println("!!!TTRANSLATION FAILED!!!");
+							}
+							if (englishTranslation == null) {
+								needBreak = true;
+								break;
 							}
 						}
 					}
+					
+					if (needBreak) {
+						break;
+					}
 	
 					for (String lang : texts.keySet()) {
+						System.out.println("!!!updating: " + lang);
 						LOG.debug("language " + lang + " notes " + texts.get(lang));
 						product.setPublicText(new Text(product.getPublicId(),
 								product.getPublicLabel(),
@@ -1898,9 +2051,9 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 						LOG.debug("Smart flush for description: " + i);
 						sqlSession.commit();
 					}
-				} catch(Exception e) {
-					e.printStackTrace();
-				}
+				//} catch(Exception e) {
+				//	e.printStackTrace();
+				//}
 			}
 			sqlSession.commit();
 		} catch (Throwable e) {

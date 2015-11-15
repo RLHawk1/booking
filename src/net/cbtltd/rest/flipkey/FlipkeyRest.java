@@ -462,9 +462,9 @@ public class FlipkeyRest {
 	 */
 	private static final Collection<Rate> getRates(SqlSession sqlSession, Product product) {
 		Collection<Rate> rates = new ArrayList<Rate>();
-		Currencyrate currencyrate = new Currencyrate(product.getCurrency(), Currency.Code.USD.name(), Time.getDateStart());
-		currencyrate.setRate(WebService.getRate(sqlSession, currencyrate));
-		double exchangerate = currencyrate.getRate();
+		//Currencyrate currencyrate = new Currencyrate(product.getCurrency(), Currency.Code.USD.name(), Time.getDateStart());
+		//currencyrate.setRate(WebService.getRate(sqlSession, currencyrate));
+		//double exchangerate = currencyrate.getRate();
 
 		net.cbtltd.shared.Price action = new net.cbtltd.shared.Price();
 		action.setPartyid(product.getSupplierid());

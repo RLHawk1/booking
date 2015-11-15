@@ -1478,8 +1478,10 @@
 		from product
 		    join text on text.ID = CONCAT('Product',product.ID,'public') and text.Language = 'EN' and text.Type = 'Text'
 		    join image on image.product_id = product.id
+		    join price on price.EntityID = product.id
 		where product.State = 'Created'
 			and product.Type = 'Accommodation'
+			and product.Name like CONCAT('%', product.AltID, '%')
 		order by product.ID
 	</select>
 

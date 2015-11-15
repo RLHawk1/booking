@@ -235,7 +235,10 @@ implements IsService {
 			}
 			return sb.toString();
 		} 
-		catch (Throwable x) {MonitorService.log(x);}
+		catch (Throwable x) {
+			x.printStackTrace();
+			MonitorService.log(x);
+		}
 		return null;
 	}
 	

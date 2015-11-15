@@ -55,6 +55,10 @@ public class Rate {
 		this.startDate = df.format(startDate);
 	}
 
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
 	@XmlElement( name = "EndDate" , required = true )
 	public String getEndDate() {
 		return endDate;
@@ -62,6 +66,10 @@ public class Rate {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = df.format(endDate);
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 
 	@XmlElement( name = "DailyMinRate" , required = true )

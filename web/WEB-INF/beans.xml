@@ -35,6 +35,7 @@
 			<ref bean="productBean" />
 			<ref bean="reservationBean" />
 			<ref bean="flipkeyBean" />
+   			<ref bean="quoteBean" />
 			<ref bean="otaBean" />
 			<ref bean="paymentBean" />
 			<ref bean="pushAPI" />
@@ -80,6 +81,7 @@
 	<bean id="productBean" class="net.cbtltd.rest.ProductRest" />
 	<bean id="reservationBean" class="net.cbtltd.rest.ReservationRest" />
 	<bean id="flipkeyBean" class="net.cbtltd.rest.flipkey.FlipkeyRest" />
+ 	<bean id="quoteBean" class="net.cbtltd.rest.quote.QuoteRest" />
 	<bean id="otaBean" class="net.cbtltd.rest.ota.OtaRest" />
 	<bean id="paymentBean" class="net.cbtltd.rest.PaymentRest" />
 	<bean id="basicAuthAuthorizationInterceptor" class="net.cbtltd.rest.BasicAuthAuthorizationInterceptor" />

@@ -920,12 +920,13 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			int ij = 0;
 			for (Element house : houses) {
 				ij++;
-//				if (ij>650) {
-//					break;
-//				}
-//				if (ij < 1012) {
-//					continue;
-//				}
+				if (ij>2260) {
+					break;
+				}
+				if (ij < 2100) {
+					continue;
+				}
+				System.out.println("Product prices: " + ij);
 				System.out.println("product #" + ij);
 				String altid = house.getAttributeValue("internal-id");
 				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
@@ -1119,7 +1120,8 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			List<Element> houses = rootNode.getChildren("offer", ns);
 			int ij = 0;
 			for (Element house : houses) {
-//				ij++;
+				ij++;
+				System.out.println("Product fees: " + ij);
 //				if (ij>10) {
 //					break;
 //				}
@@ -1230,12 +1232,12 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			
 			//testStayToday();
 			
-			createOrUpdateProducts(productsProceeded);
+			//createOrUpdateProducts(productsProceeded);
 			
 			//    readHousePropertyCodes();
 			//    updateInactiveProducts(productsProceeded);
 			
-			//readDescriptions();
+			readDescriptions();
 			//readImages();
 			
 			//    setLocation();
@@ -1442,6 +1444,11 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			System.out.println("Number of properties " + houses.size());
 			int i = 0;
 			for (Element house : houses) {
+				i++;
+				if (i < 433) {
+					continue;
+				}
+				System.out.println("Products number: " + i);
 				//try {
 					ArrayList<String> attributes = new ArrayList<String>();
 					// ArrayList<NameId> images = new ArrayList<NameId>();
@@ -1638,7 +1645,7 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 					RelationService.replace(sqlSession, Relation.PRODUCT_VALUE, product.getId(), product.getValues());
 					RelationService.create(sqlSession, Relation.PRODUCT_OTA_ATTRIBUTE, product.getId(), attributes);
 	
-					LOG.debug(i++ + " " + altid + " " + product.getId() + " " + product.getId() + " " + product.getName());
+					LOG.debug(i + " " + altid + " " + product.getId() + " " + product.getId() + " " + product.getName());
 				sqlSession.commit();
 				//} catch(Exception e) {
 				//	continue;
@@ -1981,9 +1988,9 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			for (Element house : houses) {
 				//try {
 					i++;
-//					if (i < 1093) {
-//						continue;
-//					}
+					if (i < 1907) {
+						continue;
+					}
 //					if (i % 30 == 0) {
 //						Thread.sleep(36000);
 //					}
@@ -1991,7 +1998,9 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 //						break;
 //					}
 
-					System.out.println("!!!DESC i = " + i);
+					System.out.println("!!!Product DESC i = " + i);
+					System.out.println("!!!Product DESC i = " + i);
+					System.out.println("!!!Product DESC i = " + i);
 					altid = house.getAttributeValue("internal-id");
 					product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid, false);
 					if (product == null) {
@@ -2151,7 +2160,10 @@ public class A_Handler extends PartnerHandler implements IsPartner {
 			Element rootNode = document.getRootElement();
 			List<Element> houses = rootNode.getChildren("offer", ns);
 			System.out.println("Number of properties " + houses.size());
+			int j = 0;
 			for (Element house : houses) {
+				j++;
+				System.out.println("Product images: " + j);
 				String altid = house.getAttributeValue("internal-id");
 				Product product = PartnerService.getProduct(sqlSession, getAltpartyid(), altid);
 				if (product == null) {

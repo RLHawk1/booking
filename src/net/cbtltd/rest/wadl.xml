@@ -1594,6 +1594,18 @@
 				</method>
 			</resource>
 		</resource>
+		<resource path="/quote">
+			<resource path="/send">
+				<method name="GET">
+					<request>
+						<param name="xsl" style="query" default="'no_xsl'" type="xs:string" />
+					</request>
+					<response>
+						<representation mediaType="application/xml" />
+					</response>
+				</method>
+			</resource>
+		</resource>
 		<resource path="/flipkey">
 			<resource path="/bad">
 				<method name="GET">

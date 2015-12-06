@@ -25,6 +25,7 @@
 			<ref bean="productBean" />
 			<ref bean="reservationBean" />
 			<ref bean="flipkeyBean" />
+   			<ref bean="quoteBean" />
 			<ref bean="otaBean" />
 		</jaxrs:serviceBeans>
 		<!--jaxrs:outInterceptors> <ref bean="stylesheetInterceptor"/> </jaxrs:outInterceptors -->
@@ -35,6 +36,7 @@
 	<bean id="productBean" class="net.cbtltd.rest.ProductRest" />
 	<bean id="reservationBean" class="net.cbtltd.rest.ReservationRest" />
 	<bean id="flipkeyBean" class="net.cbtltd.rest.flipkey.FlipkeyRest" />
+ 	<bean id="quoteBean" class="net.cbtltd.rest.quote.QuoteRest" />
 	<bean id="otaBean" class="net.cbtltd.rest.ota.OtaRest" />
 	<bean id="stylesheetInterceptor" class="net.cbtltd.rest.StylesheetInterceptor" />
 </beans>

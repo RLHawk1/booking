@@ -6,6 +6,8 @@
 package net.cbtltd.server;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -24,6 +26,7 @@ import net.cbtltd.shared.text.WidgetText;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.google.translate.api.v2.core.Translator;
+import org.google.translate.api.v2.core.TranslatorException;
 
 /**
  * The Class TextService responds to text related requests.
@@ -225,21 +228,40 @@ implements IsService {
 		final String[] args = Text.getSentences(text);
 		if (args == null || args.length <= 0) {return null;}
 		try {
-			if (translator == null) {translator = new Translator(HasUrls.GOOGLE_API_KEY);}
-//			Translation translation = translator.translate(text, source.toLowerCase(), target.toLowerCase());
-//			return translation.getTranslatedText();
-			StringBuilder sb = new StringBuilder();
-			for (String arg : args) {
-				if (arg == null || arg.trim().isEmpty()) {sb.append("\n\n");}
-				else {sb.append(translator.translate(arg, source.toLowerCase(), target.toLowerCase()).getTranslatedText());}
-			}
-			return sb.toString();
+//			if (translator == null) {translator = new Translator(HasUrls.GOOGLE_API_KEY);}
+////			Translation translation = translator.translate(text, source.toLowerCase(), target.toLowerCase());
+////			return translation.getTranslatedText();
+//			StringBuilder sb = new StringBuilder();
+//			for (String arg : args) {
+//				if (arg == null || arg.trim().isEmpty()) {sb.append("\n\n");}
+//				else {sb.append(translator.translate(arg, source.toLowerCase(), target.toLowerCase()).getTranslatedText());}
+//			}
+//			return sb.toString();
+			return tryTranslate(args, source, target);
 		} 
 		catch (Throwable x) {
 			x.printStackTrace();
-			MonitorService.log(x);
+			System.out.println("!!! try again in 60s");
+			//MonitorService.log(x);
+			try {
+				Thread.sleep(70000);
+				return tryTranslate(args, source, target);
+			} catch(Exception ex) {
+				x.printStackTrace();
+				MonitorService.log(x);
+			}
 		}
 		return null;
+	}
+	
+	private static String tryTranslate(String[] args, String source, String target) throws Exception {
+		if (translator == null) {translator = new Translator(HasUrls.GOOGLE_API_KEY);}
+		StringBuilder sb = new StringBuilder();
+		for (String arg : args) {
+			if (arg == null || arg.trim().isEmpty()) {sb.append("\n\n");}
+			else {sb.append(translator.translate(arg, source.toLowerCase(), target.toLowerCase()).getTranslatedText());}
+		}
+		return sb.toString();
 	}
 	
 	/**

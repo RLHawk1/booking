@@ -482,6 +482,7 @@ public class FlipkeyRest {
 			String type = price.getType();
 			double value = price.getValue();
 			if(NameId.Type.Reservation.name().equals(type)) {
+				value = value*1.15;
 				if("Price per day".equals(name)) {
 					rate.setDailyMinRate(value);
 				} else
@@ -516,7 +517,7 @@ public class FlipkeyRest {
 		for (net.cbtltd.shared.Fee feeObject : feeList){
 
 			System.out.println("FEE: " + feeObject.getName() + ", " + feeObject.getValue());
-			Fee fee = new Fee(feeObject.getName(), feeObject.getValue());
+			Fee fee = new Fee(feeObject.getName(), feeObject.getValue()*1.15);
 			fees.add(fee);
 		}
 		return fees;
